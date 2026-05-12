@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、前言之前写过一篇《Windows下基于Github和Hexo搭建个人博客》的教程，当时用的环境是 Hexo 5.3.0 + NexT 8.2.1。时隔几年没有管理博客，打开一看各种依赖版本都老了，于是决定进行一次全面升级。这篇文章就记录一下升级的完整过程，顺便更新一下 GitHub Pages 的部署教程，希望对同样需要升级博客的朋友有所帮助。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客升级指南：从Hexo 5到7、NexT主题升级与GitHub Pages部署（2026版）">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/13/Hexo-NexT-Upgrade-and-GitHub-Pages-Deploy-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、前言之前写过一篇《Windows下基于Github和Hexo搭建个人博客》的教程，当时用的环境是 Hexo 5.3.0 + NexT 8.2.1。时隔几年没有管理博客，打开一看各种依赖版本都老了，于是决定进行一次全面升级。这篇文章就记录一下升级的完整过程，顺便更新一下 GitHub Pages 的部署教程，希望对同样需要升级博客的朋友有所帮助。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-13T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-12T18:00:38.733Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="NexT">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="博客升级">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/13/Hexo-NexT-Upgrade-and-GitHub-Pages-Deploy-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/13/Hexo-NexT-Upgrade-and-GitHub-Pages-Deploy-2026/","path":"2026/05/13/Hexo-NexT-Upgrade-and-GitHub-Pages-Deploy-2026/","title":"Hexo博客升级指南：从Hexo 5到7、NexT主题升级与GitHub Pages部署（2026版）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hexo博客升级指南：从Hexo 5到7、NexT主题升级与GitHub Pages部署（2026版） | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8D%87%E7%BA%A7"><span class="nav-number">2.</span> <span class="nav-text">二、为什么要升级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Hexo-5-%E2%86%92-7-%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Hexo 5 → 7 的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NexT-%E4%B8%BB%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%94%B9%E6%88%90-npm-%E7%AE%A1%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 NexT 主题为什么要改成 npm 管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%8D%87%E7%BA%A7%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">三、升级前的准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E7%A1%AE%E8%AE%A4-Node-js-%E7%89%88%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 确认 Node.js 版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%A4%87%E4%BB%BD%E9%87%8D%E8%A6%81%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 备份重要文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8D%87%E7%BA%A7-Hexo-%E5%92%8C%E6%8F%92%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">四、升级 Hexo 和插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%9B%B4%E6%96%B0-package-json"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 更新 package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%B8%85%E7%90%86%E6%97%A7%E4%BE%9D%E8%B5%96%E5%B9%B6%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 清理旧依赖并重新安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E4%BF%AE%E6%94%B9%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 修改站点配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%BF%81%E7%A7%BB-NexT-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">五、迁移 NexT 主题配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E5%88%A0%E9%99%A4%E6%97%A7%E4%B8%BB%E9%A2%98%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 删除旧主题文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%88%9B%E5%BB%BA-config-next-yml"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 创建 _config.next.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 测试构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E9%85%8D%E7%BD%AE-SSH-%E5%AF%86%E9%92%A5%E8%BF%9E%E6%8E%A5-GitHub"><span class="nav-number">6.</span> <span class="nav-text">六、配置 SSH 密钥连接 GitHub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E7%94%9F%E6%88%90-SSH-%E5%AF%86%E9%92%A5"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 生成 SSH 密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E5%B0%86%E5%85%AC%E9%92%A5%E6%B7%BB%E5%8A%A0%E5%88%B0-GitHub"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 将公钥添加到 GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E6%B5%8B%E8%AF%95%E8%BF%9E%E6%8E%A5"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 测试连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E9%83%A8%E7%BD%B2%E5%88%B0-GitHub-Pages"><span class="nav-number">7.</span> <span class="nav-text">七、部署到 GitHub Pages</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E7%A1%AE%E8%AE%A4%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 确认仓库设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E9%85%8D%E7%BD%AE%E9%83%A8%E7%BD%B2%E4%BF%A1%E6%81%AF"><span class="nav-number">7.2.</span> <span class="nav-text">7.2 配置部署信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E5%88%9B%E5%BB%BA%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC"><span class="nav-number">7.3.</span> <span class="nav-text">7.3 创建部署脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2"><span class="nav-number">7.4.</span> <span class="nav-text">7.4 一键部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C%E9%80%9F%E6%9F%A5"><span class="nav-number">8.</span> <span class="nav-text">八、日常操作速查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="nav-number">9.</span> <span class="nav-text">九、踩坑记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-hexo-blog-encrypt-v4-%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">9.1.</span> <span class="nav-text">9.1 hexo-blog-encrypt v4 的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-%E6%96%B0%E6%B5%AA%E5%9B%BE%E5%BA%8A%E5%8F%AF%E8%83%BD%E5%A4%B1%E6%95%88"><span class="nav-number">9.2.</span> <span class="nav-text">9.2 新浪图床可能失效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-Git-%E6%89%BE%E4%B8%8D%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">9.3.</span> <span class="nav-text">9.3 Git 找不到的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">十、总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/wechat.gif">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/13/Hexo-NexT-Upgrade-and-GitHub-Pages-Deploy-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/wechat.gif">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Hexo博客升级指南：从Hexo 5到7、NexT主题升级与GitHub Pages部署（2026版） | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo博客升级指南：从Hexo 5到7、NexT主题升级与GitHub Pages部署（2026版）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-13 10:00:00 / 修改时间：02:00:38" itemprop="dateCreated datePublished" datetime="2026-05-13T10:00:00+08:00">2026-05-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">搭建博客</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>之前写过一篇<a href="https://ncepuee.github.io/2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/">《Windows下基于Github和Hexo搭建个人博客》</a>的教程，当时用的环境是 Hexo 5.3.0 + NexT 8.2.1。时隔几年没有管理博客，打开一看各种依赖版本都老了，于是决定进行一次全面升级。这篇文章就记录一下升级的完整过程，顺便更新一下 GitHub Pages 的部署教程，希望对同样需要升级博客的朋友有所帮助。</p>
+<span id="more"></span>
+
+<p>本次升级涉及的主要版本变化：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>升级前</th>
+<th>升级后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hexo</td>
+<td>5.3.0</td>
+<td>7.3.0</td>
+</tr>
+<tr>
+<td>NexT 主题</td>
+<td>8.7.0</td>
+<td>8.27.0</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>14.x</td>
+<td>24.x</td>
+</tr>
+<tr>
+<td>hexo-renderer-marked</td>
+<td>3.x</td>
+<td>6.x</td>
+</tr>
+<tr>
+<td>hexo-renderer-stylus</td>
+<td>2.x</td>
+<td>3.x</td>
+</tr>
+<tr>
+<td>hexo-renderer-ejs</td>
+<td>1.x</td>
+<td>2.x</td>
+</tr>
+<tr>
+<td>hexo-deployer-git</td>
+<td>GitHub dev版</td>
+<td>4.0.0</td>
+</tr>
+<tr>
+<td>hexo-blog-encrypt</td>
+<td>3.x</td>
+<td>4.x</td>
+</tr>
+</tbody></table>
+<h2 id="二、为什么要升级"><a href="#二、为什么要升级" class="headerlink" title="二、为什么要升级"></a>二、为什么要升级</h2><h3 id="2-1-Hexo-5-→-7-的变化"><a href="#2-1-Hexo-5-→-7-的变化" class="headerlink" title="2.1 Hexo 5 → 7 的变化"></a>2.1 Hexo 5 → 7 的变化</h3><p>Hexo 在 2023 年之后陆续发布了 6.x 和 7.x 版本，主要改进包括：</p>
+<ul>
+<li><strong>性能提升</strong>：静态页面生成速度更快</li>
+<li><strong>Node.js 兼容性</strong>：支持更新的 Node.js 版本（14+）</li>
+<li><strong>依赖更新</strong>：底层依赖库全面升级，修复了安全漏洞</li>
+<li><strong>配置校验</strong>：启动时会验证配置文件，减少配置错误导致的问题</li>
+</ul>
+<h3 id="2-2-NexT-主题为什么要改成-npm-管理"><a href="#2-2-NexT-主题为什么要改成-npm-管理" class="headerlink" title="2.2 NexT 主题为什么要改成 npm 管理"></a>2.2 NexT 主题为什么要改成 npm 管理</h3><p>之前我们是把 NexT 主题下载后放到 <code>themes/</code> 文件夹下，比如 <code>themes/next_8.7.0/</code>。这种方式有几个缺点：</p>
+<ul>
+<li>升级主题时需要手动下载替换整个文件夹</li>
+<li>主题文件和自己的自定义配置混在一起，不好管理</li>
+<li>无法通过一条命令快速更新</li>
+</ul>
+<p>改为 npm 管理后，主题文件在 <code>node_modules/</code> 中，自定义配置放在项目根目录的 <code>_config.next.yml</code> 里，升级只需 <code>npm update hexo-theme-next</code>。</p>
+<h2 id="三、升级前的准备工作"><a href="#三、升级前的准备工作" class="headerlink" title="三、升级前的准备工作"></a>三、升级前的准备工作</h2><h3 id="3-1-确认-Node-js-版本"><a href="#3-1-确认-Node-js-版本" class="headerlink" title="3.1 确认 Node.js 版本"></a>3.1 确认 Node.js 版本</h3><p>Hexo 7 要求 Node.js 14 以上，推荐使用 LTS 版本。打开终端输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<p>如果还没有安装 Node.js，请前往 <a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js 官网</a> 下载安装。</p>
+<h3 id="3-2-备份重要文件"><a href="#3-2-备份重要文件" class="headerlink" title="3.2 备份重要文件"></a>3.2 备份重要文件</h3><p>升级前建议备份以下文件，以防万一：</p>
+<ul>
+<li><code>_config.yml</code>（站点配置文件）</li>
+<li><code>themes/你的主题文件夹/_config.yml</code>（主题配置文件）</li>
+<li><code>source/</code> 文件夹（所有文章和页面）</li>
+<li><code>source/_data/</code>（自定义模板文件，如果有的话）</li>
+</ul>
+<h2 id="四、升级-Hexo-和插件"><a href="#四、升级-Hexo-和插件" class="headerlink" title="四、升级 Hexo 和插件"></a>四、升级 Hexo 和插件</h2><h3 id="4-1-更新-package-json"><a href="#4-1-更新-package-json" class="headerlink" title="4.1 更新 package.json"></a>4.1 更新 package.json</h3><p>打开博客根目录下的 <code>package.json</code>，将依赖版本更新为：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo-site&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;private&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo generate&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;clean&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;deploy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo deploy&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo server&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;hexo&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;7.3.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;hexo&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^7.3.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-blog-encrypt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-deployer-git&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-archive&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-index&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-tag&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-ejs&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-marked&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^6.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-stylus&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-theme-next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.27.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：我们把 <code>hexo-theme-next</code> 加到了 <code>dependencies</code> 里，同时移除了 <code>hexo-theme-landscape</code>（默认主题，不需要了）。</p>
+<h3 id="4-2-清理旧依赖并重新安装"><a href="#4-2-清理旧依赖并重新安装" class="headerlink" title="4.2 清理旧依赖并重新安装"></a>4.2 清理旧依赖并重新安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除旧的依赖</span></span><br><span class="line"><span class="built_in">rm</span> -rf node_modules</span><br><span class="line"><span class="built_in">rm</span> package-lock.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新安装</span></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-修改站点配置文件"><a href="#4-3-修改站点配置文件" class="headerlink" title="4.3 修改站点配置文件"></a>4.3 修改站点配置文件</h3><p>打开根目录下的 <code>_config.yml</code>，将主题名从文件夹名改为 npm 包名：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改前（旧方式，主题放在 themes 文件夹里）</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next_8.7.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改后（新方式，通过 npm 管理）</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="五、迁移-NexT-主题配置"><a href="#五、迁移-NexT-主题配置" class="headerlink" title="五、迁移 NexT 主题配置"></a>五、迁移 NexT 主题配置</h2><p>这一步是升级的关键。以前主题配置写在 <code>themes/next_8.7.0/_config.yml</code> 里，现在要迁移到根目录的 <code>_config.next.yml</code> 文件中。</p>
+<h3 id="5-1-删除旧主题文件夹"><a href="#5-1-删除旧主题文件夹" class="headerlink" title="5.1 删除旧主题文件夹"></a>5.1 删除旧主题文件夹</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf themes/next_8.7.0</span><br></pre></td></tr></table></figure>
+
+<p>也可以把 <code>themes/</code> 下的 <code>hexo-theme-landscape</code> 一起删掉，用不到了。</p>
+<h3 id="5-2-创建-config-next-yml"><a href="#5-2-创建-config-next-yml" class="headerlink" title="5.2 创建 _config.next.yml"></a>5.2 创建 _config.next.yml</h3><p>在博客<strong>根目录</strong>下创建 <code>_config.next.yml</code> 文件。这里只需要写和默认值不同的配置。下面是一个完整的参考模板：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NexT Theme Alternate Config</span></span><br><span class="line"><span class="comment"># 详细文档：https://theme-next.js.org/docs/getting-started/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 风格方案</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 可选：Muse | Mist | Pisces | Gemini</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 站点信息</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">favicon:</span></span><br><span class="line">  <span class="attr">small:</span> <span class="string">/images/favicon-16x16-next.png</span></span><br><span class="line">  <span class="attr">medium:</span> <span class="string">/images/favicon-32x32-next.png</span></span><br><span class="line">  <span class="attr">apple_touch_icon:</span> <span class="string">/images/apple-touch-icon-next.png</span></span><br><span class="line">  <span class="attr">safari_pinned_tab:</span> <span class="string">/images/logo.svg</span></span><br><span class="line"></span><br><span class="line"><span class="attr">creative_commons:</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">by-nc-sa</span></span><br><span class="line">  <span class="attr">size:</span> <span class="string">small</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">post:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">language:</span> <span class="string">deed.zh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 菜单设置</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="comment">#categories: /categories/ || fa fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line"></span><br><span class="line"><span class="attr">menu_settings:</span></span><br><span class="line">  <span class="attr">icons:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">badges:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 侧边栏设置</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">sidebar:</span></span><br><span class="line">  <span class="attr">position:</span> <span class="string">left</span></span><br><span class="line">  <span class="attr">width_expanded:</span> <span class="number">320</span></span><br><span class="line">  <span class="attr">width_dual_column:</span> <span class="number">240</span></span><br><span class="line">  <span class="attr">display:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">padding:</span> <span class="number">18</span></span><br><span class="line">  <span class="attr">offset:</span> <span class="number">12</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 头像设置</span></span><br><span class="line"><span class="attr">avatar:</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">/images/avatar.gif</span></span><br><span class="line">  <span class="attr">rounded:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">rotated:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">site_state:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 社交链接</span></span><br><span class="line"><span class="attr">social:</span></span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">https://github.com/你的用户名</span> <span class="string">||</span> <span class="string">fab</span> <span class="string">fa-github</span></span><br><span class="line">  <span class="comment">#E-Mail: mailto:你的邮箱 || fa fa-envelope</span></span><br><span class="line"></span><br><span class="line"><span class="attr">social_icons:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">icons_only:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">transition:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章目录</span></span><br><span class="line"><span class="attr">toc:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">expand_all:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">max_depth:</span> <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 页脚设置</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">footer:</span></span><br><span class="line">  <span class="attr">icon:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">fa</span> <span class="string">fa-heart</span></span><br><span class="line">    <span class="attr">animated:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">color:</span> <span class="string">&quot;#ff0000&quot;</span></span><br><span class="line">  <span class="attr">powered:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 文章设置</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">excerpt_description:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">read_more_btn:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">post_meta:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">created_at:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">updated_at:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">another_day:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tag_icon:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">post_navigation:</span> <span class="string">left</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 代码块设置</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">stackoverflow-dark</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">style:</span> <span class="string">mac</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 回到顶部</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">back2top:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">scrollpercent:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 动画效果</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">motion:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">transition:</span></span><br><span class="line">    <span class="attr">menu_item:</span> <span class="string">fadeInDown</span></span><br><span class="line">    <span class="attr">post_block:</span> <span class="string">fadeIn</span></span><br><span class="line">    <span class="attr">post_header:</span> <span class="string">fadeInDown</span></span><br><span class="line">    <span class="attr">post_body:</span> <span class="string">fadeInDown</span></span><br><span class="line">    <span class="attr">coll_header:</span> <span class="string">fadeInLeft</span></span><br><span class="line">    <span class="attr">sidebar:</span> <span class="string">fadeInUp</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 自定义文件（比如网站运行时间脚本）</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">footer:</span> <span class="string">source/_data/footer.njk</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># CDN 设置</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="attr">vendors:</span></span><br><span class="line">  <span class="attr">internal:</span> <span class="string">local</span></span><br><span class="line">  <span class="attr">plugins:</span> <span class="string">cdnjs</span></span><br></pre></td></tr></table></figure>
+
+<p>把上面的 <code>你的用户名</code> 和 <code>你的邮箱</code> 替换成你自己的信息，其他配置按需修改即可。</p>
+<h3 id="5-3-测试构建"><a href="#5-3-测试构建" class="headerlink" title="5.3 测试构建"></a>5.3 测试构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>如果没有报错，说明升级成功。可以运行 <code>hexo server</code> 在本地 <code>http://localhost:4000</code> 预览效果。</p>
+<h2 id="六、配置-SSH-密钥连接-GitHub"><a href="#六、配置-SSH-密钥连接-GitHub" class="headerlink" title="六、配置 SSH 密钥连接 GitHub"></a>六、配置 SSH 密钥连接 GitHub</h2><p>部署到 GitHub Pages 需要通过 SSH 密钥认证。如果你之前配置过但密钥丢失了，需要重新生成。</p>
+<h3 id="6-1-生成-SSH-密钥"><a href="#6-1-生成-SSH-密钥" class="headerlink" title="6.1 生成 SSH 密钥"></a>6.1 生成 SSH 密钥</h3><p>打开 Git Bash，输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;你的GitHub用户名&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>一路回车即可（默认不需要设置密码）。生成的密钥文件在 <code>~/.ssh/</code> 目录下：</p>
+<ul>
+<li><code>id_ed25519</code>：私钥（不要泄露！）</li>
+<li><code>id_ed25519.pub</code>：公钥（需要添加到 GitHub）</li>
+</ul>
+<h3 id="6-2-将公钥添加到-GitHub"><a href="#6-2-将公钥添加到-GitHub" class="headerlink" title="6.2 将公钥添加到 GitHub"></a>6.2 将公钥添加到 GitHub</h3><ol>
+<li>复制公钥内容：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_ed25519.pub</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>打开 <a target="_blank" rel="noopener" href="https://github.com/settings/keys">GitHub SSH Keys 设置页面</a></li>
+<li>点击 <strong>New SSH key</strong></li>
+<li>Title 随便填，比如 <code>我的电脑</code></li>
+<li>Key 里粘贴刚才复制的公钥内容</li>
+<li>点击 <strong>Add SSH key</strong></li>
+</ol>
+<h3 id="6-3-测试连接"><a href="#6-3-测试连接" class="headerlink" title="6.3 测试连接"></a>6.3 测试连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>如果看到类似以下内容，说明配置成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi 你的用户名! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<h2 id="七、部署到-GitHub-Pages"><a href="#七、部署到-GitHub-Pages" class="headerlink" title="七、部署到 GitHub Pages"></a>七、部署到 GitHub Pages</h2><h3 id="7-1-确认仓库设置"><a href="#7-1-确认仓库设置" class="headerlink" title="7.1 确认仓库设置"></a>7.1 确认仓库设置</h3><ol>
+<li>打开你的 GitHub 仓库（<code>username.github.io</code>）</li>
+<li>进入 <strong>Settings</strong> → <strong>Pages</strong></li>
+<li>Source 选择 <strong>Deploy from a branch</strong></li>
+<li>Branch 选择 <strong>main</strong>，文件夹选 <strong>&#x2F; (root)</strong></li>
+<li>点击 <strong>Save</strong></li>
+</ol>
+<h3 id="7-2-配置部署信息"><a href="#7-2-配置部署信息" class="headerlink" title="7.2 配置部署信息"></a>7.2 配置部署信息</h3><p>确认 <code>_config.yml</code> 最后的 deploy 配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-3-创建部署脚本"><a href="#7-3-创建部署脚本" class="headerlink" title="7.3 创建部署脚本"></a>7.3 创建部署脚本</h3><p>由于不同电脑上 Git 和 Node.js 的安装路径不同，<code>hexo deploy</code> 有时会找不到 <code>git</code> 命令。这里提供一个通用的部署脚本 <code>deploy.js</code>，放在博客根目录下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// deploy.js - Hexo 部署脚本</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; execSync &#125; = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ============ 请根据你的实际安装路径修改 ============</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">GIT</span> = <span class="string">&#x27;Git安装路径\\cmd\\git.exe&#x27;</span>;</span><br><span class="line"><span class="comment">// 例如 Windows 默认: &#x27;C:\\Program Files\\Git\\cmd\\git.exe&#x27;</span></span><br><span class="line"><span class="comment">// ==================================================</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> publicDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;public&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> deployDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;.deploy_git&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 _config.yml 读取仓库地址和分支</span></span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">&#x27;js-yaml&#x27;</span>).<span class="title function_">load</span>(</span><br><span class="line">  fs.<span class="title function_">readFileSync</span>(path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;_config.yml&#x27;</span>), <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">const</span> repo = config.<span class="property">deploy</span>.<span class="property">repository</span>;</span><br><span class="line"><span class="keyword">const</span> branch = config.<span class="property">deploy</span>.<span class="property">branch</span> || <span class="string">&#x27;main&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">run</span>(<span class="params">cmd, opts = &#123;&#125;</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;&gt;&#x27;</span>, cmd);</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">execSync</span>(cmd, &#123;</span><br><span class="line">    <span class="attr">encoding</span>: <span class="string">&#x27;utf8&#x27;</span>,</span><br><span class="line">    <span class="attr">stdio</span>: [<span class="string">&#x27;pipe&#x27;</span>, <span class="string">&#x27;pipe&#x27;</span>, <span class="string">&#x27;pipe&#x27;</span>],</span><br><span class="line">    <span class="attr">env</span>: &#123;</span><br><span class="line">      ...process.<span class="property">env</span>,</span><br><span class="line">      <span class="attr">GIT_SSH_COMMAND</span>: <span class="string">&#x27;ssh -o StrictHostKeyChecking=no&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    ...opts</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">copyDirSync</span>(<span class="params">src, dest</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(dest)) fs.<span class="title function_">mkdirSync</span>(dest, &#123; <span class="attr">recursive</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> entry <span class="keyword">of</span> fs.<span class="title function_">readdirSync</span>(src, &#123; <span class="attr">withFileTypes</span>: <span class="literal">true</span> &#125;)) &#123;</span><br><span class="line">    <span class="keyword">const</span> srcPath = path.<span class="title function_">join</span>(src, entry.<span class="property">name</span>);</span><br><span class="line">    <span class="keyword">const</span> destPath = path.<span class="title function_">join</span>(dest, entry.<span class="property">name</span>);</span><br><span class="line">    <span class="keyword">if</span> (entry.<span class="title function_">isDirectory</span>()) &#123;</span><br><span class="line">      <span class="title function_">copyDirSync</span>(srcPath, destPath);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fs.<span class="title function_">copyFileSync</span>(srcPath, destPath);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="comment">// 第一步：生成静态文件</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\n=== 生成静态文件 ===&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> hexoBin = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;node_modules&#x27;</span>, <span class="string">&#x27;hexo&#x27;</span>, <span class="string">&#x27;bin&#x27;</span>, <span class="string">&#x27;hexo&#x27;</span>);</span><br><span class="line">  <span class="title function_">run</span>(<span class="string">`node &quot;<span class="subst">$&#123;hexoBin&#125;</span>&quot; generate`</span>, &#123; <span class="attr">cwd</span>: __dirname &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 第二步：准备部署目录</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\n=== 准备部署目录 ===&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(deployDir)) &#123;</span><br><span class="line">    fs.<span class="title function_">mkdirSync</span>(deployDir, &#123; <span class="attr">recursive</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; init`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;);</span><br><span class="line">  <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; config user.email &quot;deploy@users.noreply.github.com&quot;`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;);</span><br><span class="line">  <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; config user.name &quot;deploy&quot;`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;);</span><br><span class="line">  <span class="keyword">try</span> &#123; <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; checkout <span class="subst">$&#123;branch&#125;</span>`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;); &#125;</span><br><span class="line">  <span class="keyword">catch</span> (e) &#123; <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; checkout -b <span class="subst">$&#123;branch&#125;</span>`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 第三步：复制文件</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\n=== 复制文件 ===&#x27;</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> entry <span class="keyword">of</span> fs.<span class="title function_">readdirSync</span>(deployDir)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (entry === <span class="string">&#x27;.git&#x27;</span>) <span class="keyword">continue</span>;</span><br><span class="line">    fs.<span class="title function_">rmSync</span>(path.<span class="title function_">join</span>(deployDir, entry), &#123; <span class="attr">recursive</span>: <span class="literal">true</span>, <span class="attr">force</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">copyDirSync</span>(publicDir, deployDir);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 第四步：提交并推送</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\n=== 提交并推送 ===&#x27;</span>);</span><br><span class="line">  <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; add -A`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; diff --cached --quiet`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;没有变更，无需部署。&#x27;</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">const</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">toISOString</span>();</span><br><span class="line">    <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; commit -m &quot;Site updated: <span class="subst">$&#123;now&#125;</span>&quot;`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;);</span><br><span class="line">    <span class="title function_">run</span>(<span class="string">`&quot;<span class="subst">$&#123;GIT&#125;</span>&quot; push --force &quot;<span class="subst">$&#123;repo&#125;</span>&quot; <span class="subst">$&#123;branch&#125;</span>`</span>, &#123; <span class="attr">cwd</span>: deployDir &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\n部署成功！&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;\n部署失败:&#x27;</span>, err.<span class="property">message</span>);</span><br><span class="line">  process.<span class="title function_">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用前需要修改脚本中的 <code>GIT</code> 变量，改成你电脑上 <code>git.exe</code> 的实际路径。</p>
+<blockquote>
+<p><strong>如何找到 git.exe 的路径？</strong><br>在终端输入 <code>where git</code>（Windows cmd）或 <code>which git</code>（Git Bash），找到路径后把 <code>git.exe</code> 的完整路径填进去。</p>
+</blockquote>
+<h3 id="7-4-一键部署"><a href="#7-4-一键部署" class="headerlink" title="7.4 一键部署"></a>7.4 一键部署</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node deploy.js</span><br></pre></td></tr></table></figure>
+
+<p>脚本会自动执行：生成静态文件 → 复制到部署目录 → Git 提交 → 推送到 GitHub。</p>
+<p>推送成功后，稍等一两分钟，打开 <code>https://你的用户名.github.io</code> 就能看到更新后的博客了。</p>
+<h2 id="八、日常操作速查"><a href="#八、日常操作速查" class="headerlink" title="八、日常操作速查"></a>八、日常操作速查</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新建文章</td>
+<td><code>hexo new &quot;文章标题&quot;</code></td>
+</tr>
+<tr>
+<td>本地预览</td>
+<td><code>hexo server</code>，访问 <code>localhost:4000</code></td>
+</tr>
+<tr>
+<td>生成静态文件</td>
+<td><code>hexo clean &amp;&amp; hexo generate</code></td>
+</tr>
+<tr>
+<td>部署到 GitHub</td>
+<td><code>node deploy.js</code></td>
+</tr>
+<tr>
+<td>升级 NexT 主题</td>
+<td><code>npm update hexo-theme-next</code></td>
+</tr>
+<tr>
+<td>升级所有插件</td>
+<td><code>npm update</code></td>
+</tr>
+</tbody></table>
+<h2 id="九、踩坑记录"><a href="#九、踩坑记录" class="headerlink" title="九、踩坑记录"></a>九、踩坑记录</h2><h3 id="9-1-hexo-blog-encrypt-v4-的变化"><a href="#9-1-hexo-blog-encrypt-v4-的变化" class="headerlink" title="9.1 hexo-blog-encrypt v4 的变化"></a>9.1 hexo-blog-encrypt v4 的变化</h3><p>如果你的文章使用了加密功能（<code>hexo-blog-encrypt</code>），v4 版本废弃了 <code>wrong_hash_message</code> 字段，统一使用 <code>wrong_pass_message</code>。升级后如果有警告提示，把文章 front-matter 中的 <code>wrong_hash_message</code> 改成 <code>wrong_pass_message</code> 即可。</p>
+<h3 id="9-2-新浪图床可能失效"><a href="#9-2-新浪图床可能失效" class="headerlink" title="9.2 新浪图床可能失效"></a>9.2 新浪图床可能失效</h3><p>早期文章中的图片如果使用了 <code>sinaimg.cn</code> 的外链，可能已经无法访问。建议把图片迁移到本地 <code>source/images/</code> 目录下，或者使用其他图床服务。</p>
+<h3 id="9-3-Git-找不到的问题"><a href="#9-3-Git-找不到的问题" class="headerlink" title="9.3 Git 找不到的问题"></a>9.3 Git 找不到的问题</h3><p>如果 <code>hexo deploy</code> 提示 <code>spawn git ENOENT</code>，说明 Git 没有加入系统 PATH 环境变量。可以：</p>
+<ol>
+<li>把 Git 的安装路径（如 <code>C:\Program Files\Git\cmd</code>）添加到系统环境变量 PATH 中</li>
+<li>或者使用上面的 <code>deploy.js</code> 脚本，在脚本中指定 Git 路径</li>
+</ol>
+<h2 id="十、总结"><a href="#十、总结" class="headerlink" title="十、总结"></a>十、总结</h2><p>这次升级主要做了三件事：</p>
+<ol>
+<li><strong>Hexo 从 5.x 升级到 7.x</strong>，享受更快的构建速度和更好的兼容性</li>
+<li><strong>NexT 主题改为 npm 管理</strong>，以后升级只需一条命令</li>
+<li><strong>配置 SSH 密钥和部署脚本</strong>，实现一键部署到 GitHub Pages</li>
+</ol>
+<p>升级过程并不复杂，核心就是更新 <code>package.json</code>、修改站点配置中的主题名、创建 <code>_config.next.yml</code>、重新安装依赖。如果你也很久没管理自己的 Hexo 协客了，不妨花半小时升级一下，体验会好很多。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/NexT/" rel="tag"># NexT</a>
+              <a href="/tags/github/" rel="tag"># github</a>
+              <a href="/tags/%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/" rel="tag"># 博客升级</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/06/Readingnotes-JingXin/" rel="prev" title="读书笔记：弘一法师《静心》">
+                  <i class="fa fa-angle-left"></i> 读书笔记：弘一法师《静心》
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
