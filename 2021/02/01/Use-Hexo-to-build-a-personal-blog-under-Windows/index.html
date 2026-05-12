@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="">
-<meta name="generator" content="Hexo 5.3.0">
-
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
-  <link rel="mask-icon" href="/images/liudalogometal.png" color="">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.7.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="一、前言为了方便其他同学想要搭建自己的博客，本人把自己通过互联网收集的搭建博客的教程进行了整合，由于网上的教程已经很久了，所及在他们给出教程的基础上更新一些自己理解的东西，之前也搭建过博客，但是觉得不够正式，很多东西还是初次接触，例如图床等功能，由于本人不是CS专业，所以我是以非CS专业的角度写这个教程，如果很多原理阐述不够清晰，希望看到的大佬谅解。本人是在Windows操作系统，基于Github">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、前言为了方便其他同学想要搭建自己的博客，本人把自己通过互联网收集的搭建博客的教程进行了整合，由于网上的教程已经很久了，所及在他们给出教程的基础上更新一些自己理解的东西，之前也搭建过博客，但是觉得不够正式，很多东西还是初次接触，例如图床等功能，由于本人不是CS专业，所以我是以非CS专业的角度写这个教程，如果很多原理阐述不够清晰，希望看到的大佬谅解。本人是在Windows操作系统，基于Github">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows下基于Github和Hexo搭建个人博客">
 <meta property="og:url" content="http://ncepuee.github.io/2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/index.html">
@@ -57,12 +57,32 @@
 <link rel="canonical" href="http://ncepuee.github.io/2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/">
 
 
-
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/","path":"2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/","title":"Windows下基于Github和Hexo搭建个人博客"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Windows下基于Github和Hexo搭建个人博客 | School boy</title>
   
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
 
 
 
@@ -76,8 +96,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
         <span class="toggle-line"></span>
@@ -90,14 +110,14 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">School boy</h1>
+      <p class="site-title">School boy</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
@@ -105,26 +125,16 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -145,14 +155,13 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-overview">
-            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="菜菜的黄"
       src="/images/wechat.gif">
   <p class="site-author-name" itemprop="name">菜菜的黄</p>
   <div class="site-description" itemprop="description">记录科研生活</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -171,34 +180,21 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
   </div>
 
-
-
-          </div>
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -216,11 +212,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/wechat.gif">
       <meta itemprop="name" content="菜菜的黄">
-      <meta itemprop="description" content="记录科研生活">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Windows下基于Github和Hexo搭建个人博客 | School boy">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -237,13 +238,13 @@
 
       <time title="创建时间：2021-02-01 00:00:00" itemprop="dateCreated datePublished" datetime="2021-02-01T00:00:00+08:00">2021-02-01</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-09-06 10:07:44" itemprop="dateModified" datetime="2022-09-06T10:07:44+08:00">2022-09-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-06 10:07:44" itemprop="dateModified" datetime="2022-09-06T10:07:44+08:00">2022-09-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -263,12 +264,12 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>为了方便其他同学想要搭建自己的博客，本人把自己通过互联网收集的搭建博客的教程进行了整合，由于网上的教程已经很久了，所及在他们给出教程的基础上更新一些自己理解的东西，之前也搭建过博客，但是觉得不够正式，很多东西还是初次接触，例如图床等功能，由于本人不是CS专业，所以我是以非CS专业的角度写这个教程，如果很多原理阐述不够清晰，希望看到的大佬谅解。本人是在Windows操作系统，基于Github Pages和Hexo来搭建博客。为了帮助和我一样的小白也能搭建属于自己的博客，我会尽可能把教程说得明白点，希望帮助到您！</p>
-<a id="more"></a>
+    <div class="post-body" itemprop="articleBody"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>为了方便其他同学想要搭建自己的博客，本人把自己通过互联网收集的搭建博客的教程进行了整合，由于网上的教程已经很久了，所及在他们给出教程的基础上更新一些自己理解的东西，之前也搭建过博客，但是觉得不够正式，很多东西还是初次接触，例如图床等功能，由于本人不是CS专业，所以我是以非CS专业的角度写这个教程，如果很多原理阐述不够清晰，希望看到的大佬谅解。本人是在Windows操作系统，基于Github Pages和Hexo来搭建博客。为了帮助和我一样的小白也能搭建属于自己的博客，我会尽可能把教程说得明白点，希望帮助到您！</p>
+<span id="more"></span>
 
 <p>我搭建博客的环境如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">hexo: 5.3.0</span><br><span class="line">hexo-cli: 4.2.0</span><br><span class="line">os: Windows_NT 10.0.19041 win32 x64</span><br><span class="line">node: 14.15.4</span><br><span class="line">v8: 8.4.371.19-node.17</span><br><span class="line">uv: 1.40.0</span><br><span class="line">zlib: 1.2.11</span><br><span class="line">brotli: 1.0.9</span><br><span class="line">ares: 1.16.1</span><br><span class="line">modules: 83</span><br><span class="line">nghttp2: 1.41.0</span><br><span class="line">napi: 7</span><br><span class="line">llhttp: 2.1.3</span><br><span class="line">openssl: 1.1.1i</span><br><span class="line">cldr: 37.0</span><br><span class="line">icu: 67.1</span><br><span class="line">tz: 2020a</span><br><span class="line">unicode: 13.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">hexo: 5.3.0</span><br><span class="line">hexo-cli: 4.2.0</span><br><span class="line">os: Windows_NT 10.0.19041 win32 x64</span><br><span class="line">node: 14.15.4</span><br><span class="line">v8: 8.4.371.19-node.17</span><br><span class="line">uv: 1.40.0</span><br><span class="line">zlib: 1.2.11</span><br><span class="line">brotli: 1.0.9</span><br><span class="line">ares: 1.16.1</span><br><span class="line">modules: 83</span><br><span class="line">nghttp2: 1.41.0</span><br><span class="line">napi: 7</span><br><span class="line">llhttp: 2.1.3</span><br><span class="line">openssl: 1.1.1i</span><br><span class="line">cldr: 37.0</span><br><span class="line">icu: 67.1</span><br><span class="line">tz: 2020a</span><br><span class="line">unicode: 13.0</span><br></pre></td></tr></table></figure>
+
 <p>本人看到网上很多大佬使用的都是NexT主题，于是为了能够方便解决自己搭建博客过程中遇到的问题，于是自己选的也是NexT主题，NexT主题的版本为 <code>NexT version 8.2.1</code> </p>
 <!-- more -->
 
@@ -318,12 +319,16 @@
 <p><img src="https://tvax2.sinaimg.cn/large/0084Tjdogy1gnf95yjhjcj30kp0chwer.jpg" alt="img6"></p>
 <p>👆然后会弹出上图所示的窗口，然后就要设置 <code>user.name</code> 和 <code>user.email</code> ，即 <code>你的Github用户名</code> 和 <code>你的Github注册邮箱</code> ，操作如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名(your Github username)&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱(your Github register email)&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>示例 (For example)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;h****t&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;h****t@gmail.com&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>生成SSH密钥文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱(your Github register email)&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>示例 (For example)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;h****t@gmail.com&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>然后直接三个回车即可，默认不需要设置密码</p>
 <p><img src="https://tvax2.sinaimg.cn/large/0084Tjdogy1gnfb0eg14vj30mm06maa5.jpg" alt="img7"></p>
 <p>👆然后我们要找到这个文件夹，一般在 <code>C:\Users\管理员\.ssh</code>，然后进入<code>.ssh</code> 的文件夹中，找到<code>id_rsa.pub</code>密钥，可以使用 <code>Notepad++</code> 或者 <code>Sublime</code> 软件打开编辑，将里面的内容全部复制，复制其中的SSH key</p>
@@ -331,8 +336,10 @@
 <p>👆然后打开<a target="_blank" rel="noopener" href="https://github.com/settings/keys">GitHub_Settings_keys</a>  页面，新建 <code>NEW SSH Key</code> ，Title为标题，任意填即可，将刚刚复制的 <code>id_rsa.pub</code> 内容粘贴进去，最后点击 <code>Add SSH key</code> 。然后就会生成一个公钥。</p>
 <p>在Git Bash中检测GitHub公钥设置是否成功，输入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh git@github.com</span><br></pre></td></tr></table></figure>
+
 <p>输入之后若出现下面的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi h****t! You&#39;ve successfully authenticated, but GitHub does not provide shell access.Connection to github.com closed.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi h****t! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.Connection to github.com closed.</span><br></pre></td></tr></table></figure>
+
 <p>则GitHub和git连接成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p>
 <blockquote>
 <p>如果您是想在本地管理和切换多个 Github 账号，可以查看这个教程：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903831000596488">点我查看教程</a><br>但是本人为了图方便（事实证明这样也可行的），可以在 <code>.ssh</code> 文件夹中新建两个文件夹，分别命名为两个名字用以区分，直接把之前账号的 <code>id_rsa.pub</code> 密钥放在新建的其中一个文件夹①中，经过实践，发现这样密钥也可以成功连接到新的Github账户。如果要切换回另一个Github账户，则把 <code>.ssh</code> 文件夹的文件再放到 <code>.ssh</code> 下的新建的另一个文件夹②中，再把文件夹①中的文件全部取出放回 <code>.ssh</code> 文件夹中。这样就能轻易实现两个账号的博客进行切换。但是这里注意，因为切换了文件，一定要重新GIt Bash 连接到对应的相应的Github账户。</p>
@@ -348,11 +355,17 @@
 <p>我们继续……</p>
 <h4 id="3-5-2npm的常用指令"><a href="#3-5-2npm的常用指令" class="headerlink" title="3.5.2npm的常用指令"></a>3.5.2npm的常用指令</h4><p>我们先了解下npm的常用指令，后面会涉及到，不至于自己不理解。</p>
 <h5 id="安装模块（包）："><a href="#安装模块（包）：" class="headerlink" title="安装模块（包）："></a>安装模块（包）：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//全局安装</span><br><span class="line">npm install 模块名 -g</span><br><span class="line"></span><br><span class="line">//本地安装</span><br><span class="line">npm install 模块名</span><br><span class="line"></span><br><span class="line">//一次性安装多个</span><br><span class="line">npm install 模块1 模块2 模块n --save</span><br><span class="line"></span><br><span class="line">//安装运行时依赖包</span><br><span class="line">npm install 模块名 --save</span><br><span class="line"></span><br><span class="line">//安装开发时依赖包</span><br><span class="line">npm install 模块名 --save-dev</span><br></pre></td></tr></table></figure>
+
 <h5 id="查看安装目录："><a href="#查看安装目录：" class="headerlink" title="查看安装目录："></a>查看安装目录：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看本地安装的目录</span><br><span class="line">npm root</span><br><span class="line"></span><br><span class="line">//查看全局安装的目录</span><br><span class="line">npm root -g</span><br></pre></td></tr></table></figure>
+
 <h5 id="卸载模块（包）："><a href="#卸载模块（包）：" class="headerlink" title="卸载模块（包）："></a>卸载模块（包）：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//卸载本地模块</span><br><span class="line">npm uninstall 模块名</span><br><span class="line"></span><br><span class="line">//卸载全局模块</span><br><span class="line">npm uninstall -g 模块名</span><br></pre></td></tr></table></figure>
+
 <h5 id="更新模块（包）"><a href="#更新模块（包）" class="headerlink" title="更新模块（包）:"></a>更新模块（包）:</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//更新本地模块</span><br><span class="line">npm update 模块名</span><br><span class="line"></span><br><span class="line">//更新全局模块</span><br><span class="line">npm update 模块名 -g</span><br></pre></td></tr></table></figure>
-<h5 id="查看当前安装的模块（包）"><a href="#查看当前安装的模块（包）" class="headerlink" title="查看当前安装的模块（包）:"></a>查看当前安装的模块（包）:</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看本地模块</span><br><span class="line">npm ls</span><br><span class="line"></span><br><span class="line">//查看全局模块</span><br><span class="line">npm ls -g</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看当前安装的模块（包）"><a href="#查看当前安装的模块（包）" class="headerlink" title="查看当前安装的模块（包）:"></a>查看当前安装的模块（包）:</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看本地模块</span><br><span class="line">npm <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line">//查看全局模块</span><br><span class="line">npm <span class="built_in">ls</span> -g</span><br></pre></td></tr></table></figure>
+
 <h5 id="查看模块（包）的信息："><a href="#查看模块（包）的信息：" class="headerlink" title="查看模块（包）的信息："></a>查看模块（包）的信息：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm info 模块名</span><br></pre></td></tr></table></figure>
+
 <p><strong>注意事项</strong> ：加上<code>-g</code>命令后，会在全局安装，模块会被安装到全局路径上(在安装路径 <code>C:/Program Files/nodejs/node_modules/npm/npmrc</code>查看)，不加<code>-g</code>就会安装在博客根目录，就是自己保存博客文件的文件夹中。</p>
 <ul>
 <li><code>npm install xxx</code> ：本地安装，将模块下载到当前所在路径中。</li>
@@ -362,32 +375,41 @@
 <p>这是根据npm官网给出教程做的：<a target="_blank" rel="noopener" href="https://www.npmjs.cn/getting-started/updating-local-packages/">点我看更新本地安装包教程</a></p>
 <p>（1）较麻烦的更新步骤，查看需要更新的版本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm outdated</span><br></pre></td></tr></table></figure>
+
 <p>该命令会列出所有需要更新的项目，修改package.json中需要更新的包对应的版本号</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm update</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
 <p>由于<code>npm update</code>只能按照<code>package.json</code>中指定的版本号进行更新，太繁琐复杂，接下来使用插件更新！</p>
 <p>（2）使用插件更新npm模块包</p>
 <p>参考教程：<a target="_blank" rel="noopener" href="https://github.com/raineorshine/npm-check-updates">ncu插件官方配置文档</a></p>
 <p>全局安装 <code>npm-check-updates</code> 模块包</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g npm-check-updates</span><br></pre></td></tr></table></figure>
+
 <p>查看需要更新的版本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm-check-updates</span><br></pre></td></tr></table></figure>
+
 <p>或者直接简写为<code>ncu</code>，该命令会列出需要更新的包，更新</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ncu -a</span><br></pre></td></tr></table></figure>
+
 <p>更新包的同时更新<code>package.json</code>文件<br>更新node_modules</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
 <p><a id="bug">🏀npm更新模块并同步到package.json中有Bug</a></p>
 <h2 id="四、安装Hexo"><a href="#四、安装Hexo" class="headerlink" title="四、安装Hexo"></a>四、安装Hexo</h2><h3 id="4-1Hexo下载安装"><a href="#4-1Hexo下载安装" class="headerlink" title="4.1Hexo下载安装"></a>4.1Hexo下载安装</h3><p>使用npm命令安装Hexo，输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli </span><br></pre></td></tr></table></figure>
+
 <p>这个安装时间较长耐心等待，安装完成后，初始化我们的博客。</p>
 <h3 id="4-2-部署Hexo"><a href="#4-2-部署Hexo" class="headerlink" title="4.2 部署Hexo"></a>4.2 部署Hexo</h3><p>Hexo 的部署可采用如下方法，输入命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init [文件名]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init [文件名]</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://tvax1.sinaimg.cn/large/0084Tjdogy1gnfe1rmwevj316o0f0jsk.jpg" alt="img11"></p>
 <p>👆如果您已经确定好在哪个文件夹，就可以直接在确定的文件夹下(打开到这个文件夹下)用命令<code>hexo init</code>即可，无需[文件名]，如果载加这文件名则会又生成一个文件夹！通过观察可以发现，输入<code>hexo init</code>命令之后会生成一系列文件。</p>
 <h3 id="4-3预览最初的博客效果"><a href="#4-3预览最初的博客效果" class="headerlink" title="4.3预览最初的博客效果"></a>4.3预览最初的博客效果</h3><p>为了检测我们的博客的最初出厂设置的效果，分别按顺序输入以下三条命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
 <p>这些命令在后面作介绍，完成后，打开浏览器输入地址：<code>localhost:4000</code>，即可看到网页最开始的出厂设置的样式！</p>
 <p>那么此时我们就已经顺利完成网站的本地搭建了！👏~</p>
-<h3 id="4-4hexo博客常用命令解释"><a href="#4-4hexo博客常用命令解释" class="headerlink" title="4.4hexo博客常用命令解释"></a>4.4hexo博客常用命令解释</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g #安装Hexo</span><br><span class="line">npm update hexo -g #升级</span><br><span class="line">hexo init #初始化博客</span><br><span class="line">hexo n &quot;我的博客&quot; &#x3D;&#x3D; hexo new &quot;我的博客&quot; #新建文章</span><br><span class="line">hexo g &#x3D;&#x3D; hexo generate #生成</span><br><span class="line">hexo s &#x3D;&#x3D; hexo server #启动本地预览服务预览</span><br><span class="line">hexo d &#x3D;&#x3D; hexo deploy #部署到github发布到网络</span><br><span class="line">hexo server #Hexo会监视文件变动并自动更新，无须重启服务器</span><br><span class="line">hexo server -s #静态模式</span><br><span class="line">hexo server -p 5000 #更改端口</span><br><span class="line">hexo server -i 192.168.1.1 #自定义 IP</span><br><span class="line">hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</span><br></pre></td></tr></table></figure>
+<h3 id="4-4hexo博客常用命令解释"><a href="#4-4hexo博客常用命令解释" class="headerlink" title="4.4hexo博客常用命令解释"></a>4.4hexo博客常用命令解释</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g #安装Hexo</span><br><span class="line">npm update hexo -g #升级</span><br><span class="line">hexo init #初始化博客</span><br><span class="line">hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章</span><br><span class="line">hexo g == hexo generate #生成</span><br><span class="line">hexo s == hexo server #启动本地预览服务预览</span><br><span class="line">hexo d == hexo deploy #部署到github发布到网络</span><br><span class="line">hexo server #Hexo会监视文件变动并自动更新，无须重启服务器</span><br><span class="line">hexo server -s #静态模式</span><br><span class="line">hexo server -p 5000 #更改端口</span><br><span class="line">hexo server -i 192.168.1.1 #自定义 IP</span><br><span class="line">hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-5推送网站至Github"><a href="#4-5推送网站至Github" class="headerlink" title="4.5推送网站至Github"></a>4.5推送网站至Github</h3><p>由前面知道本地预览是<code>hexo s</code>，接下来要做的就是就是推送网站，也就是发布网站，让我们的网站可以被更多的人访问。而如果要推送至Github进行发布则需要<code>hexo d</code>或<code>hexo deploy</code>命令实现。</p>
 <blockquote>
 <p>首先我们去博客根目录下，就是<code>hexo init</code> 命令下的目录，为搞清楚，有必要说明下：</p>
@@ -397,18 +419,24 @@
 </ul>
 </blockquote>
 <p>下一步将我们的博客与GitHub关联起来，打开站点配置文件<code>_config.yml</code>，翻到最后进行修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repository: 填写你的仓库所在的连接地址</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repository: 填写你的仓库所在的连接地址</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+
 <p>示例（for example）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repository: https:&#x2F;&#x2F;github.com&#x2F;username&#x2F;username.github.io</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/username/username.github.io</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+
 <p>保存站点配置文件。其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库的main分支里（main分支是Github Pages默认识别的文件夹的意思）。</p>
 <p>最后安装Git部署插件，在<strong>博客根目录下</strong>启动<code>Git bash here</code>输入命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save　</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save　</span><br></pre></td></tr></table></figure>
+
 <p>如果您遇到<code>hexo d</code>之后，显示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br></pre></td></tr></table></figure>
+
 <p>可以看下Github的关于这个问题的issue：<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/4636">https://github.com/hexojs/hexo/issues/4636</a><br>可以这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm un hexo-deployer-git</span><br><span class="line">npm i hexojs&#x2F;hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm un hexo-deployer-git</span><br><span class="line">npm i hexojs/hexo-deployer-git</span><br></pre></td></tr></table></figure>
+
 <p>安装好<code>hexo-deployer-git</code>插件之后，我们就可以试一下<code>hexo d</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">……</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line">Everything up-to-date</span><br><span class="line">Branch &#39;master&#39; set up to track remote branch &#39;main&#39; from &#39;git@github.com:username&#x2F;username.github.io.git&#39;.</span><br><span class="line">INFO  Deploy done: git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">……</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line">Everything up-to-date</span><br><span class="line">Branch &#x27;master&#x27; set up to track remote branch &#x27;main&#x27; from &#x27;git@github.com:username/username.github.io.git&#x27;.</span><br><span class="line">INFO  Deploy done: git</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://tva4.sinaimg.cn/large/0084Tjdogy1gngigzsfdnj318z0qpwub.jpg" alt="img12"></p>
 <p>👆使用<code>hexo d</code>部署完成之后，打开浏览器输入：username.github.io（username是你的Github用户名，后面不再做过多说明），可以查看到部署到Github上main分支的网页情况（因为main是Github Pages 默认识别的分支）</p>
 <blockquote>
@@ -418,9 +446,11 @@
 <p>首先你需要自己购买一个域名，这个不再赘述，可以自行查找教程…</p>
 <h4 id="4-6-1解析自定义域名"><a href="#4-6-1解析自定义域名" class="headerlink" title="4.6.1解析自定义域名"></a>4.6.1解析自定义域名</h4><p>如果你已经拥有一个域名，则登录到腾讯云，并进入：<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/domain">点我进入腾讯云</a> ，点击你的域名右边的<code>解析</code></p>
 <p>打开电脑的<code>cmd</code> ，并输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping username.github.io</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping username.github.io</span><br></pre></td></tr></table></figure>
+
 <p>确定你的博客域名所在Github的真实ip地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ping hizablet.github.io</span><br><span class="line"></span><br><span class="line">正在 Ping username.github.io [185.***.111.153] 具有 32 字节的数据:</span><br><span class="line">来自 185.***.111.153 的回复: 字节&#x3D;32 时间&#x3D;62ms TTL&#x3D;49</span><br><span class="line">来自 185.***.111.153 的回复: 字节&#x3D;32 时间&#x3D;67ms TTL&#x3D;49</span><br><span class="line">来自 185.***.111.153 的回复: 字节&#x3D;32 时间&#x3D;67ms TTL&#x3D;49</span><br><span class="line">来自 185.***.111.153 的回复: 字节&#x3D;32 时间&#x3D;72ms TTL&#x3D;49</span><br><span class="line"></span><br><span class="line">185.***.111.153 的 Ping 统计信息:</span><br><span class="line">    数据包: 已发送 &#x3D; 4，已接收 &#x3D; 4，丢失 &#x3D; 0 (0% 丢失)，</span><br><span class="line">往返行程的估计时间(以毫秒为单位):</span><br><span class="line">    最短 &#x3D; 62ms，最长 &#x3D; 72ms，平均 &#x3D; 67ms</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ping hizablet.github.io</span><br><span class="line"></span><br><span class="line">正在 Ping username.github.io [185.***.111.153] 具有 32 字节的数据:</span><br><span class="line">来自 185.***.111.153 的回复: 字节=32 时间=62ms TTL=49</span><br><span class="line">来自 185.***.111.153 的回复: 字节=32 时间=67ms TTL=49</span><br><span class="line">来自 185.***.111.153 的回复: 字节=32 时间=67ms TTL=49</span><br><span class="line">来自 185.***.111.153 的回复: 字节=32 时间=72ms TTL=49</span><br><span class="line"></span><br><span class="line">185.***.111.153 的 Ping 统计信息:</span><br><span class="line">    数据包: 已发送 = 4，已接收 = 4，丢失 = 0 (0% 丢失)，</span><br><span class="line">往返行程的估计时间(以毫秒为单位):</span><br><span class="line">    最短 = 62ms，最长 = 72ms，平均 = 67ms</span><br></pre></td></tr></table></figure>
+
 <p>记录下来：<code>185.***.111.153</code>，然后回到腾讯云的<code>解析</code>界面</p>
 <p><img src="https://tva2.sinaimg.cn/large/0084Tjdogy1gngjit7byej314p0ct3z8.jpg" alt="img13"></p>
 <p>👆需要点击<code>添加记录</code> 并添加两个值：<br>值1：主机记录值可以为<code>www</code>或<code>其他的英文</code>，记录类型<code>CNAME</code>，线路类型<code>默认</code>，记录值<code>username.github.io</code><br>值2：主机记录值<code>@</code>，记录类型<code>A</code>，线路类型<code>默认</code>，记录值<code>185.***.111.153</code></p>
@@ -429,7 +459,7 @@
 <p>首先到博客所在的仓库，点击<code>Setttings</code>，在<code>Settings</code>下的<code>Options</code>页面下，找到<code>Github Pages</code>目录下的<code>Custom domain</code>，在里面输入自定义的域名<code>idiot.你的域名</code>，然后点击<code>Save</code>即可。在浏览器中输入自定义的域名就可以跳转到<code>username.github.io</code>访问自己搭建的博客了。👏~</p>
 <h2 id="五、安装博客主题"><a href="#五、安装博客主题" class="headerlink" title="五、安装博客主题"></a>五、安装博客主题</h2><h3 id="5-1主题选择"><a href="#5-1主题选择" class="headerlink" title="5.1主题选择"></a>5.1主题选择</h3><p>前情回顾：我们在之前介绍了Github Pages和Hexo，并安装了<code>Node.js</code>和<code>Hexo</code>，并部署博客到自己的Github Pages。但是我们可能不是很喜欢默认的<code>landscape</code>主题，所以我们可以去挑选我们自己喜欢的主题。</p>
 <p>hexo做了一个仓库<code>awesome-hexo-themes</code>，根据主题的<code>star</code>数进行排序，可以参考别人使用的主题，或者选择一个自己喜欢的主题。</p>
-<p>这里选出了<code>star</code>数超过1k的主题（<code>star</code>更新日期：2021/2/9）</p>
+<p>这里选出了<code>star</code>数超过1k的主题（<code>star</code>更新日期：2021&#x2F;2&#x2F;9）</p>
 <table>
 <thead>
 <tr>
@@ -439,92 +469,92 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/iissnan/hexo-theme-next">iissnan/hexo-theme-next</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/iissnan/hexo-theme-next">iissnan&#x2F;hexo-theme-next</a></td>
 <td>Elegant theme for Hexo.</td>
 <td>15.5k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/litten/hexo-theme-yilia">litten/hexo-theme-yilia</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/litten/hexo-theme-yilia">litten&#x2F;hexo-theme-yilia</a></td>
 <td>一个简洁优雅的hexo主题 A simple and elegant theme for hexo.</td>
 <td>7.8k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/theme-next/hexo-theme-next">theme-next/hexo-theme-next</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/theme-next/hexo-theme-next">theme-next&#x2F;hexo-theme-next</a></td>
 <td>Elegant and powerful theme for Hexo.</td>
 <td>6.3k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/ppoffice/hexo-theme-icarus">ppoffice/hexo-theme-icarus</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/ppoffice/hexo-theme-icarus">ppoffice&#x2F;hexo-theme-icarus</a></td>
 <td>A simple, delicate, and modern theme for the static site generator Hexo.</td>
 <td>4.3k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/viosey/hexo-theme-material">viosey/hexo-theme-material</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/viosey/hexo-theme-material">viosey&#x2F;hexo-theme-material</a></td>
 <td>Material Design theme for hexo.</td>
 <td>3.9k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/blinkfox/hexo-theme-matery">blinkfox/hexo-theme-matery</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/blinkfox/hexo-theme-matery">blinkfox&#x2F;hexo-theme-matery</a></td>
 <td>A beautiful hexo blog theme with material design and responsive design.一个基于材料设计和响应式设计而成的全面、美观的Hexo主题。国内访问：<a target="_blank" rel="noopener" href="http://blinkfox.com/">http://blinkfox.com/</a></td>
 <td>2.9k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/yscoder/hexo-theme-indigo">yscoder/hexo-theme-indigo</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/yscoder/hexo-theme-indigo">yscoder&#x2F;hexo-theme-indigo</a></td>
 <td>一个Material Design风格的Hexo主题。 <a target="_blank" rel="noopener" href="https://imys.net/">https://imys.net/</a></td>
 <td>2.7k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/fluid-dev/hexo-theme-fluid">fluid-dev/hexo-theme-fluid</a></td>
-<td>🌊 一款 Material Design 风格的 Hexo 主题 / An elegant Material-Design theme for Hexo</td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/fluid-dev/hexo-theme-fluid">fluid-dev&#x2F;hexo-theme-fluid</a></td>
+<td>🌊 一款 Material Design 风格的 Hexo 主题 &#x2F; An elegant Material-Design theme for Hexo</td>
 <td>2.1k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/probberechts/hexo-theme-cactus">probberechts/hexo-theme-cactus</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/probberechts/hexo-theme-cactus">probberechts&#x2F;hexo-theme-cactus</a></td>
 <td>🌵 A responsive, clean and simple theme for Hexo.</td>
 <td>1.8k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/pinggod/hexo-theme-apollo">pinggod/hexo-theme-apollo</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/pinggod/hexo-theme-apollo">pinggod&#x2F;hexo-theme-apollo</a></td>
 <td>🌅 a concise hexo theme</td>
 <td>1.8k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/jerryc127/hexo-theme-butterfly">jerryc127/hexo-theme-butterfly</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/jerryc127/hexo-theme-butterfly">jerryc127&#x2F;hexo-theme-butterfly</a></td>
 <td>🦋 A Hexo Theme: Butterfly</td>
 <td>1.8k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/LouisBarranqueiro/hexo-theme-tranquilpeak">LouisBarranqueiro/hexo-theme-tranquilpeak</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/LouisBarranqueiro/hexo-theme-tranquilpeak">LouisBarranqueiro&#x2F;hexo-theme-tranquilpeak</a></td>
 <td>💄 A gorgeous responsive theme for Hexo blog framework</td>
 <td>1.7k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/Molunerfinn/hexo-theme-melody">Molunerfinn/hexo-theme-melody</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/Molunerfinn/hexo-theme-melody">Molunerfinn&#x2F;hexo-theme-melody</a></td>
 <td>🎹A simple &amp; beautiful &amp; fast theme for Hexo.</td>
 <td>1.3k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/ahonn/hexo-theme-even">ahonn/hexo-theme-even</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/ahonn/hexo-theme-even">ahonn&#x2F;hexo-theme-even</a></td>
 <td>🚀 A super concise theme for Hexo</td>
 <td>1.2k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/fi3ework/hexo-theme-archer">fi3ework/hexo-theme-archer</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/fi3ework/hexo-theme-archer">fi3ework&#x2F;hexo-theme-archer</a></td>
 <td>🏹 A smart and modern theme for Hexo.</td>
 <td>1.1k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/ppoffice/hexo-theme-hueman">ppoffice/hexo-theme-hueman</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/ppoffice/hexo-theme-hueman">ppoffice&#x2F;hexo-theme-hueman</a></td>
 <td>A redesign of Alx’s wordpress theme Hueman, ported to Hexo.</td>
 <td>1.1k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/forsigner/fexo">forsigner/fexo</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/forsigner/fexo">forsigner&#x2F;fexo</a></td>
 <td>A minimalist design theme for hexo.</td>
 <td>1.1k</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://www.github.com/wuchong/jacman">wuchong/jacman</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.github.com/wuchong/jacman">wuchong&#x2F;jacman</a></td>
 <td>Jacman is a fresh looking and responsive theme for Hexo with more features based on Pacman.</td>
 <td>1k</td>
 </tr>
@@ -535,66 +565,84 @@
 <p>我这里选择<code>hexo-theme-next</code>主题，因为Next主题的<code>Star</code>数目最多，这是其一，但是另外一个原因是如果遇到自己不能解决的问题可以方便在互联网上找到答案！</p>
 <h3 id="5-2Next主题安装与配置"><a href="#5-2Next主题安装与配置" class="headerlink" title="5.2Next主题安装与配置"></a>5.2Next主题安装与配置</h3><p>官方文档：<a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
 <p>如果你要安装最新版本，则在<strong>博客根目录</strong>（就是你博客的文件夹），然后右键<code>Git Bash Here</code>，输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-next@latest</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-next@latest</span><br></pre></td></tr></table></figure>
+
 <p>则会在你的博客根目录的<code>node_modules</code>文件夹中有一个<code>hexo-theme-next</code>的文件夹，剪切这个文件夹，粘贴到博客根目录下的<code>themes</code>文件夹中，粘贴后，可以改下文件夹的名字，我是将文件夹名字命名为<code>next_8.2.1</code>，也可以命名其他的英文名字，后面配置对应就行！</p>
 <p>然后打开<strong>博客根目录</strong>下的<code>_config.yml</code>站点配置文件，因为<code>next_8.2.1</code>文件夹下也由一个<code>_config.yml</code>主题配置文件，这里要注意区分下！</p>
 <p>这里我把**站点配置文件<code>_config.yml</code>**代码解释下：</p>
 <p><a id="mainconfig">站点配置文件</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;configuration.html</span><br><span class="line">## Source: https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexo&#x2F;</span><br><span class="line"></span><br><span class="line"># Site</span><br><span class="line">title: 这里可以写你的网站名字</span><br><span class="line">subtitle: &#39;写网站的子标题&#39;</span><br><span class="line">description: &#39;描述&#39;</span><br><span class="line">keywords: 网站的关键词</span><br><span class="line">author: 作者的名字</span><br><span class="line">language: zh-CN #语言中文</span><br><span class="line">timezone: &#39;Asia&#x2F;shanghai&#39; #时区选上海</span><br><span class="line"></span><br><span class="line"># URL</span><br><span class="line">## If your site is put in a subdirectory, set url as &#39;http:&#x2F;&#x2F;example.com&#x2F;child&#39; and root as &#39;&#x2F;child&#x2F;&#39;</span><br><span class="line">#url: 你的解析的地址！</span><br><span class="line">root: &#x2F;</span><br><span class="line">permalink: :year&#x2F;:month&#x2F;:day&#x2F;:title&#x2F;</span><br><span class="line">permalink_defaults:</span><br><span class="line">pretty_urls:</span><br><span class="line">  trailing_index: true # Set to false to remove trailing &#39;index.html&#39; from permalinks</span><br><span class="line">  trailing_html: true # Set to false to remove trailing &#39;.html&#39; from permalinks</span><br><span class="line"></span><br><span class="line"># Directory</span><br><span class="line">source_dir: source</span><br><span class="line">public_dir: public</span><br><span class="line">tag_dir: tags</span><br><span class="line">archive_dir: archives</span><br><span class="line">category_dir: categories</span><br><span class="line">code_dir: downloads&#x2F;code</span><br><span class="line">i18n_dir: :lang</span><br><span class="line">skip_render:</span><br><span class="line"></span><br><span class="line"># Writing</span><br><span class="line">new_post_name: :title.md # File name of new posts</span><br><span class="line">default_layout: post</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">external_link:</span><br><span class="line">  enable: true # Open external links in new tab</span><br><span class="line">  field: site # Apply to the whole site</span><br><span class="line">  exclude: &#39;&#39;</span><br><span class="line">filename_case: 0</span><br><span class="line">render_drafts: false</span><br><span class="line">post_asset_folder: true</span><br><span class="line">relative_link: false</span><br><span class="line">future: true</span><br><span class="line">highlight:</span><br><span class="line">  enable: true</span><br><span class="line">  line_number: true</span><br><span class="line">  auto_detect: false</span><br><span class="line">  tab_replace: &#39;&#39;</span><br><span class="line">  wrap: true</span><br><span class="line">  hljs: false</span><br><span class="line">prismjs:</span><br><span class="line">  enable: false</span><br><span class="line">  preprocess: true</span><br><span class="line">  line_number: true</span><br><span class="line">  tab_replace: &#39;&#39;</span><br><span class="line"></span><br><span class="line"># Home page setting</span><br><span class="line"># path: Root path for your blogs index page. (default &#x3D; &#39;&#39;)</span><br><span class="line"># per_page: Posts displayed per page. (0 &#x3D; disable pagination)</span><br><span class="line"># order_by: Posts order. (Order by date descending by default)</span><br><span class="line">index_generator:</span><br><span class="line">  path: &#39;&#39;</span><br><span class="line">  per_page: 10</span><br><span class="line">  order_by: -date</span><br><span class="line"></span><br><span class="line"># Category &amp; Tag</span><br><span class="line">default_category: uncategorized</span><br><span class="line">category_map:</span><br><span class="line">tag_map:</span><br><span class="line"></span><br><span class="line"># Metadata elements</span><br><span class="line">## https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;HTML&#x2F;Element&#x2F;meta</span><br><span class="line">meta_generator: true</span><br><span class="line"></span><br><span class="line"># Date &#x2F; Time format</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http:&#x2F;&#x2F;momentjs.com&#x2F;docs&#x2F;#&#x2F;displaying&#x2F;format&#x2F;</span><br><span class="line">date_format: YYYY-MM-DD</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line">## updated_option supports &#39;mtime&#39;, &#39;date&#39;, &#39;empty&#39;</span><br><span class="line">updated_option: &#39;mtime&#39;</span><br><span class="line"></span><br><span class="line"># Pagination</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 10</span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"># Include &#x2F; Exclude file(s)</span><br><span class="line">## include:&#x2F;exclude: options only apply to the &#39;source&#x2F;&#39; folder</span><br><span class="line">include:</span><br><span class="line">exclude:</span><br><span class="line">ignore:</span><br><span class="line"></span><br><span class="line"># Extensions</span><br><span class="line">## Plugins: https:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">theme: next_8.2.1 #这里的文字一定要对应前面在themes文件夹下的文件夹名字，我是命名为next_8.2.1。</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https:&#x2F;&#x2F;github.com&#x2F;username&#x2F;username.github.io #这里是你的仓库地址</span><br><span class="line">  branch: main #由于GitHub的master涉及种族歧视，默认分支已经改成了main</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: https://hexo.io/docs/configuration.html</span><br><span class="line">## Source: https://github.com/hexojs/hexo/</span><br><span class="line"></span><br><span class="line"># Site</span><br><span class="line">title: 这里可以写你的网站名字</span><br><span class="line">subtitle: &#x27;写网站的子标题&#x27;</span><br><span class="line">description: &#x27;描述&#x27;</span><br><span class="line">keywords: 网站的关键词</span><br><span class="line">author: 作者的名字</span><br><span class="line">language: zh-CN #语言中文</span><br><span class="line">timezone: &#x27;Asia/shanghai&#x27; #时区选上海</span><br><span class="line"></span><br><span class="line"># URL</span><br><span class="line">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span><br><span class="line">#url: 你的解析的地址！</span><br><span class="line">root: /</span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">permalink_defaults:</span><br><span class="line">pretty_urls:</span><br><span class="line">  trailing_index: true # Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span><br><span class="line">  trailing_html: true # Set to false to remove trailing &#x27;.html&#x27; from permalinks</span><br><span class="line"></span><br><span class="line"># Directory</span><br><span class="line">source_dir: source</span><br><span class="line">public_dir: public</span><br><span class="line">tag_dir: tags</span><br><span class="line">archive_dir: archives</span><br><span class="line">category_dir: categories</span><br><span class="line">code_dir: downloads/code</span><br><span class="line">i18n_dir: :lang</span><br><span class="line">skip_render:</span><br><span class="line"></span><br><span class="line"># Writing</span><br><span class="line">new_post_name: :title.md # File name of new posts</span><br><span class="line">default_layout: post</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">external_link:</span><br><span class="line">  enable: true # Open external links in new tab</span><br><span class="line">  field: site # Apply to the whole site</span><br><span class="line">  exclude: &#x27;&#x27;</span><br><span class="line">filename_case: 0</span><br><span class="line">render_drafts: false</span><br><span class="line">post_asset_folder: true</span><br><span class="line">relative_link: false</span><br><span class="line">future: true</span><br><span class="line">highlight:</span><br><span class="line">  enable: true</span><br><span class="line">  line_number: true</span><br><span class="line">  auto_detect: false</span><br><span class="line">  tab_replace: &#x27;&#x27;</span><br><span class="line">  wrap: true</span><br><span class="line">  hljs: false</span><br><span class="line">prismjs:</span><br><span class="line">  enable: false</span><br><span class="line">  preprocess: true</span><br><span class="line">  line_number: true</span><br><span class="line">  tab_replace: &#x27;&#x27;</span><br><span class="line"></span><br><span class="line"># Home page setting</span><br><span class="line"># path: Root path for your blogs index page. (default = &#x27;&#x27;)</span><br><span class="line"># per_page: Posts displayed per page. (0 = disable pagination)</span><br><span class="line"># order_by: Posts order. (Order by date descending by default)</span><br><span class="line">index_generator:</span><br><span class="line">  path: &#x27;&#x27;</span><br><span class="line">  per_page: 10</span><br><span class="line">  order_by: -date</span><br><span class="line"></span><br><span class="line"># Category &amp; Tag</span><br><span class="line">default_category: uncategorized</span><br><span class="line">category_map:</span><br><span class="line">tag_map:</span><br><span class="line"></span><br><span class="line"># Metadata elements</span><br><span class="line">## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta</span><br><span class="line">meta_generator: true</span><br><span class="line"></span><br><span class="line"># Date / Time format</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http://momentjs.com/docs/#/displaying/format/</span><br><span class="line">date_format: YYYY-MM-DD</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line">## updated_option supports &#x27;mtime&#x27;, &#x27;date&#x27;, &#x27;empty&#x27;</span><br><span class="line">updated_option: &#x27;mtime&#x27;</span><br><span class="line"></span><br><span class="line"># Pagination</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 10</span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"># Include / Exclude file(s)</span><br><span class="line">## include:/exclude: options only apply to the &#x27;source/&#x27; folder</span><br><span class="line">include:</span><br><span class="line">exclude:</span><br><span class="line">ignore:</span><br><span class="line"></span><br><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: next_8.2.1 #这里的文字一定要对应前面在themes文件夹下的文件夹名字，我是命名为next_8.2.1。</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/username/username.github.io #这里是你的仓库地址</span><br><span class="line">  branch: main #由于GitHub的master涉及种族歧视，默认分支已经改成了main</span><br></pre></td></tr></table></figure>
 <p>这里再强调下：如果你自己命名了文件夹的名字，在<code>_config.yml</code>主题配置文件中一定要匹配，就是如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next_8.2.1 #这里的文字一定要对应前面在themes文件夹下的文件夹名字，我是命名为next_8.2.1。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next_8.2.1 #这里的文字一定要对应前面在themes文件夹下的文件夹名字，我是命名为next_8.2.1。</span><br></pre></td></tr></table></figure>
+
 <p>这样就安装并且配置好了Next主题了！</p>
 <h2 id="六、Next主题配置"><a href="#六、Next主题配置" class="headerlink" title="六、Next主题配置"></a>六、Next主题配置</h2><p>打开博客根文件夹的<code>themes</code>文件夹下的<code>_config.yml</code>主题配置文件，<strong>不是站点主题文件！</strong></p>
 <h3 id="6-1风格配置"><a href="#6-1风格配置" class="headerlink" title="6.1风格配置"></a>6.1风格配置</h3><p>通过修改主题配置文件<code>_config.yml</code>的scheme字段，配置不同的风格</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Schemes</span><br><span class="line">#scheme: Muse #Muse风格预览：https:&#x2F;&#x2F;theme-next.js.org&#x2F;muse&#x2F;</span><br><span class="line">#scheme: Mist #Mist风格预览：https:&#x2F;&#x2F;theme-next.js.org&#x2F;mist&#x2F;</span><br><span class="line">scheme: Pisces #Pisces风格预览：https:&#x2F;&#x2F;theme-next.js.org&#x2F;pisces&#x2F;</span><br><span class="line">#scheme: Gemini #Gemini风格预览：https:&#x2F;&#x2F;theme-next.js.org&#x2F;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Schemes</span><br><span class="line">#scheme: Muse #Muse风格预览：https://theme-next.js.org/muse/</span><br><span class="line">#scheme: Mist #Mist风格预览：https://theme-next.js.org/mist/</span><br><span class="line">scheme: Pisces #Pisces风格预览：https://theme-next.js.org/pisces/</span><br><span class="line">#scheme: Gemini #Gemini风格预览：https://theme-next.js.org/</span><br></pre></td></tr></table></figure>
+
 <p>我选的是Pisces风格…<br>配置夜间模式，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Dark Mode</span><br><span class="line">darkmode: false #如果要开启即把false改成true即可</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Dark Mode</span><br><span class="line">darkmode: false #如果要开启即把false改成true即可</span><br></pre></td></tr></table></figure>
+
 <h3 id="6-2站点信息设置"><a href="#6-2站点信息设置" class="headerlink" title="6.2站点信息设置"></a>6.2站点信息设置</h3><h4 id="6-2-1网站Logo设置"><a href="#6-2-1网站Logo设置" class="headerlink" title="6.2.1网站Logo设置"></a>6.2.1网站Logo设置</h4><p>通过修改主题配置文件<code>_config.yml</code>的favicon字段，配置网站logo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">small: &#x2F;images&#x2F;favicon-16x16-next.png #在博客根目录下的图片</span><br><span class="line">medium: &#x2F;images&#x2F;favicon-32x32-next.png</span><br><span class="line">apple_touch_icon: &#x2F;images&#x2F;apple-touch-icon-next.png</span><br><span class="line">safari_pinned_tab: &#x2F;images&#x2F;logo.svg</span><br><span class="line">#android_manifest: &#x2F;manifest.json</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">small: /images/favicon-16x16-next.png #在博客根目录下的图片</span><br><span class="line">medium: /images/favicon-32x32-next.png</span><br><span class="line">apple_touch_icon: /images/apple-touch-icon-next.png</span><br><span class="line">safari_pinned_tab: /images/logo.svg</span><br><span class="line">#android_manifest: /manifest.json</span><br></pre></td></tr></table></figure>
+
 <h4 id="6-2-2博客版权设置"><a href="#6-2-2博客版权设置" class="headerlink" title="6.2.2博客版权设置"></a>6.2.2博客版权设置</h4><p>通过修改主题配置文件<code>_config.yml</code>的Creative Commons 4.0 International License.字段，配置博客的版权设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">creative_commons:</span><br><span class="line">  license: by-nc-sa #CC协议</span><br><span class="line">  sidebar: true #在博客侧边显示</span><br><span class="line">  post: true #在文章页面显示</span><br><span class="line">  language: deed.zh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">creative_commons:</span><br><span class="line">  license: by-nc-sa #CC协议</span><br><span class="line">  sidebar: true #在博客侧边显示</span><br><span class="line">  post: true #在文章页面显示</span><br><span class="line">  language: deed.zh</span><br></pre></td></tr></table></figure>
+
 <h3 id="6-3菜单设置"><a href="#6-3菜单设置" class="headerlink" title="6.3菜单设置"></a>6.3菜单设置</h3><p>通过修改主题配置文件<code>_config.yml</code>的menu字段，选定需要展示的菜单项。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || fa fa-home</span><br><span class="line">  about: /about/ || fa fa-user</span><br><span class="line">  tags: /tags/ || fa fa-tags</span><br><span class="line">  categories: /categories/ || fa fa-th</span><br><span class="line">  archives: /archives/ || fa fa-archive</span><br><span class="line">  #schedule: /schedule/ || fa fa-calendar</span><br><span class="line">  #sitemap: /sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: /404/ || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+
 <p>其中，<code>home</code>代表<code>主页</code>，<code>categories</code>代表<code>分类</code>页，<code>about</code>代表<code>关于</code>页面，<code>archives</code>代表<code>归档</code>页，<code>commonweal</code>代表<code>404</code>页面（page not found时候显示的页面）。</p>
 <h4 id="6-3-1-添加about关于页面"><a href="#6-3-1-添加about关于页面" class="headerlink" title="6.3.1 添加about关于页面"></a>6.3.1 添加about关于页面</h4><p>新建about页面，即关于自己的博客的描述。</p>
 <p>打开本地的博客根目录，右键<code>Git Bash Here</code>，输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
+
 <p>输入命令后，在博客根目录的<code>source</code>文件夹下会新生成一个新的文件夹<code>about</code>，在该文件夹下会有一个<code>index.md</code>文件，修改<code>about/index.md</code>这个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: about</span><br><span class="line">date: </span><br><span class="line">---</span><br><span class="line">## 介绍下自己</span><br><span class="line"></span><br><span class="line">我就是我，颜色不一样的烟火🎇</span><br><span class="line">你可以在这里阅读我的生活&#x3D;&gt;[My life](https:&#x2F;&#x2F;username.github.io)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: about</span><br><span class="line">date: </span><br><span class="line">---</span><br><span class="line">## 介绍下自己</span><br><span class="line"></span><br><span class="line">我就是我，颜色不一样的烟火🎇</span><br><span class="line">你可以在这里阅读我的生活=&gt;[My life](https://username.github.io)</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://tvax3.sinaimg.cn/large/0084Tjdogy1gnhhkoie5cj30u70dfmxc.jpg" alt="img15"></p>
 <p>👆<code>about</code>关于页面的效果</p>
 <h4 id="6-3-2添加tags标签页面"><a href="#6-3-2添加tags标签页面" class="headerlink" title="6.3.2添加tags标签页面"></a>6.3.2添加tags标签页面</h4><p>前面通过修改next主题下的<code>_config.yml</code>文件中的<code>menu</code>选项，可以在主页面的菜单栏添加标签选项，但是此时点击标签，跳转的页面会显示<code>page not found</code>(或者跳转到添加的404页面)</p>
 <p>添加标签页面的具体方法，在博客根目录下，右键<code>Git Bash Here</code>，输入如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>为方便解释，后面的<strong>博客根目录</strong>路径均用<code>root</code>代替</p>
 </blockquote>
 <p>设置页面类型，在上步新生成的<code>root/source/tags/index.md</code>中添加<code>type: “tags”</code>，<code>index.md</code>文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021&#x2F;2&#x2F;9 00:00:00</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021/2/9 00:00:00</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
 <p>当要为某一篇文章添加标签，只需在<code>root/source/_post</code>目录下的具体文章的tags中添加标签即可，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于Hexo和Github搭建博客</span><br><span class="line">date: </span><br><span class="line">tags: [npm, hexo, github]</span><br><span class="line">categories: 搭建博客</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于Hexo和Github搭建博客</span><br><span class="line">date: </span><br><span class="line">tags: [npm, hexo, github]</span><br><span class="line">categories: 搭建博客</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://tvax2.sinaimg.cn/large/0084Tjdogy1gni746xg8wj30lz0bwdfx.jpg" alt="img16"></p>
 <p>👆<code>tags</code>标签页面的效果</p>
 <h4 id="6-3-3添加分类页面"><a href="#6-3-3添加分类页面" class="headerlink" title="6.3.3添加分类页面"></a>6.3.3添加分类页面</h4><p>添加分类页面的具体方法，在博客根目录下，右键<code>Git Bash Here</code>，输入如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+
 <p>输入命令后，在<code>root/source</code>下会新生成一个新的文件夹<code>categories</code>，在该文件夹下会有一个<code>index.md</code>文件。</p>
 <p>在上步新生成的<code>root/source/categories/index.md</code>中添加<code>type: &quot;categories&quot;</code>，<code>index.md</code>文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-02-10 00:00:00</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">--</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-02-10 00:00:00</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">--</span><br></pre></td></tr></table></figure>
+
 <p>当要为某一篇文章添加分类，只需在<code>root/source/_post</code>目录下的具体文章的<code>categories</code>中添加分类即可，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于Hexo和Github搭建博客</span><br><span class="line">date: 2021-02-09</span><br><span class="line">tags: [npm, hexo, github] #这是标签</span><br><span class="line">categories: 搭建博客 #这就是分类</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于Hexo和Github搭建博客</span><br><span class="line">date: 2021-02-09</span><br><span class="line">tags: [npm, hexo, github] #这是标签</span><br><span class="line">categories: 搭建博客 #这就是分类</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://tva2.sinaimg.cn/large/0084Tjdogy1gni8d86y4tj30n00ao74g.jpg" alt="img17"></p>
 <p>👆这就是<code>categories</code>分类页面的效果</p>
 <h4 id="6-3-4添加404页面"><a href="#6-3-4添加404页面" class="headerlink" title="6.3.4添加404页面"></a>6.3.4添加404页面</h4><p>打开站点根目录，右键<code>Git Bash Here</code>输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page 404</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page 404</span><br></pre></td></tr></table></figure>
+
 <p>之后在<code>root/source/404/index.md</code>文件中添加：</p>
 <ul>
 <li>第一种404是自定义型：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 404-找不到页面</span><br><span class="line">date: 2016-05-21 18:53:59</span><br><span class="line">comments: false</span><br><span class="line">permalink: &#x2F;404</span><br><span class="line">---</span><br><span class="line">&lt;center&gt;404 Not Found&lt;center&gt;</span><br><span class="line">-------</span><br><span class="line">&lt;center&gt;**对不起，您所访问的页面不存在或者已删除**</span><br><span class="line">你可以**[点击此处](http:&#x2F;&#x2F;www.*****.com)**返回首页。</span><br><span class="line">你也可以&lt;a href&#x3D;&quot;#&quot; class&#x3D;&quot;popup-trigger&quot;&gt;**点击此处**&lt;&#x2F;a&gt;重新搜索结果。&lt;&#x2F;center&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 404-找不到页面</span><br><span class="line">date: 2016-05-21 18:53:59</span><br><span class="line">comments: false</span><br><span class="line">permalink: /404</span><br><span class="line">---</span><br><span class="line">&lt;center&gt;404 Not Found&lt;center&gt;</span><br><span class="line">-------</span><br><span class="line">&lt;center&gt;**对不起，您所访问的页面不存在或者已删除**</span><br><span class="line">你可以**[点击此处](http://www.*****.com)**返回首页。</span><br><span class="line">你也可以&lt;a href=&quot;#&quot; class=&quot;popup-trigger&quot;&gt;**点击此处**&lt;/a&gt;重新搜索结果。&lt;/center&gt;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>第二种404是<code>腾讯公益404界面</code>，还是在<code>root/source/404/index.md</code>文件中添加：</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;content-type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html;charset=utf-8;&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge,chrome=1&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;all&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;index,follow&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://qzone.qq.com/gy/404/style/404style.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/plain&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://www.qq.com/404/search_children.js&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> <span class="attr">homePageUrl</span>=<span class="string">&quot;/&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">homePageName</span>=<span class="string">&quot;回到我的主页&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://qzone.qq.com/gy/404/data.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://qzone.qq.com/gy/404/page.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;content-type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html;charset=utf-8;&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge,chrome=1&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;all&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;index,follow&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://qzone.qq.com/gy/404/style/404style.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/plain&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://www.qq.com/404/search_children.js&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> <span class="attr">homePageUrl</span>=<span class="string">&quot;/&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">homePageName</span>=<span class="string">&quot;回到我的主页&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://qzone.qq.com/gy/404/data.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://qzone.qq.com/gy/404/page.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="6-5语言设置"><a href="#6-5语言设置" class="headerlink" title="6.5语言设置"></a>6.5语言设置</h3><p>如果想要博客主题显示为中文，需要在站点配置文件<code>_config.yml</code>中修改：</p>
 <p>可以看代码解释进行相应的修改：<a href="#mainconfig">点击定位到：站点配置文件</a></p>
 <blockquote>
@@ -602,45 +650,67 @@
 </blockquote>
 <h3 id="6-6侧边栏设置"><a href="#6-6侧边栏设置" class="headerlink" title="6.6侧边栏设置"></a>6.6侧边栏设置</h3><h4 id="6-6-1头像设置"><a href="#6-6-1头像设置" class="headerlink" title="6.6.1头像设置"></a>6.6.1头像设置</h4><p>使用本地图片，在博客根目录的<code>themes</code>文件夹下的<code>next_8.2.1/source/uploads/</code>下放置头像文件<code>avatar.gif</code>，更改avatar，设置头像：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Sidebar Avatar</span></span><br><span class="line">avatar:</span><br><span class="line">  <span class="comment"># Replace the default image and set the url here.</span></span><br><span class="line">  url: /images/avatar.gif</span><br><span class="line">  <span class="comment"># If true, the avatar will be dispalyed in circle.</span></span><br><span class="line">  rounded: <span class="literal">false</span> <span class="comment">#是否设置头像是圆形边框</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be rotated with the cursor.</span></span><br><span class="line">  rotated: <span class="literal">false</span> <span class="comment">#是否设置头像旋转</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-6-2设置社交账号"><a href="#6-6-2设置社交账号" class="headerlink" title="6.6.2设置社交账号"></a>6.6.2设置社交账号</h4><p>在NexT主题配置文件中找到<code>social</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">social:</span><br><span class="line">  <span class="comment">#GitHub: https://github.com/yourname || fab fa-github</span></span><br><span class="line">  E-Mail: mailto:youremail@gmail.com || fa fa-envelope</span><br><span class="line">  <span class="comment">#Weibo: https://weibo.com/yourname || fab fa-weibo</span></span><br><span class="line">  <span class="comment">#Google: https://plus.google.com/yourname || fab fa-google</span></span><br><span class="line">  <span class="comment">#Twitter: https://twitter.com/yourname || fab fa-twitter</span></span><br><span class="line">  <span class="comment">#FB Page: https://www.facebook.com/yourname || fab fa-facebook</span></span><br><span class="line">  <span class="comment">#StackOverflow: https://stackoverflow.com/yourname || fab fa-stack-overflow</span></span><br><span class="line">  <span class="comment">#YouTube: https://youtube.com/yourname || fab fa-youtube</span></span><br><span class="line">  <span class="comment">#Instagram: https://instagram.com/yourname || fab fa-instagram</span></span><br><span class="line">  <span class="comment">#Skype: skype:yourname?call|chat || fab fa-skype</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-6-3设置社交图标"><a href="#6-6-3设置社交图标" class="headerlink" title="6.6.3设置社交图标"></a>6.6.3设置社交图标</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">social_icons: <span class="comment">#社交图标</span></span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">  icons_only: <span class="literal">false</span> <span class="comment">#只显示社交图标</span></span><br><span class="line">  transition: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-6-4添加友情链接"><a href="#6-6-4添加友情链接" class="headerlink" title="6.6.4添加友情链接"></a>6.6.4添加友情链接</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Blog rolls</span></span><br><span class="line">links_settings:</span><br><span class="line">  icon: fa fa-link</span><br><span class="line">  title: 友情链接</span><br><span class="line">  <span class="comment"># Available values: block | inline</span></span><br><span class="line">  layout: block</span><br><span class="line"></span><br><span class="line">links: <span class="comment">#友情链接添加区域</span></span><br><span class="line">  <span class="comment">#Title: https://example.com</span></span><br><span class="line">  blog: 添加链接！</span><br></pre></td></tr></table></figure>
+
 <h4 id="6-6-5显示文章目录"><a href="#6-6-5显示文章目录" class="headerlink" title="6.6.5显示文章目录"></a>6.6.5显示文章目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">toc: <span class="comment">#目录</span></span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Automatically add list number to toc.</span></span><br><span class="line">  number: <span class="literal">true</span></span><br><span class="line">  <span class="comment"># If true, all words will placed on next lines if header width longer then sidebar width.</span></span><br><span class="line">  wrap: <span class="literal">false</span></span><br><span class="line">  <span class="comment"># If true, all level of TOC in a post will be displayed, rather than the activated part of it.</span></span><br><span class="line">  expand_all: <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Maximum heading depth of generated toc.</span></span><br><span class="line">  max_depth: 6</span><br></pre></td></tr></table></figure>
+
 <h3 id="6-7footer网页底部设置"><a href="#6-7footer网页底部设置" class="headerlink" title="6.7footer网页底部设置"></a>6.7footer网页底部设置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">footer:</span><br><span class="line">  <span class="comment"># Specify the year when the site was setup. If not defined, current year will be used.</span></span><br><span class="line">  <span class="comment">#since: 2020 #设定网站开始的年份</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Icon between year and copyright info.</span></span><br><span class="line">  icon:</span><br><span class="line">    <span class="comment"># Icon name in Font Awesome. See: https://fontawesome.com/icons</span></span><br><span class="line">    name: fa fa-heart</span><br><span class="line">    <span class="comment"># If you want to animate the icon, set it to true.</span></span><br><span class="line">    animated: <span class="literal">false</span> <span class="comment">#图标是否动态</span></span><br><span class="line">    <span class="comment"># Change the color of icon, using Hex Code.</span></span><br><span class="line">    color: <span class="string">&quot;#ff0000&quot;</span> <span class="comment">#改变图标颜色</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># If not defined, `author` from Hexo `_config.yml` will be used.</span></span><br><span class="line">  copyright: <span class="comment">#版权声明</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Powered by Hexo &amp; NexT</span></span><br><span class="line">  powered: <span class="literal">false</span> <span class="comment">#网站主题驱动是否显示</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Beian ICP and gongan information for Chinese users. See: https://beian.miit.gov.cn, http://www.beian.gov.cn</span></span><br><span class="line">  beian: <span class="comment">#网站备案设置</span></span><br><span class="line">    <span class="built_in">enable</span>: <span class="literal">false</span></span><br><span class="line">    icp:</span><br><span class="line">    <span class="comment"># The digit in the num of gongan beian.</span></span><br><span class="line">    gongan_id:</span><br><span class="line">    <span class="comment"># The full num of gongan beian.</span></span><br><span class="line">    gongan_num:</span><br><span class="line">    <span class="comment"># The icon for gongan beian. See: http://www.beian.gov.cn/portal/download</span></span><br><span class="line">    gongan_icon_url:</span><br></pre></td></tr></table></figure>
+
 <h3 id="6-8文章发布设置"><a href="#6-8文章发布设置" class="headerlink" title="6.8文章发布设置"></a>6.8文章发布设置</h3><h4 id="6-8-1是否显示文章描述description"><a href="#6-8-1是否显示文章描述description" class="headerlink" title="6.8.1是否显示文章描述description"></a>6.8.1是否显示文章描述<code>description</code></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Automatically excerpt description in homepage as preamble text.</span></span><br><span class="line">excerpt_description: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-8-2是否显示阅读全文"><a href="#6-8-2是否显示阅读全文" class="headerlink" title="6.8.2是否显示阅读全文"></a>6.8.2是否显示阅读全文</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Read more button</span></span><br><span class="line"><span class="comment"># If true, the read more button will be displayed in excerpt section.</span></span><br><span class="line">read_more_btn: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-8-3文章元信息设置"><a href="#6-8-3文章元信息设置" class="headerlink" title="6.8.3文章元信息设置"></a>6.8.3文章元信息设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post meta display settings</span></span><br><span class="line">post_meta:</span><br><span class="line">  item_text: <span class="literal">true</span> <span class="comment">#是否显示文字</span></span><br><span class="line">  created_at: <span class="literal">true</span> <span class="comment">#文章创建日期是否显示</span></span><br><span class="line">  updated_at: <span class="comment">#文章更新时间是否显示</span></span><br><span class="line">    <span class="built_in">enable</span>: <span class="literal">false</span></span><br><span class="line">    another_day: <span class="literal">true</span></span><br><span class="line">  categories: <span class="literal">true</span> <span class="comment">#文章分类是否显示</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-8-4文章字数设置"><a href="#6-8-4文章字数设置" class="headerlink" title="6.8.4文章字数设置"></a>6.8.4文章字数设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/next-theme/hexo-word-counter</span></span><br><span class="line">symbols_count_time:</span><br><span class="line">  separated_meta: <span class="literal">true</span> <span class="comment">#文章字数和阅读时长与更新时间换行隔开</span></span><br><span class="line">  item_text_total: <span class="literal">false</span> <span class="comment">#网页最后面显示站点字数和时间文字</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-8-5显示文章标签图标"><a href="#6-8-5显示文章标签图标" class="headerlink" title="6.8.5显示文章标签图标"></a>6.8.5显示文章标签图标</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># Use icon instead of the symbol # to indicate the tag at the bottom of the post</span></span><br><span class="line">tag_icon: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-8-6文章赞赏设置"><a href="#6-8-6文章赞赏设置" class="headerlink" title="6.8.6文章赞赏设置"></a>6.8.6文章赞赏设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Donate (Sponsor) settings</span></span><br><span class="line"><span class="comment">#Front-matter variable (unsupport animation).</span></span><br><span class="line">reward_settings:</span><br><span class="line">  <span class="comment">#If true, a donate button will be displayed in every article by default.</span></span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span> <span class="comment">#是否显示赞赏图标</span></span><br><span class="line">  animation: <span class="literal">false</span></span><br><span class="line">  <span class="comment">#comment: Buy me a coffee</span></span><br><span class="line">  </span><br><span class="line">reward: <span class="comment">#赞赏图片设置</span></span><br><span class="line">  wechatpay: /images/wechatpay.png</span><br><span class="line">  <span class="comment">#alipay: /images/alipay.png</span></span><br><span class="line">  <span class="comment">#paypal: /images/paypal.png</span></span><br><span class="line">  <span class="comment">#bitcoin: /images/bitcoin.png</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-8-7文章末尾关注设置"><a href="#6-8-7文章末尾关注设置" class="headerlink" title="6.8.7文章末尾关注设置"></a>6.8.7文章末尾关注设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Subscribe through Telegram Channel, Twitter, etc.</span></span><br><span class="line"><span class="comment">#Usage: `Key: permalink || icon` (Font Awesome)</span></span><br><span class="line">follow_me:</span><br><span class="line">  <span class="comment">#Twitter: https://twitter.com/username || fab fa-twitter</span></span><br><span class="line">  <span class="comment">#Telegram: https://t.me/channel_name || fab fa-telegram</span></span><br><span class="line">  <span class="comment">#WeChat: /images/wechat_channel.jpg || fab fa-weixin</span></span><br><span class="line">  <span class="comment">#RSS: /atom.xml || fa fa-rss</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-8-8文章编辑设置"><a href="#6-8-8文章编辑设置" class="headerlink" title="6.8.8文章编辑设置"></a>6.8.8文章编辑设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Post edit</span></span><br><span class="line"><span class="comment">#Easily browse and edit blog source code online.</span></span><br><span class="line">post_edit:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">false</span></span><br><span class="line">  url: https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/ <span class="comment"># Link for view source</span></span><br><span class="line">  <span class="comment">#url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name/ # Link for fork &amp; edit</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="6-9设置首页文章截断"><a href="#6-9设置首页文章截断" class="headerlink" title="6.9设置首页文章截断"></a>6.9设置首页文章截断</h3><ul>
 <li>「首选」直接在文章你想要截断的部位添加<code>&lt;!-- more --&gt;</code>手动进行截断！</li>
 <li>「法二」在文章中的<code>front-matter</code>添加<code>description</code>，并提供文章摘录：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Windows下利用Hexo搭建个人博客</span><br><span class="line">date: 2021-02-09 19:34:22</span><br><span class="line">tags: [npm, hexo, github]</span><br><span class="line">categories: 搭建博客</span><br><span class="line">description: 你的文章描述</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Windows下利用Hexo搭建个人博客</span><br><span class="line">date: 2021-02-09 19:34:22</span><br><span class="line">tags: [npm, hexo, github]</span><br><span class="line">categories: 搭建博客</span><br><span class="line">description: 你的文章描述</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>「法三」安装<code>auto_excerpt</code>插件自动截断文章内容作为摘要，在NexT主题7.6.0版本之后，此功能被移除，可以自行安装<a target="_blank" rel="noopener" href="https://github.com/chekun/hexo-excerpt">第三方插件</a>：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-excerpt --save</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-excerpt --save</span><br></pre></td></tr></table></figure>
+
 <p>然后在站点配置文件<code>_config.yml</code>中设置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">excerpt:</span><br><span class="line">  depth: 5</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">excerpt:</span><br><span class="line">  depth: 5</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
+
 <p>作出以上改动后，请先执行<code>hexo clean</code></p>
 <h3 id="6-10其他设置"><a href="#6-10其他设置" class="headerlink" title="6.10其他设置"></a>6.10其他设置</h3><h4 id="6-10-1代码块高亮设置"><a href="#6-10-1代码块高亮设置" class="headerlink" title="6.10.1代码块高亮设置"></a>6.10.1代码块高亮设置</h4><p>就是博客如果添加代码块的话，可以更好看点，具体设置：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/syntax-highlight.html">点我看具体设置</a></p>
 <ul>
 <li>首先去站点配置文件</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">highlight:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span> <span class="comment">#开启highlight</span></span><br><span class="line">  line_number: <span class="literal">true</span> <span class="comment">#是否显示行数</span></span><br><span class="line">  auto_detect: <span class="literal">false</span></span><br><span class="line">  tab_replace: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  wrap: <span class="literal">true</span></span><br><span class="line">  hljs: <span class="literal">false</span> <span class="comment"># highlight 的 css 文件中的类不添加 hljs-* 前缀</span></span><br><span class="line">prismjs:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">false</span> <span class="comment">#关闭ptismjs</span></span><br><span class="line">  preprocess: <span class="literal">true</span></span><br><span class="line">  line_number: <span class="literal">true</span></span><br><span class="line">  tab_replace: <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>然后去主题配置文件</li>
 </ul>
 <p>可以去官网预览代码主题样式：<a target="_blank" rel="noopener" href="https://theme-next.js.org/highlight/">点我查看样式</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">codeblock: <span class="comment">#代码块设置样式</span></span><br><span class="line">  <span class="comment">#Code Highlight theme</span></span><br><span class="line">  <span class="comment">#All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  theme: <span class="comment">#highlight主题样式</span></span><br><span class="line">    light: atom-one-dark</span><br><span class="line">    dark: atom-one-dark</span><br><span class="line">  prism:</span><br><span class="line">    light: prism-dark</span><br><span class="line">    dark: prism-dark</span><br><span class="line">  <span class="comment">#Add copy button on codeblock</span></span><br><span class="line">  copy_button:</span><br><span class="line">    <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    style: mac</span><br></pre></td></tr></table></figure>
+
 <h4 id="6-10-2回到顶部设置"><a href="#6-10-2回到顶部设置" class="headerlink" title="6.10.2回到顶部设置"></a>6.10.2回到顶部设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">back2top:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">  <span class="comment">#Back to top in sidebar.</span></span><br><span class="line">  sidebar: <span class="literal">true</span> <span class="comment">#在侧边栏显示回到顶部</span></span><br><span class="line">  <span class="comment">#Scroll percent label in b2t button.</span></span><br><span class="line">  scrollpercent: <span class="literal">false</span> <span class="comment">#显示阅读进度百分比</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-10-3显示阅读进度条"><a href="#6-10-3显示阅读进度条" class="headerlink" title="6.10.3显示阅读进度条"></a>6.10.3显示阅读进度条</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Reading progress bar</span></span><br><span class="line">reading_progress:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span> <span class="comment">#是否开启阅读进度条</span></span><br><span class="line">  position: top <span class="comment">#设置阅读进度条的位置 top | bottom</span></span><br><span class="line">  color: <span class="string">&quot;#37c6c0&quot;</span> <span class="comment">#设置进度条的颜色</span></span><br><span class="line">  height: 3px <span class="comment">#设置进度条的宽度</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="6-10-4开启书签功能"><a href="#6-10-4开启书签功能" class="headerlink" title="6.10.4开启书签功能"></a>6.10.4开启书签功能</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Bookmark Support</span></span><br><span class="line">bookmark:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">  <span class="comment">#设置标签图标的颜色</span></span><br><span class="line">  color: <span class="string">&quot;#222&quot;</span></span><br><span class="line">  <span class="comment">#如果为auto，请在关闭页面或单击书签图标时保存阅读进度。</span></span><br><span class="line">  <span class="comment">#如果是manual的，则只能通过单击书签图标进行保存。</span></span><br><span class="line">  save: auto</span><br></pre></td></tr></table></figure>
+
 <p>到这里博客就配置差不多啦！</p>
 
     </div>
@@ -663,7 +733,7 @@
             </div>
             <div class="post-nav-item">
                 <a href="/2021/02/13/How-to-register-an-Apple-US-id/" rel="next" title="如何注册一个美区Apple ID">
-                  如何注册一个美区Apple ID <i class="fa fa-chevron-right"></i>
+                  如何注册一个美区Apple ID <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -679,21 +749,17 @@
 </div>
   </main>
 
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/clicklove.js"></script>
-
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div><!-- 在网页底部添加网站运行时间 -->
 <span id="sitetime">载入网页运行天数...</span>
@@ -717,19 +783,20 @@ setInterval("createtime()",250);
   </footer>
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-  
-
-
-
-
-  
-
-
-
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 </body>
 </html>
