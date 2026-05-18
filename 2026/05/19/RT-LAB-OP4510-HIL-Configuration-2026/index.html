@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、前言半实物仿真（HIL&#x2F;RCP）是电力电子和电力系统研究中不可或缺的工具。OPAL-RT 的 OP4510 是一款性价比较高的入门级实时仿真器，但配置过程有不少坑——尤其是 MATLAB 和 RT-LAB 的版本匹配问题，经常让人头疼。 本文从零开始，完整记录 OP4510 的配置和运行流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RT-LAB OP4510 半实物仿真平台配置全记录">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/19/RT-LAB-OP4510-HIL-Configuration-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、前言半实物仿真（HIL&#x2F;RCP）是电力电子和电力系统研究中不可或缺的工具。OPAL-RT 的 OP4510 是一款性价比较高的入门级实时仿真器，但配置过程有不少坑——尤其是 MATLAB 和 RT-LAB 的版本匹配问题，经常让人头疼。 本文从零开始，完整记录 OP4510 的配置和运行流程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-19T00:40:00.000Z">
+<meta property="article:modified_time" content="2026-05-18T18:53:11.427Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="RT-LAB">
+<meta property="article:tag" content="OP4510">
+<meta property="article:tag" content="半实物仿真">
+<meta property="article:tag" content="HIL">
+<meta property="article:tag" content="RCP">
+<meta property="article:tag" content="MATLAB">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/19/RT-LAB-OP4510-HIL-Configuration-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/19/RT-LAB-OP4510-HIL-Configuration-2026/","path":"2026/05/19/RT-LAB-OP4510-HIL-Configuration-2026/","title":"RT-LAB OP4510 半实物仿真平台配置全记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RT-LAB OP4510 半实物仿真平台配置全记录 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81MATLAB-%E7%89%88%E6%9C%AC%E5%92%8C-RT-LAB-%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D"><span class="nav-number">2.</span> <span class="nav-text">二、MATLAB 版本和 RT-LAB 版本匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81RT-LAB-%E5%B7%A5%E7%A8%8B%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">三、RT-LAB 工程创建流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 新建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 导入模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E7%BC%96%E8%AF%91%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 编译与部署流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%A1%AC%E4%BB%B6-IO-%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">四、硬件 IO 接口详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-OP4510-%E7%A1%AC%E4%BB%B6%E8%A7%84%E6%A0%BC"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 OP4510 硬件规格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%9D%BF%E5%8D%A1%E6%8E%A5%E5%8F%A3%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 板卡接口对应关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%9F%A5%E7%9C%8B%E6%9D%BF%E5%8D%A1%E4%BF%A1%E6%81%AF%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 查看板卡信息的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%A8%A1%E6%8B%9F%E9%87%8F%E8%BE%93%E5%87%BA%E4%BF%A1%E5%8F%B7%E6%B5%8B%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">五、模拟量输出信号测量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-FPGA-%E9%85%8D%E7%BD%AE"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 FPGA 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-DB37-%E6%8E%A5%E5%8F%A3%E6%8E%A5%E7%BA%BF"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 DB37 接口接线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E9%87%87%E6%A0%B7%E7%8E%87"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 采样率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AE%9E%E6%97%B6%E4%BB%BF%E7%9C%9F%E5%BD%95%E6%B3%A2"><span class="nav-number">6.</span> <span class="nav-text">六、实时仿真录波</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpTrigger-%E8%AE%BE%E7%BD%AE"><span class="nav-number">6.1.</span> <span class="nav-text">OpTrigger 设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpWriteFile-%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="nav-number">6.2.</span> <span class="nav-text">OpWriteFile 参数配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">七、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E4%B8%8D%E5%8C%B9%E9%85%8D"><span class="nav-number">7.1.</span> <span class="nav-text">版本不匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%AD%A6%E5%91%8A"><span class="nav-number">7.2.</span> <span class="nav-text">编译警告</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/19/RT-LAB-OP4510-HIL-Configuration-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RT-LAB OP4510 半实物仿真平台配置全记录 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RT-LAB OP4510 半实物仿真平台配置全记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-19 08:40:00 / 修改时间：02:53:11" itemprop="dateCreated datePublished" datetime="2026-05-19T08:40:00+08:00">2026-05-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%B5%E6%B0%94%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">电气工程</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>半实物仿真（HIL&#x2F;RCP）是电力电子和电力系统研究中不可或缺的工具。OPAL-RT 的 OP4510 是一款性价比较高的入门级实时仿真器，但配置过程有不少坑——尤其是 MATLAB 和 RT-LAB 的版本匹配问题，经常让人头疼。</p>
+<p>本文从零开始，完整记录 OP4510 的配置和运行流程。</p>
+<span id="more"></span>
+
+<h2 id="二、MATLAB-版本和-RT-LAB-版本匹配"><a href="#二、MATLAB-版本和-RT-LAB-版本匹配" class="headerlink" title="二、MATLAB 版本和 RT-LAB 版本匹配"></a>二、MATLAB 版本和 RT-LAB 版本匹配</h2><p>这是最容易踩坑的地方。RT-LAB 对 MATLAB 版本有严格的对应关系：</p>
+<table>
+<thead>
+<tr>
+<th>RT-LAB 版本</th>
+<th>兼容的 MATLAB 版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>11.3.6</td>
+<td>R2016b</td>
+</tr>
+<tr>
+<td>24.1.1</td>
+<td>R2015b、R2021a&#x2F;b、R2022a&#x2F;b、R2023a&#x2F;b</td>
+</tr>
+</tbody></table>
+<p>几个重要经验：</p>
+<ol>
+<li><strong>MATLAB R2015b 兼容性最好</strong>——几乎所有版本的 RT-LAB 都支持它，如果做不出来，换回 R2015b 试试</li>
+<li><strong>R2024 及以上版本的 MATLAB 不再被 RT-LAB 24.1.1 支持</strong></li>
+<li><strong>下位机的 RT-LAB 版本必须和上位机一致</strong>，否则 Build 阶段会报错</li>
+</ol>
+<p>安装多个版本的 RT-LAB 不会冲突，关键是对应好 MATLAB 版本。</p>
+<h2 id="三、RT-LAB-工程创建流程"><a href="#三、RT-LAB-工程创建流程" class="headerlink" title="三、RT-LAB 工程创建流程"></a>三、RT-LAB 工程创建流程</h2><h3 id="3-1-新建工程"><a href="#3-1-新建工程" class="headerlink" title="3.1 新建工程"></a>3.1 新建工程</h3><p>打开 RT-LAB，创建一个 workspace 文件夹存放 Project。新建 Test 算例，选择 <code>empty</code> 模板。</p>
+<h3 id="3-2-导入模型"><a href="#3-2-导入模型" class="headerlink" title="3.2 导入模型"></a>3.2 导入模型</h3><p>将 Simulink 模型文件导入工程。需要注意：</p>
+<ul>
+<li>确保模型在 MATLAB 中本身运行无报错</li>
+<li>注意模型版本——高版本 MATLAB 保存的模型在低版本中可能部分器件链接不到</li>
+</ul>
+<h3 id="3-3-编译与部署流程"><a href="#3-3-编译与部署流程" class="headerlink" title="3.3 编译与部署流程"></a>3.3 编译与部署流程</h3><p>RT-LAB 的标准流程是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Edit（编辑模型）→ Set development properties（设目标平台）</span><br><span class="line">→ Build the model（编译）→ Assign targets（分配目标设备）</span><br><span class="line">→ Set execution properties（设运行模式）→ Load the model（烧写）</span><br><span class="line">→ Execute the model（运行）</span><br></pre></td></tr></table></figure>
+
+<p>每个步骤的关键配置如下：</p>
+<p><strong>Set development properties：</strong> OP4510 选择 <code>OPAL-RT Linux(x86-based)</code>。</p>
+<p><strong>Build：</strong> 编译前确认板卡信息与 OP4510 的 FPGA 对应。OP4510 使用 Xilinx Kintex-7 FPGA，Board Type 选择 <code>TE0741</code>。</p>
+<p><strong>Assign targets：</strong> 勾选 XHP，physical node 选择 OP4510。</p>
+<p><strong>Set execution properties：</strong> 如果使用了 IO 板卡，选择 <code>Hardware synchronized</code>（实时仿真模式）；如果不使用 IO 板卡，选择 <code>Software synchronized</code>。</p>
+<h2 id="四、硬件-IO-接口详解"><a href="#四、硬件-IO-接口详解" class="headerlink" title="四、硬件 IO 接口详解"></a>四、硬件 IO 接口详解</h2><h3 id="4-1-OP4510-硬件规格"><a href="#4-1-OP4510-硬件规格" class="headerlink" title="4.1 OP4510 硬件规格"></a>4.1 OP4510 硬件规格</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU 操作系统</td>
+<td>Linux REDHAT</td>
+</tr>
+<tr>
+<td>FPGA</td>
+<td>Xilinx Kintex-7</td>
+</tr>
+<tr>
+<td>最大 I&#x2F;O 通道</td>
+<td>96 路（FPGA 最高支持 132 路）</td>
+</tr>
+<tr>
+<td>采样频率</td>
+<td>200 MHz</td>
+</tr>
+<tr>
+<td>模拟量输入</td>
+<td>16 路（OP5340）</td>
+</tr>
+<tr>
+<td>模拟量输出</td>
+<td>16 路（OP5330）</td>
+</tr>
+<tr>
+<td>数字量输入</td>
+<td>32 路（OP5353）</td>
+</tr>
+<tr>
+<td>数字量输出</td>
+<td>32 路（OP5360）</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-板卡接口对应关系"><a href="#4-2-板卡接口对应关系" class="headerlink" title="4.2 板卡接口对应关系"></a>4.2 板卡接口对应关系</h3><p>OP4510 背部使用 DB37 接口：</p>
+<table>
+<thead>
+<tr>
+<th>板卡</th>
+<th>类型</th>
+<th>位置</th>
+<th>通道数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OP5353</td>
+<td>数字量输入</td>
+<td>Slot1 ModuleA（1A）</td>
+<td>32</td>
+</tr>
+<tr>
+<td>OP5360</td>
+<td>数字量输出</td>
+<td>Slot1 ModuleB（1B）</td>
+<td>32</td>
+</tr>
+<tr>
+<td>OP5330</td>
+<td>模拟量输出</td>
+<td>Slot2 ModuleB（2A）</td>
+<td>16</td>
+</tr>
+<tr>
+<td>OP5340</td>
+<td>模拟量输入</td>
+<td>Slot2 ModuleA（2B）</td>
+<td>16</td>
+</tr>
+</tbody></table>
+<p>注意：模拟量板卡只有 0<del>15 通道被使用，16</del>31 通道未被使用；数字量板卡 0~31 通道全部可用。</p>
+<h3 id="4-3-查看板卡信息的方法"><a href="#4-3-查看板卡信息的方法" class="headerlink" title="4.3 查看板卡信息的方法"></a>4.3 查看板卡信息的方法</h3><p><strong>方法一：GUI 界面</strong><br>在 OP4510 界面选择 <code>Display</code>，可查看详细的板卡信息。</p>
+<p><strong>方法二：Telnet 命令行</strong><br>通过 Telnet 连接后，输入以下命令查询：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/opalrt/common/bin/flash_update -hinfo -1</span><br></pre></td></tr></table></figure>
+
+<p>默认密码：<code>oprt935$</code></p>
+<h2 id="五、模拟量输出信号测量"><a href="#五、模拟量输出信号测量" class="headerlink" title="五、模拟量输出信号测量"></a>五、模拟量输出信号测量</h2><h3 id="5-1-FPGA-配置"><a href="#5-1-FPGA-配置" class="headerlink" title="5.1 FPGA 配置"></a>5.1 FPGA 配置</h3><p>使用 IO 板卡时，需要在 Simulink 模型中配置 FPGA 芯片信息：</p>
+<ul>
+<li><strong>OP4510</strong>（Kintex-7）：选择 TE0471 的 bin 文件</li>
+<li><strong>OP5700</strong>（Virtex-7）：选择 VC707 的 bin 文件</li>
+</ul>
+<h3 id="5-2-DB37-接口接线"><a href="#5-2-DB37-接口接线" class="headerlink" title="5.2 DB37 接口接线"></a>5.2 DB37 接口接线</h3><p>以模拟量输出为例，通过 <code>DB37-D-M</code> 接口引出信号。一个 DB37 接口有 37 个信号线 + 1 个地线。信号位置根据模型的 Mux 顺序确定，探头正极接信号，负极接地。</p>
+<h3 id="5-3-采样率"><a href="#5-3-采样率" class="headerlink" title="5.3 采样率"></a>5.3 采样率</h3><p>模拟量输出的最大采样频率为 1 MHz，示波器需要设置为 1M 采样率才能显示完整波形。</p>
+<h2 id="六、实时仿真录波"><a href="#六、实时仿真录波" class="headerlink" title="六、实时仿真录波"></a>六、实时仿真录波</h2><p>使用 <strong>OpTrigger</strong> 和 <strong>OpWriteFile</strong> 模块实现实时仿真录波。</p>
+<h3 id="OpTrigger-设置"><a href="#OpTrigger-设置" class="headerlink" title="OpTrigger 设置"></a>OpTrigger 设置</h3><p>控制录波的起始位置。采样组别（Acquisition Group）需要和 OpWriteFile 对应。</p>
+<h3 id="OpWriteFile-参数配置"><a href="#OpWriteFile-参数配置" class="headerlink" title="OpWriteFile 参数配置"></a>OpWriteFile 参数配置</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Decimation factor</td>
+<td>降采样倍数（原始采样率 &#x2F; Decimation factor）</td>
+</tr>
+<tr>
+<td>Variable name</td>
+<td>变量名，一般设为 <code>opvar</code></td>
+</tr>
+<tr>
+<td>Filename</td>
+<td>录波文件名</td>
+</tr>
+<tr>
+<td>Acquisition Group</td>
+<td>与 OpTrigger 对应</td>
+</tr>
+<tr>
+<td>File size limit</td>
+<td>文件大小限制，约 976.56 MB</td>
+</tr>
+<tr>
+<td>Buffer size</td>
+<td>需大于 <code>采样数 × (信号数 + 1) × 8</code> bytes</td>
+</tr>
+</tbody></table>
+<p><strong>Buffer size 计算示例：</strong><br>仿真步长 1e-5s，录波 10 秒，9 路信号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Buffer = 10/(5×1e-5) × 8 × 1.2 × (9+1) = 19,200,000 bytes ≈ 18.32 MB</span><br></pre></td></tr></table></figure>
+
+<p>录波的 mat 文件数据结构：首行为时间，其余为信号，顺序与进入 Mux 模块的顺序一致。</p>
+<h2 id="七、常见问题"><a href="#七、常见问题" class="headerlink" title="七、常见问题"></a>七、常见问题</h2><h3 id="版本不匹配"><a href="#版本不匹配" class="headerlink" title="版本不匹配"></a>版本不匹配</h3><p>Build 时报错，检查下位机 RT-LAB 版本是否与上位机一致。在 RT-LAB 的 Targets 下双击目标设备，在 Software 选项卡中选择对应版本并设置为 default。</p>
+<h3 id="编译警告"><a href="#编译警告" class="headerlink" title="编译警告"></a>编译警告</h3><p>如果模型是 MATLAB 高版本转低版本保存的，可能会有器件链接不到的警告，需要手动检查和修复。</p>
+<hr>
+<p>半实物仿真平台的配置门槛主要在版本匹配和 IO 配置上，按上述流程一步步走，大部分问题都能解决。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RT-LAB/" rel="tag"># RT-LAB</a>
+              <a href="/tags/OP4510/" rel="tag"># OP4510</a>
+              <a href="/tags/%E5%8D%8A%E5%AE%9E%E7%89%A9%E4%BB%BF%E7%9C%9F/" rel="tag"># 半实物仿真</a>
+              <a href="/tags/HIL/" rel="tag"># HIL</a>
+              <a href="/tags/RCP/" rel="tag"># RCP</a>
+              <a href="/tags/MATLAB/" rel="tag"># MATLAB</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/19/Git-Essential-Commands-2026/" rel="prev" title="Git 新手必备：最常用的 5 条命令就够了">
+                  <i class="fa fa-angle-left"></i> Git 新手必备：最常用的 5 条命令就够了
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/05/19/Claude-CLI-CC-Switch-Proxy-NO_PROXY-2026/" rel="next" title="Claude CLI 配置实战：CC-Switch 代理、系统代理冲突与 NO_PROXY 的坑">
+                  Claude CLI 配置实战：CC-Switch 代理、系统代理冲突与 NO_PROXY 的坑 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
