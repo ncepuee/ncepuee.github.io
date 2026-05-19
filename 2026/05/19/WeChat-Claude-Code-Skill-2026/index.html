@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、从 ClawBot 说起腾讯最近开放了 ClawBot 插件——@tencent-weixin&#x2F;openclaw-weixin。官方的意思是让大家把 OpenClaw 接进来，在微信里用 AI。 但有开发者做了另一件事：让 Claude Code 直接读取这个包的源码，把微信协议层提取出来，接上自己的 Agent。 结果就是：手机微信发一条消息，本地 Claude Code 处理完，直接把结果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在微信里直接调用 Claude Code：一个开源 Skill 的实现全记录">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/19/WeChat-Claude-Code-Skill-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、从 ClawBot 说起腾讯最近开放了 ClawBot 插件——@tencent-weixin&#x2F;openclaw-weixin。官方的意思是让大家把 OpenClaw 接进来，在微信里用 AI。 但有开发者做了另一件事：让 Claude Code 直接读取这个包的源码，把微信协议层提取出来，接上自己的 Agent。 结果就是：手机微信发一条消息，本地 Claude Code 处理完，直接把结果">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-19T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-19T15:51:36.567Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="Skills">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="WeChat">
+<meta property="article:tag" content="Superpowers">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/19/WeChat-Claude-Code-Skill-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/19/WeChat-Claude-Code-Skill-2026/","path":"2026/05/19/WeChat-Claude-Code-Skill-2026/","title":"在微信里直接调用 Claude Code：一个开源 Skill 的实现全记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在微信里直接调用 Claude Code：一个开源 Skill 的实现全记录 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BB%8E-ClawBot-%E8%AF%B4%E8%B5%B7"><span class="nav-number">1.</span> <span class="nav-text">一、从 ClawBot 说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8-Superpowers-%E7%BB%93%E6%9E%84%E5%8C%96%E5%BC%80%E5%8F%91"><span class="nav-number">2.</span> <span class="nav-text">二、用 Superpowers 结构化开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9ABrainstorming-%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4"><span class="nav-number">2.1.</span> <span class="nav-text">第一阶段：Brainstorming 头脑风暴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9AWriting-Plans-%E5%86%99%E5%AE%9E%E6%96%BD%E8%AE%A1%E5%88%92"><span class="nav-number">2.2.</span> <span class="nav-text">第二阶段：Writing Plans 写实施计划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%9ADispatching-Parallel-Agents-%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%91"><span class="nav-number">2.3.</span> <span class="nav-text">第三阶段：Dispatching Parallel Agents 并行开发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%99%85%E6%95%88%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">三、实际效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%BF%99%E4%BB%B6%E4%BA%8B%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-number">4.</span> <span class="nav-text">四、这件事的意义</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/19/WeChat-Claude-Code-Skill-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在微信里直接调用 Claude Code：一个开源 Skill 的实现全记录 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在微信里直接调用 Claude Code：一个开源 Skill 的实现全记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-19 23:00:00 / 修改时间：23:51:36" itemprop="dateCreated datePublished" datetime="2026-05-19T23:00:00+08:00">2026-05-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">AI技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、从-ClawBot-说起"><a href="#一、从-ClawBot-说起" class="headerlink" title="一、从 ClawBot 说起"></a>一、从 ClawBot 说起</h2><p>腾讯最近开放了 ClawBot 插件——<code>@tencent-weixin/openclaw-weixin</code>。官方的意思是让大家把 OpenClaw 接进来，在微信里用 AI。</p>
+<p>但有开发者做了另一件事：让 Claude Code 直接读取这个包的源码，把微信协议层提取出来，接上自己的 Agent。</p>
+<p><strong>结果就是：手机微信发一条消息，本地 Claude Code 处理完，直接把结果发回微信。</strong> 不需要 OpenClaw Gateway，不需要公网 IP，不需要域名，本地跑一个 Node.js 进程就够了。</p>
+<p>项目已开源：<a target="_blank" rel="noopener" href="https://github.com/Wechat-ggGitHub/wechat-claude-code">https://github.com/Wechat-ggGitHub/wechat-claude-code</a></p>
+<span id="more"></span>
+
+<h2 id="二、用-Superpowers-结构化开发"><a href="#二、用-Superpowers-结构化开发" class="headerlink" title="二、用 Superpowers 结构化开发"></a>二、用 Superpowers 结构化开发</h2><p>整个过程用了一个叫 <strong>Superpowers</strong> 的框架。它是 GitHub 上一个给 Claude Code 用的 Skill 框架，10 万 Star，热度很高。</p>
+<p>Superpowers 的核心思路：不让 AI 随便写代码，而是按一套结构化的开发流程来——先头脑风暴想清楚，再写计划，最后并行开发。这次主要用了三个 Skill：</p>
+<h3 id="第一阶段：Brainstorming-头脑风暴"><a href="#第一阶段：Brainstorming-头脑风暴" class="headerlink" title="第一阶段：Brainstorming 头脑风暴"></a>第一阶段：Brainstorming 头脑风暴</h3><p>先让 Claude Code 去读 <code>@tencent-weixin/openclaw-weixin</code> 包的源码，分析协议层的每个细节：</p>
+<ul>
+<li>认证流程是怎样的</li>
+<li>消息格式长什么样</li>
+<li>长轮询的超时机制</li>
+<li>加解密的密钥怎么管理</li>
+</ul>
+<p>讨论下来，方案基本确定：从包里提取微信协议层，把 OpenClaw 的消息处理逻辑替换掉，改成调用 Claude Agent SDK，用 <code>query()</code> 方法把消息发给 Claude Code，把流式返回的结果发回微信。</p>
+<p>一个关键细节：<strong>整个过程中 Claude Code 不只是执行者，它会主动提出问题、挑战想法。</strong> 比如它问过：</p>
+<ul>
+<li>用基于 OpenClaw 的方案还是不基于 Gateway，自己做？</li>
+<li>要不要支持输入斜杠命令？</li>
+<li>如果涉及到授权，能不能用 yes&#x2F;no 来控制？</li>
+</ul>
+<p>这些问题帮助提前想清楚了很多边界情况。</p>
+<h3 id="第二阶段：Writing-Plans-写实施计划"><a href="#第二阶段：Writing-Plans-写实施计划" class="headerlink" title="第二阶段：Writing Plans 写实施计划"></a>第二阶段：Writing Plans 写实施计划</h3><p>头脑风暴完了，方案清晰后，让 Claude Code 写了一份详细的实施计划，把整个项目拆成了十几个模块，每个模块都有具体的代码模板和接口定义。</p>
+<p>哪些可以并行做、哪些必须串行，都标得清清楚楚。</p>
+<p>计划包含的模块：</p>
+<ul>
+<li>微信协议层</li>
+<li>加解密处理</li>
+<li>媒体文件处理</li>
+<li>会话管理</li>
+<li>命令路由</li>
+<li>权限审批</li>
+</ul>
+<h3 id="第三阶段：Dispatching-Parallel-Agents-并行开发"><a href="#第三阶段：Dispatching-Parallel-Agents-并行开发" class="headerlink" title="第三阶段：Dispatching Parallel Agents 并行开发"></a>第三阶段：Dispatching Parallel Agents 并行开发</h3><p>这一步是整个流程里最爽的。Claude Code 同时派出多个 Agent，各自负责不同的模块。微信协议层、Claude SDK 对接、会话管理、命令路由——这些没有依赖关系的模块全部同时开工。</p>
+<p>Agent 之间通过共享的接口定义协作，不用等一个写完另一个才能开始。</p>
+<p><strong>最终 15 个模块全部编译通过。</strong></p>
+<h2 id="三、实际效果"><a href="#三、实际效果" class="headerlink" title="三、实际效果"></a>三、实际效果</h2><p>第一次使用会弹出一个二维码，微信扫描后完成绑定。之后：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">手机微信发消息 → HTTP 长轮询到本地 Node.js 进程</span><br><span class="line">→ Claude Agent SDK → Claude Code 处理</span><br><span class="line">→ 结果发回微信</span><br></pre></td></tr></table></figure>
+
+<p>不需要公网 IP，不需要域名，本地电脑跑着就行。macOS 上用 <code>launchd</code> 管理守护进程，开机自动启动。</p>
+<p>你可以在地铁上用手机给 Claude Code 派个活，等到了公司，活已经干完了。</p>
+<h2 id="四、这件事的意义"><a href="#四、这件事的意义" class="headerlink" title="四、这件事的意义"></a>四、这件事的意义</h2><p>微信开放 ClawBot 插件，官方的意思是让大家把 OpenClaw 接进来。但底层协议是可以被读取的，这意味着：</p>
+<p><strong>微信 AI 的入口不只有 OpenClaw 一条路，任何 Agent 照着写对接层都能进。</strong></p>
+<p>如果你也想自己搭一套，整个流程可以直接用 Claude Code 口喷完成，需要做的只有审核和批准。</p>
+<p>这背后更值得关注的是 <strong>Superpowers 这类 Skill 框架</strong>的价值——它把 AI 辅助编程从”随便写代码”升级为”结构化工程开发”：先充分讨论、再制定计划、最后并行执行。当 AI 能主动提问、拆解模块、协同多个 Agent 并行开发时，开发效率的提升是指数级的。</p>
+<hr>
+<p><em>本文内容整理自微信公众号文章，项目开源地址：<a target="_blank" rel="noopener" href="https://github.com/Wechat-ggGitHub/wechat-claude-code">https://github.com/Wechat-ggGitHub/wechat-claude-code</a></em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Skills/" rel="tag"># Skills</a>
+              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/tags/Agent/" rel="tag"># Agent</a>
+              <a href="/tags/WeChat/" rel="tag"># WeChat</a>
+              <a href="/tags/Superpowers/" rel="tag"># Superpowers</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/19/Anthropic-Skills-Whitepaper-Deep-Dive-2026/" rel="prev" title="Anthropic Skills 白皮书深度解读：Prompt 已死，Skill 当立">
+                  <i class="fa fa-angle-left"></i> Anthropic Skills 白皮书深度解读：Prompt 已死，Skill 当立
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
