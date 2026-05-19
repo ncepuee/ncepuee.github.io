@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言最近某机构对智谱 AI 做了一次深度专家访谈，内容涉及 GLM-5 的技术演进、算力分配策略、与 DeepSeek&#x2F;Kimi 的竞争格局、出海挑战、国产芯片等多个核心议题。信息密度很高，值得详细梳理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智谱AI 专家访谈深度解读：GLM-5、算力博弈与国内AI竞争格局">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/20/ZhipuAI-Expert-Interview-Deep-Dive-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="前言最近某机构对智谱 AI 做了一次深度专家访谈，内容涉及 GLM-5 的技术演进、算力分配策略、与 DeepSeek&#x2F;Kimi 的竞争格局、出海挑战、国产芯片等多个核心议题。信息密度很高，值得详细梳理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-20T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-19T16:35:19.729Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="智谱AI">
+<meta property="article:tag" content="GLM-5">
+<meta property="article:tag" content="AI竞争">
+<meta property="article:tag" content="算力">
+<meta property="article:tag" content="DeepSeek">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/20/ZhipuAI-Expert-Interview-Deep-Dive-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/20/ZhipuAI-Expert-Interview-Deep-Dive-2026/","path":"2026/05/20/ZhipuAI-Expert-Interview-Deep-Dive-2026/","title":"智谱AI 专家访谈深度解读：GLM-5、算力博弈与国内AI竞争格局"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>智谱AI 专家访谈深度解读：GLM-5、算力博弈与国内AI竞争格局 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81GLM-5-%E7%9A%84-Agent-%E5%92%8C-Coding-%E8%83%BD%E5%8A%9B%E4%B8%BA%E4%BB%80%E4%B9%88%E7%AA%81%E7%84%B6%E5%BC%BA%E4%BA%86%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">一、GLM-5 的 Agent 和 Coding 能力为什么突然强了？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%80%E4%B8%AA%E6%9C%88%E8%BF%AD%E4%BB%A3%E4%B8%80%E4%BB%A3%EF%BC%8C%E8%AE%AD%E7%BB%83%E5%91%A8%E6%9C%9F%E7%9C%9F%E9%82%A3%E4%B9%88%E7%9F%AD%E5%90%97%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">二、一个月迭代一代，训练周期真那么短吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%92%B8%E9%A6%8F%E8%BF%98%E6%9C%89%E7%94%A8%E5%90%97%EF%BC%9FAnthropic-%E5%8A%A0%E5%BC%BA%E7%AE%A1%E6%8E%A7%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">4.</span> <span class="nav-text">三、蒸馏还有用吗？Anthropic 加强管控怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%AE%97%E5%8A%9B%E5%88%86%E9%85%8D%EF%BC%9A%E6%B2%A1%E6%9C%89%E5%9B%BA%E5%AE%9A%E6%AF%94%E4%BE%8B%EF%BC%8C%E5%85%A8%E6%98%AF%E5%8A%A8%E6%80%81%E8%B0%83%E5%BA%A6"><span class="nav-number">5.</span> <span class="nav-text">四、算力分配：没有固定比例，全是动态调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%9C%AA%E6%9D%A5%E7%AE%97%E5%8A%9B%EF%BC%9A%E5%9B%A4%E5%8D%A1%E8%BF%98%E6%98%AF%E7%9B%B8%E4%BF%A1%E6%8A%80%E6%9C%AF%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">五、未来算力：囤卡还是相信技术？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%9B%BD%E5%86%85%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80%EF%BC%9A%E7%AC%AC%E4%B8%80%E6%A2%AF%E9%98%9F%E6%80%8E%E4%B9%88%E6%8E%92"><span class="nav-number">7.</span> <span class="nav-text">六、国内竞争格局：第一梯队怎么排</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%A2%AF%E9%98%9F%EF%BC%88%E5%90%84%E6%9C%89%E7%89%B9%E8%89%B2%EF%BC%89"><span class="nav-number">7.1.</span> <span class="nav-text">第一梯队（各有特色）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81DeepSeek-%E7%9A%84%E4%BD%8E%E4%BB%B7%E7%AD%96%E7%95%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%AB%E4%BA%BA%E5%AD%A6%E4%B8%8D%E6%9D%A5%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">七、DeepSeek 的低价策略为什么别人学不来？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81to-C-%E5%B8%82%E5%9C%BA%EF%BC%9A%E8%B1%86%E5%8C%85%E9%A2%86%E5%85%88%E4%BD%86%E6%88%98%E4%BA%89%E8%BF%98%E6%B2%A1%E5%BC%80%E5%A7%8B"><span class="nav-number">9.</span> <span class="nav-text">八、to C 市场：豆包领先但战争还没开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%87%BA%E6%B5%B7%EF%BC%9A%E8%A7%84%E6%A8%A1%E5%8C%96%E7%9A%84%E7%8E%BB%E7%92%83%E5%A4%A9%E8%8A%B1%E6%9D%BF"><span class="nav-number">10.</span> <span class="nav-text">九、出海：规模化的玻璃天花板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E5%9B%BD%E4%BA%A7%E6%8E%A8%E7%90%86%E8%8A%AF%E7%89%87%EF%BC%9A%E8%83%BD%E6%9B%BF%E4%BB%A3-H200%EF%BC%8C%E4%BD%86%E6%9B%BF%E4%BB%A3%E4%B8%8D%E4%BA%86-Blackwell"><span class="nav-number">11.</span> <span class="nav-text">十、国产推理芯片：能替代 H200，但替代不了 Blackwell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E7%AB%9E%E4%BA%89%E7%AD%96%E7%95%A5%EF%BC%9A%E4%BA%A4%E6%9B%BF%E9%A2%86%E5%85%88%E4%B8%AD%E7%9A%84%E5%B7%AE%E5%BC%82%E5%8C%96"><span class="nav-number">12.</span> <span class="nav-text">十一、竞争策略：交替领先中的差异化</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/20/ZhipuAI-Expert-Interview-Deep-Dive-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="智谱AI 专家访谈深度解读：GLM-5、算力博弈与国内AI竞争格局 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          智谱AI 专家访谈深度解读：GLM-5、算力博弈与国内AI竞争格局
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-20 08:00:00 / 修改时间：00:35:19" itemprop="dateCreated datePublished" datetime="2026-05-20T08:00:00+08:00">2026-05-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">AI技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近某机构对智谱 AI 做了一次深度专家访谈，内容涉及 GLM-5 的技术演进、算力分配策略、与 DeepSeek&#x2F;Kimi 的竞争格局、出海挑战、国产芯片等多个核心议题。信息密度很高，值得详细梳理。</p>
+<span id="more"></span>
+
+<h2 id="一、GLM-5-的-Agent-和-Coding-能力为什么突然强了？"><a href="#一、GLM-5-的-Agent-和-Coding-能力为什么突然强了？" class="headerlink" title="一、GLM-5 的 Agent 和 Coding 能力为什么突然强了？"></a>一、GLM-5 的 Agent 和 Coding 能力为什么突然强了？</h2><p>智谱的 Agent 和 Coding 能力从 GLM-4.5 开始就一直很强，至少是业界最强之一。</p>
+<p>关键时间线：</p>
+<ul>
+<li><strong>GLM-4.5 阶段</strong>：确立了 <strong>ARC 战略</strong>——Agentic、Reasoning、Coding 三大方向同时投入</li>
+<li><strong>2025年9月</strong>：率先推出 Coding Plan，在 GLM-4.6 中进一步发展</li>
+<li><strong>GLM-4.7</strong>：Coding 能力发挥到极致，业界口碑达到高峰，但也基本耗尽了当时的算力资源</li>
+<li><strong>2026年</strong>：GLM-5 和 GLM-5.1 等 5.x 系列问世，模型尺寸更大，相对实力更强</li>
+</ul>
+<p>过程中有一个有趣的反思：<strong>Reasoning 的直接经济价值有限，Agentic 在很长一段时间内找不到合适的应用场景</strong>，最后逐渐与 Coding 融合。2025 年下半年，公司的主要方向变成了 Agentic Coding，与 Claude Code 等产品结合。</p>
+<h2 id="二、一个月迭代一代，训练周期真那么短吗？"><a href="#二、一个月迭代一代，训练周期真那么短吗？" class="headerlink" title="二、一个月迭代一代，训练周期真那么短吗？"></a>二、一个月迭代一代，训练周期真那么短吗？</h2><p>外界看到一个月发布一代，以为训练周期就是一个月。<strong>实际上多条研发线路是并行推进的。</strong> GLM-5 的训练在 GLM-4.7 还没退役时就开始了。</p>
+<p>模型团队花费最长的时间不是训练，而是 **”观察”**。智谱的强项在于抓住市场机会的能力——通过深入观察市场风向、评测结果，判断哪些模型表现稳固、哪个技术方向代表未来趋势，从而在研发上少走弯路。</p>
+<p><strong>当前 GLM-5 的水平</strong>：比较接近 Claude Sonnet 4.6，但存在明显短板（例如缺乏多模态能力）。可以看作一个稍弱化的 Sonnet 4.6：</p>
+<ul>
+<li>从 benchmark 评测看，差距约 <strong>4 个月</strong></li>
+<li>从底层技术扎实程度看，差距约 <strong>6 个月</strong></li>
+</ul>
+<h2 id="三、蒸馏还有用吗？Anthropic-加强管控怎么办"><a href="#三、蒸馏还有用吗？Anthropic-加强管控怎么办" class="headerlink" title="三、蒸馏还有用吗？Anthropic 加强管控怎么办"></a>三、蒸馏还有用吗？Anthropic 加强管控怎么办</h2><p>蒸馏在模型整体能力中的占比正在持续降低。</p>
+<p>关键认知：<strong>蒸馏的核心作用不是赋予模型核心能力，而是让模型在 Code 或 Coding Agent 等场景下的表现风格与 Claude 等顶尖模型相似。</strong></p>
+<p>当前业界模型能力的提升（如 DeepSeek），主要还是靠架构创新、预训练和强化学习。智谱发布的 SFT-Bench Pro 能拿到 SOTA 成绩，主要靠的就是强化学习，而不是蒸馏。</p>
+<p>至于应对 Anthropic 等公司的监管，这类操作通常不是模型公司直接做的，而是通过第三方执行——背后有利益驱动。</p>
+<h2 id="四、算力分配：没有固定比例，全是动态调度"><a href="#四、算力分配：没有固定比例，全是动态调度" class="headerlink" title="四、算力分配：没有固定比例，全是动态调度"></a>四、算力分配：没有固定比例，全是动态调度</h2><p>算力分配比例变动非常剧烈，没有固定的训练&#x2F;推理占比。</p>
+<p><strong>DeepSeek 的新架构可以将 FLOPs 降低到原先的十分之一</strong>，这会显著减轻推理端压力，从而把更多资源重新分配给训练。没有技术突破就只能靠堆资源，有了技术突破则可以回收资源。</p>
+<p><strong>潮汐调度</strong>：智谱将算力资源池化管理。推理负载在凌晨等低谷期有空闲，这些算力会被调度给训练任务。一个集群的启停大约只需半小时，而夜间的闲时窗口通常有 8-10 小时，能被高效利用。</p>
+<p>模式总结：优先保障线上服务，空闲资源全部投入训练。</p>
+<h2 id="五、未来算力：囤卡还是相信技术？"><a href="#五、未来算力：囤卡还是相信技术？" class="headerlink" title="五、未来算力：囤卡还是相信技术？"></a>五、未来算力：囤卡还是相信技术？</h2><p>这是一个核心博弈。</p>
+<ul>
+<li><strong>如果相信技术创新</strong> → 更多资源投入到人才储备和 Infra 团队，通过提升训练效率来弥补算力不足</li>
+<li><strong>如果判断技术不会有重大突破</strong> → 最理性的选择就是囤积计算卡</li>
+</ul>
+<p>作为一家初创公司，<strong>智谱更倾向于相信技术的力量</strong>——因为与资金雄厚的大厂相比，智谱无法在囤积算力上进行竞争。算力储备策略本质上是一种多方博弈，很难精确预测。</p>
+<p>用于训练的算力预计不会下降，反而可能投入更多。市场和资本对 AI 公司的估值主要基于其产品能力和技术领先性，持续推出领先的大模型是根本，这需要遵循 Scaling Law。</p>
+<h2 id="六、国内竞争格局：第一梯队怎么排"><a href="#六、国内竞争格局：第一梯队怎么排" class="headerlink" title="六、国内竞争格局：第一梯队怎么排"></a>六、国内竞争格局：第一梯队怎么排</h2><p>根据访谈，国内模型厂商的梯队划分如下：</p>
+<h3 id="第一梯队（各有特色）"><a href="#第一梯队（各有特色）" class="headerlink" title="第一梯队（各有特色）"></a>第一梯队（各有特色）</h3><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>优势</th>
+<th>短板</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>DeepSeek</strong></td>
+<td>模型参数量大，世界知识强，前端体验好</td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>Kimi</strong></td>
+<td>模型参数量大，审美较好</td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>智谱AI</strong></td>
+<td><strong>Coding + Agent 能力独一档</strong>，深度结合最好</td>
+<td>模型参数量相对小，多模态较弱</td>
+</tr>
+</tbody></table>
+<p>关键判断：<strong>如果抛开模型大小，仅从对特定场景的钻研深度和数据储备来看，智谱在 Coding 技术上是独一档的。</strong></p>
+<p>第四名是小米的 MiMo，但与前三者有档次差距。千问、混元等模型在其后。MiniMax 应归入第二梯队，其模型能力不佳主要是因为模型尺寸过小，但这不反映团队实力。</p>
+<h2 id="七、DeepSeek-的低价策略为什么别人学不来？"><a href="#七、DeepSeek-的低价策略为什么别人学不来？" class="headerlink" title="七、DeepSeek 的低价策略为什么别人学不来？"></a>七、DeepSeek 的低价策略为什么别人学不来？</h2><p>DeepSeek 是一家 <strong>纯粹的 to C 企业</strong>，其商业模式有几个其他厂商无法模仿的特点：</p>
+<ol>
+<li><strong>不维护旧版本模型</strong>——直接淘汰 V3.1、V3.2 等旧版本，资源管理效率极高</li>
+<li><strong>不提供 to B 的 SLA</strong>——没有服务等级协议和稳定性保障义务</li>
+</ol>
+<p>相比之下，智谱 AI 等商业服务机构无法瞬间关停上一代模型，必须为企业客户保留旧版本。因此尽管其他厂商可能认同 DeepSeek 模式在毛利上的潜力，但由于自身商业定位的不同而无法采纳。</p>
+<p>DeepSeek 正在以一个独立商业主体的身份深入思考其发展路径，所有商业行为均以自身盈利为目标——**它不是一个不计成本的”玩具”**。</p>
+<h2 id="八、to-C-市场：豆包领先但战争还没开始"><a href="#八、to-C-市场：豆包领先但战争还没开始" class="headerlink" title="八、to C 市场：豆包领先但战争还没开始"></a>八、to C 市场：豆包领先但战争还没开始</h2><p>尽管豆包在 2026 年春节后用户数增长显著，呈现一边倒态势，但这并不意味着 to C 市场的战役已经结束——<strong>甚至可以说战争尚未开始</strong>。</p>
+<p>关键原因：<strong>当前所有厂商都未进入收费阶段</strong>，尚未形成经济正循环，仍处于”军备竞赛”的准备阶段。</p>
+<p>AI 行业与传统互联网存在根本不同：<strong>没有规模效应</strong>。用户越多，单位服务成本反而可能越高——集群规模变大导致网络通信更复杂，GPU 优化也更困难。</p>
+<p>这意味着：在军备竞赛中领先的赢家，在战争真正打响（开始收费）时，也可能因为高昂的成本而亏损最快。</p>
+<h2 id="九、出海：规模化的玻璃天花板"><a href="#九、出海：规模化的玻璃天花板" class="headerlink" title="九、出海：规模化的玻璃天花板"></a>九、出海：规模化的玻璃天花板</h2><p>中国大模型厂商出海面临规模化的巨大困难。当收入规模达到 10 亿以上时，会直接面对持有美国许可证的供应商（拥有充足的 B 卡算力和政府关系优势）。</p>
+<p>大模型作为政治敏感性技术，海外大型机构客户采用时非常谨慎：</p>
+<ul>
+<li>阿里云海外总部设在新加坡，公有云可覆盖散户，但服务大型机构仍遇障碍</li>
+<li>海外大客户会使用开源模型进行评估和 know-how 积累，<strong>但不会用于核心业务</strong></li>
+<li>出海更多是间接的品牌建设行为，提升国内口碑</li>
+</ul>
+<h2 id="十、国产推理芯片：能替代-H200，但替代不了-Blackwell"><a href="#十、国产推理芯片：能替代-H200，但替代不了-Blackwell" class="headerlink" title="十、国产推理芯片：能替代 H200，但替代不了 Blackwell"></a>十、国产推理芯片：能替代 H200，但替代不了 Blackwell</h2><p>华为昇腾 910B 对标的是英伟达 H200，主要作用是弥补 H200 在中国市场的缺位。</p>
+<p>但它无法替代英伟达 <strong>Blackwell 系列（B 系列）</strong>：</p>
+<ul>
+<li>H 系列推理智谱 AI 这类模型，速度很难超过 <strong>50 token&#x2F;s</strong></li>
+<li>B 系列推理 DeepSeek 的 FP4 模型可达 <strong>150 token&#x2F;s</strong></li>
+</ul>
+<p>是否采购国产芯片，取决于未来市场对何种类型算力的具体需求。如果应用场景对推理性能和吞吐量极为敏感，B 系列仍是首选。</p>
+<p>另外，海外用户对推理速度的敏感度远高于国内用户。海外主流厂商已开始采用 B300 级别芯片，中国用户可以接受的响应速度在海外可能被认为是无法忍受的。</p>
+<h2 id="十一、竞争策略：交替领先中的差异化"><a href="#十一、竞争策略：交替领先中的差异化" class="headerlink" title="十一、竞争策略：交替领先中的差异化"></a>十一、竞争策略：交替领先中的差异化</h2><p>行业内的领先地位是交替变化的。各家厂商的优缺点都非常明显，制约点也多。</p>
+<p>即使业内人士也难以预测”5 月 1 日”之后行业会发生什么。<strong>整个行业的发展路径并非按预定计划进行</strong>——一个微小的观察或事件都可能导致公司放弃原有方向、调整战略，这种变化每天都在发生。</p>
+<p>在当前竞争格局下，<strong>差异化路线</strong>是关键。智谱的传统优势在于模型与 Coding 及 Agent 能力的深度结合，这是它的护城河。</p>
+<hr>
+<p><em>本文内容整理自某机构对智谱AI的专家访谈纪要，仅供参考。</em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Agent/" rel="tag"># Agent</a>
+              <a href="/tags/%E6%99%BA%E8%B0%B1AI/" rel="tag"># 智谱AI</a>
+              <a href="/tags/GLM-5/" rel="tag"># GLM-5</a>
+              <a href="/tags/AI%E7%AB%9E%E4%BA%89/" rel="tag"># AI竞争</a>
+              <a href="/tags/%E7%AE%97%E5%8A%9B/" rel="tag"># 算力</a>
+              <a href="/tags/DeepSeek/" rel="tag"># DeepSeek</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/19/WeChat-Claude-Code-Skill-2026/" rel="prev" title="在微信里直接调用 Claude Code：一个开源 Skill 的实现全记录">
+                  <i class="fa fa-angle-left"></i> 在微信里直接调用 Claude Code：一个开源 Skill 的实现全记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
