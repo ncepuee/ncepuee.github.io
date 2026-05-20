@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言奇异值分解（SVD）这个名字在线性代数中的迷惑程度和特征值并列，仅次于相似和合同变换。你可能会问：已经有特征值分解了，为什么还要搞一个更复杂的奇异值分解？矩阵好好的，哪里就”奇异”了呢？为什么非要把一个矩阵拆成 U·Σ·Vᵀ 三个矩阵的乘积？ 答案很简单：SVD 是线性代数的超级节点，串联起了线性组合、基底、特征值等所有内容。搞懂它，你对矩阵的理解将会产生质变。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="彻底搞懂 SVD！矩阵究竟怎么就奇异了？">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/20/SVD-Matrix-Singular-Value-Decomposition-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="前言奇异值分解（SVD）这个名字在线性代数中的迷惑程度和特征值并列，仅次于相似和合同变换。你可能会问：已经有特征值分解了，为什么还要搞一个更复杂的奇异值分解？矩阵好好的，哪里就”奇异”了呢？为什么非要把一个矩阵拆成 U·Σ·Vᵀ 三个矩阵的乘积？ 答案很简单：SVD 是线性代数的超级节点，串联起了线性组合、基底、特征值等所有内容。搞懂它，你对矩阵的理解将会产生质变。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-20T02:30:00.000Z">
+<meta property="article:modified_time" content="2026-05-20T15:21:03.318Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="线性代数">
+<meta property="article:tag" content="SVD">
+<meta property="article:tag" content="矩阵分解">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/20/SVD-Matrix-Singular-Value-Decomposition-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/20/SVD-Matrix-Singular-Value-Decomposition-2026/","path":"2026/05/20/SVD-Matrix-Singular-Value-Decomposition-2026/","title":"彻底搞懂 SVD！矩阵究竟怎么就奇异了？"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>彻底搞懂 SVD！矩阵究竟怎么就奇异了？ | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81SVD-%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%EF%BC%9A%E6%97%8B%E8%BD%AC-%E2%86%92-%E4%BC%B8%E7%BC%A9-%E2%86%92-%E6%91%86%E6%94%BE"><span class="nav-number">2.</span> <span class="nav-text">一、SVD 的几何意义：旋转 → 伸缩 → 摆放</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9AV%E1%B5%80%EF%BC%88%E6%97%8B%E8%BD%AC-%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">第一步：Vᵀ（旋转&#x2F;坐标变换）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%CE%A3%EF%BC%88%E4%BC%B8%E7%BC%A9%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">第二步：Σ（伸缩）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9AU%EF%BC%88%E6%91%86%E6%94%BE%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">第三步：U（摆放）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E7%90%86%E8%A7%A3"><span class="nav-number">2.4.</span> <span class="nav-text">可视化理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%A5%87%E5%BC%82%E5%80%BC%E7%9A%84%E6%B7%B1%E5%88%BB%E5%90%AB%E4%B9%89"><span class="nav-number">3.</span> <span class="nav-text">二、奇异值的深刻含义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9D%E5%A5%87%E5%BC%82%E2%80%9D%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">什么是”奇异”？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%87%E5%BC%82%E5%80%BC%E4%B8%8E%E7%A7%A9"><span class="nav-number">3.2.</span> <span class="nav-text">奇异值与秩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%9F%A9%E9%98%B5%E7%9A%84%E8%B0%B1%EF%BC%88Spectrum%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">三、矩阵的谱（Spectrum）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81SVD-%E4%B8%8E%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">四、SVD 与特征值分解的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81SVD-%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">五、SVD 的计算方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%BB%8F%E5%85%B8%E5%BA%94%E7%94%A8%EF%BC%9A%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9"><span class="nav-number">7.</span> <span class="nav-text">六、经典应用：图像压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A9%AC%E8%B5%9B%E5%85%8B%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">7.1.</span> <span class="nav-text">马赛克的本质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">核心要点总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/20/SVD-Matrix-Singular-Value-Decomposition-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="彻底搞懂 SVD！矩阵究竟怎么就奇异了？ | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          彻底搞懂 SVD！矩阵究竟怎么就奇异了？
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-20 10:30:00 / 修改时间：23:21:03" itemprop="dateCreated datePublished" datetime="2026-05-20T10:30:00+08:00">2026-05-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">数学基础</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>奇异值分解（SVD）这个名字在线性代数中的迷惑程度和特征值并列，仅次于相似和合同变换。你可能会问：已经有特征值分解了，为什么还要搞一个更复杂的奇异值分解？矩阵好好的，哪里就”奇异”了呢？为什么非要把一个矩阵拆成 <strong>U·Σ·Vᵀ</strong> 三个矩阵的乘积？</p>
+<p>答案很简单：<strong>SVD 是线性代数的超级节点</strong>，串联起了线性组合、基底、特征值等所有内容。搞懂它，你对矩阵的理解将会产生质变。</p>
+<span id="more"></span>
+
+<h2 id="一、SVD-的几何意义：旋转-→-伸缩-→-摆放"><a href="#一、SVD-的几何意义：旋转-→-伸缩-→-摆放" class="headerlink" title="一、SVD 的几何意义：旋转 → 伸缩 → 摆放"></a>一、SVD 的几何意义：旋转 → 伸缩 → 摆放</h2><p>SVD 的核心公式：$$A &#x3D; U \Sigma V^T$$</p>
+<p>任何矩阵 A（无论方阵还是长方阵、可逆还是不可逆）对空间的作用，都可以精确分解为三步：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入空间 ──[Vᵀ]──→ 坐标空间 ──[Σ]──→ 坐标空间 ──[U]──→ 输出空间</span><br><span class="line">          旋转/坐标变换      伸缩            摆放</span><br></pre></td></tr></table></figure>
+
+<h3 id="第一步：Vᵀ（旋转-坐标变换）"><a href="#第一步：Vᵀ（旋转-坐标变换）" class="headerlink" title="第一步：Vᵀ（旋转&#x2F;坐标变换）"></a>第一步：Vᵀ（旋转&#x2F;坐标变换）</h3><p>在<strong>输入空间</strong>建立 V 坐标系（正交坐标系，每个列向量长度为 1）。Vᵀ 乘以向量 x 就是将其在 V 坐标系下分解成坐标。</p>
+<p>正交矩阵的神奇性质在于，左乘 Vᵀ 将向量转为坐标，左乘 V 则将坐标重组为向量——互为逆操作。因为 V 的列向量两两垂直且长度为 1，向量与某个轴的单位向量做内积，就能直接得到这个轴的线性组合系数。</p>
+<h3 id="第二步：Σ（伸缩）"><a href="#第二步：Σ（伸缩）" class="headerlink" title="第二步：Σ（伸缩）"></a>第二步：Σ（伸缩）</h3><p>Σ 是对角矩阵，只有对角线有非零元素 σ₁, σ₂, … 称为<strong>奇异值</strong>。它的效果是沿坐标轴方向分别伸缩 σᵢ 倍。</p>
+<h3 id="第三步：U（摆放）"><a href="#第三步：U（摆放）" class="headerlink" title="第三步：U（摆放）"></a>第三步：U（摆放）</h3><p>在<strong>输出空间</strong>建立 U 坐标系（同样正交），把伸缩后的坐标”拎起来”，对准 U 坐标系”拍下去”，得到最终的 Ax。</p>
+<h3 id="可视化理解"><a href="#可视化理解" class="headerlink" title="可视化理解"></a>可视化理解</h3><p>想象一个标准坐标系里的圆形滑稽脸：</p>
+<ol>
+<li>Vᵀ 作用：建立新坐标系，滑稽脸跟着旋转</li>
+<li>Σ 作用：沿 V₁ 方向拉长 σ₁ 倍，V₂ 方向压缩 σ₂ 倍 → 圆形变成椭圆</li>
+<li>U 作用：把椭圆在输出空间重新摆放</li>
+</ol>
+<p><strong>关键规律：</strong> U₁ 永远对应 V₁ 方向，U₂ 永远对应 V₂ 方向，一一对应。</p>
+<h2 id="二、奇异值的深刻含义"><a href="#二、奇异值的深刻含义" class="headerlink" title="二、奇异值的深刻含义"></a>二、奇异值的深刻含义</h2><h3 id="什么是”奇异”？"><a href="#什么是”奇异”？" class="headerlink" title="什么是”奇异”？"></a>什么是”奇异”？</h3><p>奇异（Singular）在数学中意味着「在这个位置失去一般性 &#x2F; 没有定义 &#x2F; 不可逆」。</p>
+<p>举个例子：如果 σ₂ &#x3D; 0，所有点的第二个坐标都乘以 0，整个滑稽脸被压成一条线——无法逆向唯一还原，因为一条线上的多个点被压缩到了同一位置。</p>
+<p><strong>结论：只要有任何一个奇异值为 0，矩阵就不可逆。</strong></p>
+<h3 id="奇异值与秩"><a href="#奇异值与秩" class="headerlink" title="奇异值与秩"></a>奇异值与秩</h3><p><strong>非零奇异值的个数 &#x3D; 矩阵的秩 &#x3D; 列空间的维数</strong>。输入空间在这些维度上还有信息分布。</p>
+<p>但秩有一个”神经质”的问题：考虑两个矩阵——</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A  = |1   1  |  两列共线，秩 = 1</span><br><span class="line">     |1   1  |</span><br><span class="line"></span><br><span class="line">A&#x27; = |1     1    |  秩 = 2，但几乎奇异</span><br><span class="line">     |1  1.001|</span><br></pre></td></tr></table></figure>
+
+<p>A 和 A’ 几乎相同，但秩一个是 1，一个是 2。A’ 理论上可逆，但求逆会非常病态（稍微扰动就跑偏十万八千里）。在有扰动的现实世界，我们很难找到严格不可逆的矩阵，但很多矩阵”几乎奇异”。</p>
+<p>这就是 SVD 不可替代的原因——它不仅仅告诉你”是否奇异”，还告诉你”有多奇异”。</p>
+<h2 id="三、矩阵的谱（Spectrum）"><a href="#三、矩阵的谱（Spectrum）" class="headerlink" title="三、矩阵的谱（Spectrum）"></a>三、矩阵的谱（Spectrum）</h2><p>把所有奇异值由大到小排列，这个单调下降的数列叫做<strong>矩阵的谱</strong>。就像物质元素的光谱一样，矩阵的谱告诉我们：哪些维度被拉长、哪些被压缩，倍数分别是多少。</p>
+<p>相比之下，秩只是统计有多少个奇异值严格不等于 0，显得非常粗糙。工程应用中动辄成千上万维度的矩阵，不可能用”瞪眼法”判断是否”几乎奇异”，必须用 SVD 分析谱。</p>
+<h2 id="四、SVD-与特征值分解的关系"><a href="#四、SVD-与特征值分解的关系" class="headerlink" title="四、SVD 与特征值分解的关系"></a>四、SVD 与特征值分解的关系</h2><p>SVD 的一个漂亮副产品是揭示了 AᵀA 和 AAᵀ 的深层结构：</p>
+<p>$$A^TA &#x3D; V \Sigma^T U^T \cdot U \Sigma V^T &#x3D; V \Sigma^2 V^T$$</p>
+<p><strong>这意味着：</strong></p>
+<ul>
+<li>V 的列向量就是 AᵀA 的特征向量</li>
+<li>σᵢ² 就是 AᵀA 的特征值</li>
+<li>U 的列向量就是 AAᵀ 的特征向量</li>
+</ul>
+<p>由此可以推出几个重要结论：</p>
+<ul>
+<li><strong>对称矩阵的特征值一定非负</strong>（因为 σᵢ² ≥ 0）</li>
+<li><strong>对称矩阵的特征向量两两垂直</strong></li>
+<li><strong>转置矩阵和逆矩阵的差距就是 Σ vs Σ⁻¹</strong>：$$A^{-1} &#x3D; V \Sigma^{-1} U^T$$</li>
+</ul>
+<p>只要有一个 σᵢ &#x3D; 0，Σ⁻¹ 就炸了——再次印证奇异值与可逆性的关系。</p>
+<h2 id="五、SVD-的计算方法"><a href="#五、SVD-的计算方法" class="headerlink" title="五、SVD 的计算方法"></a>五、SVD 的计算方法</h2><p>标准计算流程很简单：</p>
+<ol>
+<li>计算 AᵀA</li>
+<li>求 AᵀA 的特征值，开根号得奇异值 σᵢ</li>
+<li>求 AᵀA 的特征向量，拼成 V</li>
+<li>计算 AAᵀ，求其特征向量，拼成 U</li>
+</ol>
+<h2 id="六、经典应用：图像压缩"><a href="#六、经典应用：图像压缩" class="headerlink" title="六、经典应用：图像压缩"></a>六、经典应用：图像压缩</h2><p>SVD 可以从谱分解视角理解——把大矩阵像”剥洋葱”一样拆成一层层切片：</p>
+<p>$$A &#x3D; \sum_{i} \sigma_i u_i v_i^T$$</p>
+<ul>
+<li>大 σᵢ 对应的分量：主要信息、最大轮廓、最强能量</li>
+<li>小 σᵢ 对应的分量：细微细节，甚至只是噪声</li>
+</ul>
+<p><strong>图像压缩案例：</strong> 一张 700×700 的黑白照片 &#x3D; 700×700 的像素矩阵。做 SVD 后发现绝大多数能量集中在前 10% 的奇异值，后 90% 的奇异值很小，贡献微弱。</p>
+<p>压缩策略就是<strong>只保留前 k 个奇异值</strong>，扔掉后面的：</p>
+<table>
+<thead>
+<tr>
+<th>保留奇异值数</th>
+<th>占比</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>K &#x3D; 7</td>
+<td>1%</td>
+<td>大致色块，可见横竖基底结构（压缩过度）</td>
+</tr>
+<tr>
+<td>K &#x3D; 20</td>
+<td>3%</td>
+<td>人影可辨认，横竖结构消失</td>
+</tr>
+<tr>
+<td>K &#x3D; 35</td>
+<td>5%</td>
+<td>角色可识别</td>
+</tr>
+<tr>
+<td>K &#x3D; 70</td>
+<td>10%</td>
+<td>细节丰富，线条清晰</td>
+</tr>
+<tr>
+<td>K &gt; 70</td>
+<td>&gt;10%</td>
+<td>继续增加只是去噪，提升有限</td>
+</tr>
+</tbody></table>
+<h3 id="马赛克的本质"><a href="#马赛克的本质" class="headerlink" title="马赛克的本质"></a>马赛克的本质</h3><p>过度压缩会导致底层分量（横竖数值的方块图案）显露出来——这就是马赛克的由来。</p>
+<blockquote>
+<p>注：实际工程中图片压缩不用 SVD，因为每张图都要存基底 U、V，开销太大。实际用的是固定基底——<strong>傅里叶变换</strong>。但 SVD 作为理解”低秩近似”概念的绝佳工具，其教育价值不可替代。</p>
+</blockquote>
+<hr>
+<h2 id="核心要点总结"><a href="#核心要点总结" class="headerlink" title="核心要点总结"></a>核心要点总结</h2><ol>
+<li><strong>三步走</strong>：旋转 → 伸缩 → 摆放，这就是 SVD 的全部</li>
+<li><strong>奇异值</strong>：检验各坐标轴方向的压缩是否”奇异”，零奇异值 &#x3D; 不可逆</li>
+<li><strong>谱</strong>：比秩更精细的矩阵健康指标，告诉你”有多奇异”</li>
+<li><strong>对称矩阵</strong>：特征值非负，特征向量正交 —— 从 SVD 视角一目了然</li>
+<li><strong>数据压缩</strong>：抓主要矛盾（大奇异值），忽略次要矛盾（小奇异值）</li>
+</ol>
+<hr>
+<p><em>本文内容整理自漫士沉思录的 B站视频 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1XcfiBeEwQ">《彻底搞懂SVD！矩阵究竟怎么就奇异了？》</a>，整理日期：2026-05-20。</em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" rel="tag"># 线性代数</a>
+              <a href="/tags/SVD/" rel="tag"># SVD</a>
+              <a href="/tags/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3/" rel="tag"># 矩阵分解</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/20/Git-GitHub-Core-Concepts-2026/" rel="prev" title="Git 与 GitHub 核心概念大串讲：AI 时代必学基本功">
+                  <i class="fa fa-angle-left"></i> Git 与 GitHub 核心概念大串讲：AI 时代必学基本功
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
