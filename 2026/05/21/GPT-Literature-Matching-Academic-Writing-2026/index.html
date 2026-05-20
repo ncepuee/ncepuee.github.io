@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言科研写作中有一个普遍的痛点：检索整理了大量文献，但写作时仍需要为每个观点逐一匹配支撑文献。过程耗时耗力，还可能出现引用不准确的问题。 来自中科大博士的经验分享——利用 GPT 的语义理解能力，为已有段落精准匹配文献，大幅提升写作效率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中科大博士教你用 GPT 为段落精准匹配文献">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/21/GPT-Literature-Matching-Academic-Writing-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="前言科研写作中有一个普遍的痛点：检索整理了大量文献，但写作时仍需要为每个观点逐一匹配支撑文献。过程耗时耗力，还可能出现引用不准确的问题。 来自中科大博士的经验分享——利用 GPT 的语义理解能力，为已有段落精准匹配文献，大幅提升写作效率。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-21T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-20T16:48:56.011Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="提示词工程">
+<meta property="article:tag" content="GPT">
+<meta property="article:tag" content="学术写作">
+<meta property="article:tag" content="文献引用">
+<meta property="article:tag" content="科研工具">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/21/GPT-Literature-Matching-Academic-Writing-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/21/GPT-Literature-Matching-Academic-Writing-2026/","path":"2026/05/21/GPT-Literature-Matching-Academic-Writing-2026/","title":"中科大博士教你用 GPT 为段落精准匹配文献"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>中科大博士教你用 GPT 为段落精准匹配文献 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A8%A1%E6%9D%BF-1%EF%BC%9A%E4%B8%BA%E6%AE%B5%E8%90%BD%E6%8E%A8%E8%8D%90%E6%94%AF%E6%92%91%E6%96%87%E7%8C%AE"><span class="nav-number">2.</span> <span class="nav-text">一、模板 1：为段落推荐支撑文献</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D"><span class="nav-number">2.1.</span> <span class="nav-text">提示词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%A4%BA"><span class="nav-number">2.2.</span> <span class="nav-text">实战演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A8%A1%E6%9D%BF-2%EF%BC%9A%E4%B8%BA%E7%90%86%E8%AE%BA-%E6%A6%82%E5%BF%B5%E6%8E%A8%E8%8D%90%E6%96%87%E7%8C%AE"><span class="nav-number">3.</span> <span class="nav-text">二、模板 2：为理论&#x2F;概念推荐文献</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D-1"><span class="nav-number">3.1.</span> <span class="nav-text">提示词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%A4%BA-1"><span class="nav-number">3.2.</span> <span class="nav-text">实战演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%A8%A1%E6%9D%BF-3%EF%BC%9A%E8%AF%86%E5%88%AB%E5%85%B3%E9%94%AE%E8%AF%8D-%E6%8E%A8%E8%8D%90%E5%AE%9E%E8%AF%81%E6%94%AF%E6%8C%81"><span class="nav-number">4.</span> <span class="nav-text">三、模板 3：识别关键词 + 推荐实证支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D-2"><span class="nav-number">4.1.</span> <span class="nav-text">提示词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%A4%BA-2"><span class="nav-number">4.2.</span> <span class="nav-text">实战演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%A8%A1%E6%9D%BF-4%EF%BC%9A%E4%B8%BA%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%8C%B9%E9%85%8D%E6%96%87%E7%8C%AE"><span class="nav-number">5.</span> <span class="nav-text">四、模板 4：为研究方法匹配文献</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D-3"><span class="nav-number">5.1.</span> <span class="nav-text">提示词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%A4%BA-3"><span class="nav-number">5.2.</span> <span class="nav-text">实战演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%A0%B8%E5%BF%83%E8%A6%81%E7%82%B9%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">五、核心要点与使用建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E4%B8%AA%E6%A8%A1%E6%9D%BF%E9%80%9F%E6%9F%A5"><span class="nav-number">6.1.</span> <span class="nav-text">四个模板速查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%8A%80%E5%B7%A7"><span class="nav-number">6.2.</span> <span class="nav-text">关键技巧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/21/GPT-Literature-Matching-Academic-Writing-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="中科大博士教你用 GPT 为段落精准匹配文献 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          中科大博士教你用 GPT 为段落精准匹配文献
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-21 09:00:00 / 修改时间：00:48:56" itemprop="dateCreated datePublished" datetime="2026-05-21T09:00:00+08:00">2026-05-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%A7%91%E7%A0%94%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">科研工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>科研写作中有一个普遍的痛点：检索整理了大量文献，但写作时仍需要为每个观点逐一匹配支撑文献。过程耗时耗力，还可能出现引用不准确的问题。</p>
+<p>来自中科大博士的经验分享——利用 GPT 的语义理解能力，为已有段落<strong>精准匹配文献</strong>，大幅提升写作效率。</p>
+<span id="more"></span>
+
+<h2 id="一、模板-1：为段落推荐支撑文献"><a href="#一、模板-1：为段落推荐支撑文献" class="headerlink" title="一、模板 1：为段落推荐支撑文献"></a>一、模板 1：为段落推荐支撑文献</h2><h3 id="提示词"><a href="#提示词" class="headerlink" title="提示词"></a>提示词</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请阅读以下段落并分析其核心观点，然后为我推荐三篇相关的权威文献支撑该观点，并提供 APA 格式的参考文献条目。</span><br><span class="line"></span><br><span class="line">[粘贴你的段落]</span><br></pre></td></tr></table></figure>
+
+<h3 id="实战演示"><a href="#实战演示" class="headerlink" title="实战演示"></a>实战演示</h3><p>以一段关于企业波动风险的论文段落为例：</p>
+<blockquote>
+<p>企业波动风险识别已经成为金融稳定、信息披露、资产配置等领域的关键问题，尤其是在全球供应链高度互联背景之下，不同类型的市场参与者的高度依赖，企业的风险有效评估（包括投资者、金融机构等）对于企业风险识别带来各种重大损失…</p>
+</blockquote>
+<p>GPT 的输出会包含三篇高度相关的文献推荐：</p>
+<ol>
+<li><strong>供应链冲击传导与企业价值风险</strong> — 支撑企业风险识别的核心表述</li>
+<li><strong>信用风险沿供应链传播</strong> — 适合支撑”企业风险识别对金融机构、投资者及金融稳定性具有重要意义”</li>
+<li><strong>第三篇相关支撑文献</strong> — 进一步增加文献基础</li>
+</ol>
+<p>可根据需要灵活调整推荐文章数量，不限于三篇。</p>
+<hr>
+<h2 id="二、模板-2：为理论-概念推荐文献"><a href="#二、模板-2：为理论-概念推荐文献" class="headerlink" title="二、模板 2：为理论&#x2F;概念推荐文献"></a>二、模板 2：为理论&#x2F;概念推荐文献</h2><h3 id="提示词-1"><a href="#提示词-1" class="headerlink" title="提示词"></a>提示词</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请为[某个特定理论或概念]推荐相关的文献，然后帮我们补充理论支持，并且提供相关文献的详细引用格式。</span><br><span class="line"></span><br><span class="line">[粘贴相关段落]</span><br></pre></td></tr></table></figure>
+
+<h3 id="实战演示-1"><a href="#实战演示-1" class="headerlink" title="实战演示"></a>实战演示</h3><p>以波动风险定义的段落为例——讨论现代投资组合理论中 Markowitz 提出的均值-方差框架。GPT 的推荐非常精准：</p>
+<ul>
+<li><strong>直接引用：</strong> Markowitz (1952) 关于现代投资组合理论的开创性论文</li>
+<li><strong>延伸理论：</strong> 在 Markowitz 理论之上发展出的资产定价模型</li>
+<li><strong>中文综述：</strong> 回顾现代投资理论自 1950 年以来发展的综述文章</li>
+</ul>
+<p>对于已清楚指向某个经典理论的段落，GPT 能帮你找到最原始的引用来源，避免间接引用带来的不准确。</p>
+<hr>
+<h2 id="三、模板-3：识别关键词-推荐实证支持"><a href="#三、模板-3：识别关键词-推荐实证支持" class="headerlink" title="三、模板 3：识别关键词 + 推荐实证支持"></a>三、模板 3：识别关键词 + 推荐实证支持</h2><h3 id="提示词-2"><a href="#提示词-2" class="headerlink" title="提示词"></a>提示词</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请根据以下段落内容识别出段落中的关键词，并推荐相关的实证研究或者数据支持，从而增强论述的可靠性。</span><br><span class="line"></span><br><span class="line">[粘贴你的段落]</span><br></pre></td></tr></table></figure>
+
+<h3 id="实战演示-2"><a href="#实战演示-2" class="headerlink" title="实战演示"></a>实战演示</h3><p>以供应链风险传导相关的段落为例：</p>
+<blockquote>
+<p>在现代经济体中，企业并不是孤立存在的，实际上他们往往处于由供应商、客户和其他业务伙伴构成的复杂关系网络当中。另外，风险事件也往往不是单独发生的，而是通过这些网络逐步进行扩散的…</p>
+</blockquote>
+<p><strong>GPT 的输出分三步：</strong></p>
+<p><strong>1. 识别关键词：</strong></p>
+<ul>
+<li>企业关系网络、供应链网络、风险传导、网络效应</li>
+</ul>
+<p><strong>2. 提炼核心理论概念：</strong></p>
+<ul>
+<li>企业嵌入在供应链或生产网络中</li>
+<li>局部事件可能沿企业间交易产生传导或放大效应</li>
+</ul>
+<p><strong>3. 推荐实证研究：</strong></p>
+<ul>
+<li>非常适合支撑”风险事件通过供应链网络扩散”的研究</li>
+<li>投入产出网络与宏观波动来源的相关证据</li>
+<li>企业间交易数据的冲击传播证据</li>
+</ul>
+<p><strong>额外收获：</strong> GPT 还会给出增强版表述，可以直接参考来优化论文的语言表达。</p>
+<hr>
+<h2 id="四、模板-4：为研究方法匹配文献"><a href="#四、模板-4：为研究方法匹配文献" class="headerlink" title="四、模板 4：为研究方法匹配文献"></a>四、模板 4：为研究方法匹配文献</h2><h3 id="提示词-3"><a href="#提示词-3" class="headerlink" title="提示词"></a>提示词</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请帮助我对[某个研究方法或研究理论]匹配相关的文献作为支撑，并用 APA 格式列出相关的参考文献。</span><br><span class="line"></span><br><span class="line">[粘贴相关段落]</span><br></pre></td></tr></table></figure>
+
+<h3 id="实战演示-3"><a href="#实战演示-3" class="headerlink" title="实战演示"></a>实战演示</h3><p>以供应链风险传播理论为例，GPT 会将所涉及的研究方法&#x2F;理论自动分类：</p>
+<ul>
+<li><strong>供应链网络理论</strong></li>
+<li><strong>风险传播与冲击传播理论</strong></li>
+<li><strong>网络分析方法</strong></li>
+<li><strong>供应链金融与信用风险传染</strong></li>
+</ul>
+<p>针对每一类，GPT 会推荐对应文献并给出推荐理由，同时提供增强版表述来修改和扩展论文的原有表达，优化逻辑和准确性。</p>
+<hr>
+<h2 id="五、核心要点与使用建议"><a href="#五、核心要点与使用建议" class="headerlink" title="五、核心要点与使用建议"></a>五、核心要点与使用建议</h2><h3 id="四个模板速查"><a href="#四个模板速查" class="headerlink" title="四个模板速查"></a>四个模板速查</h3><table>
+<thead>
+<tr>
+<th>模板</th>
+<th>用途</th>
+<th>核心输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模板 1</td>
+<td>为段落推荐支撑文献</td>
+<td>3 篇权威文献 + APA 格式</td>
+</tr>
+<tr>
+<td>模板 2</td>
+<td>为理论&#x2F;概念推荐文献</td>
+<td>理论支持 + 详细引用格式</td>
+</tr>
+<tr>
+<td>模板 3</td>
+<td>识别关键词 + 实证支持</td>
+<td>关键词提炼 + 实证研究证据</td>
+</tr>
+<tr>
+<td>模板 4</td>
+<td>为研究方法匹配文献</td>
+<td>分类推荐 + 修改扩展表述</td>
+</tr>
+</tbody></table>
+<h3 id="关键技巧"><a href="#关键技巧" class="headerlink" title="关键技巧"></a>关键技巧</h3><p><strong>1. 分段处理，逐个击破</strong></p>
+<p>不要一次性扔整篇论文给 GPT。按段落逐个操作，每段推荐的文献会更精准、更有针对性。</p>
+<p><strong>2. 多轮追问</strong></p>
+<p>基于 GPT 的初次输出继续追问，可以获取更多细节和更深入的文献推荐。</p>
+<p><strong>3. 交叉验证（非常重要）</strong></p>
+<p>GPT 推荐的文献<strong>务必人工核实</strong>。目前 GPT 仍存在幻觉问题，可能生成看起来合理但实际上不存在的文献。推荐的每篇文献建议去 Google Scholar 或学术数据库中验证其真实性和相关性。</p>
+<p><strong>4. 参考增强版表述</strong></p>
+<p>GPT 的推荐中通常会附带优化后的学术表述，这对提升论文的表达质量很有帮助，可以直接参考或修改后使用。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这套方法的核心价值在于：**把”从零检索”变成”按需匹配”**。与其在文献海洋里大海捞针，不如先写好段落，让 GPT 理解语义后精准定位相关文献。</p>
+<p><strong>适用场景：</strong> 论文写作、文献综述、研究方法设计。配合前期的 GPT 文献检索（查新检测）使用，效果更佳。</p>
+<hr>
+<p><em>本文内容整理自搞科研的小萝卜（中科大博士）的 B站视频 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1zsRuBbEAE">《如何使用GPT为已有段落匹配文献，精准引用文献》</a>，整理日期：2026-05-21。</em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B/" rel="tag"># 提示词工程</a>
+              <a href="/tags/GPT/" rel="tag"># GPT</a>
+              <a href="/tags/%E5%AD%A6%E6%9C%AF%E5%86%99%E4%BD%9C/" rel="tag"># 学术写作</a>
+              <a href="/tags/%E6%96%87%E7%8C%AE%E5%BC%95%E7%94%A8/" rel="tag"># 文献引用</a>
+              <a href="/tags/%E7%A7%91%E7%A0%94%E5%B7%A5%E5%85%B7/" rel="tag"># 科研工具</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/20/SVD-Matrix-Singular-Value-Decomposition-2026/" rel="prev" title="彻底搞懂 SVD！矩阵究竟怎么就奇异了？">
+                  <i class="fa fa-angle-left"></i> 彻底搞懂 SVD！矩阵究竟怎么就奇异了？
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
