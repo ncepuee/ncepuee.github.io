@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。 听起来很简单对吧？但实际上，它牵出了一整条技术链路——从 Windows 进程内存扫描，到 SQLCipher 数据库解密，再到 Hexo 博客构建部署。这篇文章就记录这个打通的过程和方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零打通微信数据到博客发布：一次 AI Agent 集成实践">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/25/wechat-data-to-blog-pipeline-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="前言最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。 听起来很简单对吧？但实际上，它牵出了一整条技术链路——从 Windows 进程内存扫描，到 SQLCipher 数据库解密，再到 Hexo 博客构建部署。这篇文章就记录这个打通的过程和方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-25T11:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-25T11:25:37.614Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="AI工具">
+<meta property="article:tag" content="微信">
+<meta property="article:tag" content="技术实践">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/25/wechat-data-to-blog-pipeline-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/25/wechat-data-to-blog-pipeline-2026/","path":"2026/05/25/wechat-data-to-blog-pipeline-2026/","title":"从零打通微信数据到博客发布：一次 AI Agent 集成实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>从零打通微信数据到博客发布：一次 AI Agent 集成实践 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E4%B8%8E%E7%9B%AE%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">背景与目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%85%B3%EF%BC%9A%E7%90%86%E8%A7%A3%E5%BE%AE%E4%BF%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">3.</span> <span class="nav-text">第一关：理解微信的数据存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1-4-x-%E7%9A%84%E6%96%B0%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">微信 4.x 的新格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLCipher-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.2.</span> <span class="nav-text">SQLCipher 是什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%85%B3%EF%BC%9A%E5%AF%86%E9%92%A5%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="nav-number">4.</span> <span class="nav-text">第二关：密钥在哪里</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E6%89%AB%E6%8F%8F"><span class="nav-number">4.1.</span> <span class="nav-text">进程内存扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%B5%B7%E9%87%8F%E5%86%85%E5%AD%98%E4%B8%AD%E6%89%BE%E5%88%B0%E5%AF%86%E9%92%A5"><span class="nav-number">4.2.</span> <span class="nav-text">从海量内存中找到密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%AF%86%E9%92%A5%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">验证密钥的正确性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%8F%E5%A4%96%E5%8F%91%E7%8E%B0%EF%BC%9A%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E4%B8%8D%E5%90%8C%E5%AF%86%E9%92%A5"><span class="nav-number">4.4.</span> <span class="nav-text">意外发现：不同数据库用不同密钥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E5%85%B3%EF%BC%9A%E7%8E%B0%E6%9C%89%E5%B7%A5%E5%85%B7%E7%9A%84%E5%B1%80%E9%99%90"><span class="nav-number">5.</span> <span class="nav-text">第三关：现有工具的局限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wx-cli-jackwener-wx-cli"><span class="nav-number">5.1.</span> <span class="nav-text">wx-cli (@jackwener&#x2F;wx-cli)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wechat-cli-canghe-ai-wechat-cli"><span class="nav-number">5.2.</span> <span class="nav-text">wechat-cli (@canghe_ai&#x2F;wechat-cli)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9AZedeX-weixin-decrypte-script"><span class="nav-number">5.3.</span> <span class="nav-text">解决方案：ZedeX&#x2F;weixin-decrypte-script</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E5%85%B3%EF%BC%9A%E5%A4%84%E7%90%86%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9"><span class="nav-number">6.</span> <span class="nav-text">第四关：处理公众号文章内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">完整工作流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E9%AA%8C%E4%B8%8E%E6%95%99%E8%AE%AD"><span class="nav-number">8.</span> <span class="nav-text">经验与教训</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E8%A6%81%E5%81%87%E8%AE%BE%E6%97%A7%E5%B7%A5%E5%85%B7%E8%83%BD%E7%94%A8"><span class="nav-number">8.1.</span> <span class="nav-text">1. 不要假设旧工具能用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E6%98%AF%E5%AE%9D%E8%97%8F"><span class="nav-number">8.2.</span> <span class="nav-text">2. 进程内存是宝藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%8D%E5%90%8C%E5%B7%A5%E5%85%B7%E4%B9%8B%E9%97%B4%E4%BA%92%E8%A1%A5"><span class="nav-number">8.3.</span> <span class="nav-text">3. 不同工具之间互补</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E6%B0%B8%E8%BF%9C%E6%98%AF%E9%97%A8%E6%A7%9B"><span class="nav-number">8.4.</span> <span class="nav-text">4. 权限问题永远是门槛</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E7%A7%81%E4%B8%8E%E5%AE%89%E5%85%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">9.</span> <span class="nav-text">隐私与安全说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/25/wechat-data-to-blog-pipeline-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="从零打通微信数据到博客发布：一次 AI Agent 集成实践 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从零打通微信数据到博客发布：一次 AI Agent 集成实践
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-25 19:00:00 / 修改时间：19:25:37" itemprop="dateCreated datePublished" datetime="2026-05-25T19:00:00+08:00">2026-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/" itemprop="url" rel="index"><span itemprop="name">技术实践</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。</p>
+<p>听起来很简单对吧？但实际上，它牵出了一整条技术链路——从 Windows 进程内存扫描，到 SQLCipher 数据库解密，再到 Hexo 博客构建部署。这篇文章就记录这个打通的过程和方法。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="背景与目标"><a href="#背景与目标" class="headerlink" title="背景与目标"></a>背景与目标</h2><p>需求其实很直接：<strong>我有一个 Hexo 博客，希望每次在微信上看到有价值的公众号文章时，能自动或半自动地整理到博客上。</strong></p>
+<p>理想的工作流是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">微信收到文章 → 自动提取 → 学习内化 → 生成博客 → 部署上线</span><br></pre></td></tr></table></figure>
+
+<p>前两个环节是最大的挑战：怎么”自动提取”微信里的数据？</p>
+<hr>
+<h2 id="第一关：理解微信的数据存储"><a href="#第一关：理解微信的数据存储" class="headerlink" title="第一关：理解微信的数据存储"></a>第一关：理解微信的数据存储</h2><h3 id="微信-4-x-的新格式"><a href="#微信-4-x-的新格式" class="headerlink" title="微信 4.x 的新格式"></a>微信 4.x 的新格式</h3><p>如果你很久没研究过微信桌面版的数据存储，可能会以为它还在用 <code>WeChat Files</code> 那个老目录。实际上，微信 4.x 版本引入了全新的存储体系——<code>xwechat_files</code>。</p>
+<p>新的目录结构大致是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xwechat_files/</span><br><span class="line">└── wxid_xxx/</span><br><span class="line">    ├── db_storage/</span><br><span class="line">    │   ├── message/       ← 聊天消息 + 公众号文章</span><br><span class="line">    │   ├── session/       ← 会话列表</span><br><span class="line">    │   ├── contact/       ← 联系人</span><br><span class="line">    │   ├── bizchat/       ← 公众号消息</span><br><span class="line">    │   └── sns/           ← 朋友圈</span><br><span class="line">    ├── config/</span><br><span class="line">    └── cache/</span><br></pre></td></tr></table></figure>
+
+<p>所有核心数据都存储在 SQLite 数据库中，但——这些数据库全部经过 <strong>SQLCipher</strong> 加密。</p>
+<h3 id="SQLCipher-是什么"><a href="#SQLCipher-是什么" class="headerlink" title="SQLCipher 是什么"></a>SQLCipher 是什么</h3><p>SQLCipher 是 SQLite 的加密扩展，对每个数据库页面进行 AES 加密，并附带 HMAC 完整性校验。简单说，没有密钥，这些 .db 文件就是一堆乱码。</p>
+<p>微信使用的是 SQLCipher 4，具体参数：</p>
+<ul>
+<li>加密算法：AES-256-CBC</li>
+<li>密钥派生：PBKDF2-HMAC-SHA512（256,000 次迭代）</li>
+<li>页面大小：4096 字节</li>
+<li>每个数据库有独立的 salt（存储在文件头的 16 字节中）</li>
+</ul>
+<hr>
+<h2 id="第二关：密钥在哪里"><a href="#第二关：密钥在哪里" class="headerlink" title="第二关：密钥在哪里"></a>第二关：密钥在哪里</h2><p>既然数据库是加密的，密钥在哪里？</p>
+<p>答案在意料之中，也在情理之中：<strong>密钥存储在微信进程（Weixin.exe）的运行内存中。</strong></p>
+<h3 id="进程内存扫描"><a href="#进程内存扫描" class="headerlink" title="进程内存扫描"></a>进程内存扫描</h3><p>Windows 上读取其他进程的内存，核心 API 是：</p>
+<ol>
+<li><code>OpenProcess</code> — 打开目标进程，获取句柄</li>
+<li><code>VirtualQueryEx</code> — 枚举进程的虚拟内存区域</li>
+<li><code>ReadProcessMemory</code> — 读取指定内存区域的内容</li>
+</ol>
+<p>但有个前提：<strong>需要管理员权限</strong>。因为 <code>PROCESS_VM_READ</code> 权限对非管理员进程是受限的。</p>
+<h3 id="从海量内存中找到密钥"><a href="#从海量内存中找到密钥" class="headerlink" title="从海量内存中找到密钥"></a>从海量内存中找到密钥</h3><p>微信进程的内存空间很大（动辄数 GB），直接全量扫描是不现实的。关键是要知道 <strong>找什么</strong>。</p>
+<p>通过分析 SQLCipher 的密钥存储习惯，微信在内存中保存密钥的格式是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x&#x27;&lt;64位十六进制密钥&gt;&lt;32位十六进制盐值&gt;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>这个模式非常具有辨识度：以 <code>x&#39;</code> 开头，接着是 64 个 hex 字符（0-9, a-f），然后是可选的 32 个 hex 字符，最后以 <code>&#39;</code> 结尾。</p>
+<p>扫描策略：</p>
+<ol>
+<li>只扫描<strong>可写私有内存</strong>（PAGE_READWRITE + MEM_PRIVATE）——密钥存在堆上，不在代码段或映射文件中</li>
+<li>使用 <code>pymem.pattern_scan_all</code> 搜索 <code>x&#39;</code> 特征</li>
+<li>对每个命中的位置，读取后续字节，验证 hex 格式</li>
+<li>按出现频率排序，频率最高的就是正确的密钥</li>
+</ol>
+<p>运行扫描后，从数十 GB 的虚拟地址空间中，可以提取到约 40-50 个候选密钥。</p>
+<h3 id="验证密钥的正确性"><a href="#验证密钥的正确性" class="headerlink" title="验证密钥的正确性"></a>验证密钥的正确性</h3><p>找到候选密钥后，需要验证它是否真的能解密数据库。验证方法很巧妙：</p>
+<ol>
+<li>读取数据库文件的前 16 字节（salt）</li>
+<li>用密钥和 salt 派生出 HMAC 密钥</li>
+<li>校验数据库第一页的 HMAC 签名</li>
+<li>匹配成功 → 密钥正确</li>
+</ol>
+<h3 id="意外发现：不同数据库用不同密钥"><a href="#意外发现：不同数据库用不同密钥" class="headerlink" title="意外发现：不同数据库用不同密钥"></a>意外发现：不同数据库用不同密钥</h3><p>在验证过程中发现一个有趣的现象：<strong>同一个微信账号的不同数据库，使用的加密密钥不同。</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>密钥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>biz_message_*.db</code>（公众号消息）</td>
+<td>密钥 A</td>
+</tr>
+<tr>
+<td><code>session.db</code>（会话）</td>
+<td>密钥 B</td>
+</tr>
+<tr>
+<td><code>contact.db</code>（联系人）</td>
+<td>密钥 C</td>
+</tr>
+</tbody></table>
+<p>这意味着不能用一个密钥解密所有数据库。这给那些只支持单密钥的工具带来了兼容性问题。</p>
+<hr>
+<h2 id="第三关：现有工具的局限"><a href="#第三关：现有工具的局限" class="headerlink" title="第三关：现有工具的局限"></a>第三关：现有工具的局限</h2><p>在探索过程中，尝试了两个主流的微信 CLI 工具：</p>
+<h3 id="wx-cli-jackwener-wx-cli"><a href="#wx-cli-jackwener-wx-cli" class="headerlink" title="wx-cli (@jackwener&#x2F;wx-cli)"></a>wx-cli (@jackwener&#x2F;wx-cli)</h3><p>这是一个 Node.js 编写的 CLI 工具，提供了 18 个命令来查询微信数据。但它有两个关键问题：</p>
+<ol>
+<li><strong>只支持老版微信格式</strong>：它寻找的是 <code>WeChat Files</code> 目录路径，而微信 4.x 用的是 <code>xwechat_files</code></li>
+<li><strong>单密钥模型</strong>：所有数据库共享一个 <code>master_key</code>，但微信 4.x 每个库的密钥不同</li>
+</ol>
+<p>即使手动配置文件路径和密钥，也无法正常工作。</p>
+<h3 id="wechat-cli-canghe-ai-wechat-cli"><a href="#wechat-cli-canghe-ai-wechat-cli" class="headerlink" title="wechat-cli (@canghe_ai&#x2F;wechat-cli)"></a>wechat-cli (@canghe_ai&#x2F;wechat-cli)</h3><p>另一个 Python 实现，自带内存密钥提取功能。但在 Windows 上安装受限：</p>
+<ul>
+<li>npm 包只有 macOS arm64 二进制</li>
+<li>pip 包需要 Python 3.10+（而很多 Windows 环境是 3.8&#x2F;3.9）</li>
+</ul>
+<h3 id="解决方案：ZedeX-weixin-decrypte-script"><a href="#解决方案：ZedeX-weixin-decrypte-script" class="headerlink" title="解决方案：ZedeX&#x2F;weixin-decrypte-script"></a>解决方案：ZedeX&#x2F;weixin-decrypte-script</h3><p>最终使用的是这个开源工具集。它的优势在于：</p>
+<ul>
+<li><strong>Python 3.8+ 兼容</strong>，Windows 原生支持</li>
+<li><strong>支持微信 4.x</strong> 的 <code>xwechat_files</code> 格式</li>
+<li><strong>自动扫描进程内存</strong>提取密钥</li>
+<li>提供解密、读取、API 服务的完整工具链</li>
+</ul>
+<hr>
+<h2 id="第四关：处理公众号文章内容"><a href="#第四关：处理公众号文章内容" class="headerlink" title="第四关：处理公众号文章内容"></a>第四关：处理公众号文章内容</h2><p>解密数据库只是第一步。从数据库中读到的公众号文章消息是 XML 格式的：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">msg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">appmsg</span> <span class="attr">appid</span>=<span class="string">&quot;&quot;</span> <span class="attr">sdkver</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>&lt;![CDATA[文章标题]]&gt;<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">des</span>&gt;</span>&lt;![CDATA[文章描述]]&gt;<span class="tag">&lt;/<span class="name">des</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>5<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>&lt;![CDATA[https://mp.weixin.qq.com/s/...]]&gt;<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appmsg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">msg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>而且消息体经过 <strong>Zstandard (zstd)</strong> 压缩，需要先解压才能解析。</p>
+<p>提取出文章 URL 后，再通过 HTTP 抓取获取完整正文，最终生成博客文章。</p>
+<hr>
+<h2 id="完整工作流"><a href="#完整工作流" class="headerlink" title="完整工作流"></a>完整工作流</h2><p>最终打通的全流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 微信运行中 → 扫描 Weixin.exe 进程内存 → 提取 SQLCipher 密钥</span><br><span class="line">2. 用密钥解密 biz_message_*.db 数据库</span><br><span class="line">3. 读取数据库中的消息记录 → zstd 解压 → 解析 XML → 提取文章 URL</span><br><span class="line">4. 通过 HTTP 抓取文章全文</span><br><span class="line">5. 学习内化内容，重新组织为博客文章</span><br><span class="line">6. 生成 Hexo Markdown 文件（含 front-matter）</span><br><span class="line">7. 执行 hexo generate + deploy → 发布到 GitHub Pages</span><br></pre></td></tr></table></figure>
+
+<p>整个过程从手动执行到半自动，再到现在的脚本化一键完成。</p>
+<hr>
+<h2 id="经验与教训"><a href="#经验与教训" class="headerlink" title="经验与教训"></a>经验与教训</h2><h3 id="1-不要假设旧工具能用"><a href="#1-不要假设旧工具能用" class="headerlink" title="1. 不要假设旧工具能用"></a>1. 不要假设旧工具能用</h3><p>微信的本地数据存储格式在 4.x 版本发生了根本性变化。很多基于旧版微信的工具已经失效。遇到问题时，第一反应应该是检查目标软件版本，而不是在错误的方向上调试。</p>
+<h3 id="2-进程内存是宝藏"><a href="#2-进程内存是宝藏" class="headerlink" title="2. 进程内存是宝藏"></a>2. 进程内存是宝藏</h3><p>桌面应用的敏感数据（密钥、令牌、解密后的内容）几乎必然出现在进程内存中。只要有权访问进程内存，就能找到这些数据。这是很多所谓”本地加密”方案的软肋。</p>
+<h3 id="3-不同工具之间互补"><a href="#3-不同工具之间互补" class="headerlink" title="3. 不同工具之间互补"></a>3. 不同工具之间互补</h3><p>wx-cli 虽然不兼容新版本，但它的设计思路（AI 友好的 JSON 输出、命令式交互）值得借鉴。ZedeX 工具虽然解密能力强，但缺少一些高级查询功能。最终方案是组合使用：ZedeX 负责底层数据访问，上层自己构建业务逻辑。</p>
+<h3 id="4-权限问题永远是门槛"><a href="#4-权限问题永远是门槛" class="headerlink" title="4. 权限问题永远是门槛"></a>4. 权限问题永远是门槛</h3><p>读取进程内存需要管理员权限。这意味着这个工作流必须显式地以管理员身份运行。在自动化时要注意这一点。</p>
+<hr>
+<h2 id="隐私与安全说明"><a href="#隐私与安全说明" class="headerlink" title="隐私与安全说明"></a>隐私与安全说明</h2><p>这套方法有几个天然的安全边界：</p>
+<ul>
+<li><strong>完全本地运行</strong>：所有数据读取、解密、处理都在本地完成，不经过任何外部服务器</li>
+<li><strong>只读操作</strong>：只读取进程内存和数据库文件，不修改任何微信数据</li>
+<li><strong>可控输出</strong>：发布到博客的内容需要人工审核，不会自动公开私人信息</li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>打通微信数据到博客的技术路径不算短，但每一步都有清晰的逻辑：</p>
+<ol>
+<li><strong>数据在哪</strong> → <code>xwechat_files</code> 目录下的 SQLCipher 加密数据库</li>
+<li><strong>密钥在哪</strong> → 微信进程的运行内存中</li>
+<li><strong>怎么提取</strong> → 通过 Windows API 扫描进程内存，匹配 <code>x&#39;&lt;hex&gt;&#39;</code> 特征</li>
+<li><strong>怎么解密</strong> → 用提取的密钥 + 数据库头部的 salt 进行 SQLCipher 解密</li>
+<li><strong>怎么用</strong> → 读取解压后的消息 → 提取文章 URL → 抓取全文 → 生成博客</li>
+</ol>
+<p>这是一次典型的 AI Agent 工具集成实践：把多个开源工具、脚本和工作流串联起来，解决一个具体的自动化需求。本质上，就是让 AI Agent 拥有了”读取微信数据”的能力，然后基于这些数据完成更上层的任务。</p>
+<p>如果你也在做类似的本地数据集成，希望这篇文章能给你一些参考。</p>
+<hr>
+<p><em>本文为技术实践记录，不涉及具体密钥、账号信息及本地路径。</em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Agent/" rel="tag"># Agent</a>
+              <a href="/tags/AI%E5%B7%A5%E5%85%B7/" rel="tag"># AI工具</a>
+              <a href="/tags/%E5%BE%AE%E4%BF%A1/" rel="tag"># 微信</a>
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/" rel="tag"># 技术实践</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/25/omniwork-agent-os-2026/" rel="prev" title="从公众号运营到脱口秀视频：OmniWork 这款 AI Agent OS 到底能做什么？">
+                  <i class="fa fa-angle-left"></i> 从公众号运营到脱口秀视频：OmniWork 这款 AI Agent OS 到底能做什么？
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
