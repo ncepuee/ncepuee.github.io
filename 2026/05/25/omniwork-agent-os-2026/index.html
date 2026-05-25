@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言AI 工具正在经历一场静悄悄的变化：从「能聊天」到「能干活」。 过去我们习惯了问 AI 一个问题，它给你一段文字回复。但最近出现的 Agent 类工具开始打破这个边界——它们不再满足于「回答」，而是试图「交付」。OmniWork 就是这类工具中比较有代表性的一个。 本文基于对 OmniWork 的实际使用体验，梳理它的核心能力和设计思路。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从公众号运营到脱口秀视频：OmniWork 这款 AI Agent OS 到底能做什么？">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/25/omniwork-agent-os-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="前言AI 工具正在经历一场静悄悄的变化：从「能聊天」到「能干活」。 过去我们习惯了问 AI 一个问题，它给你一段文字回复。但最近出现的 Agent 类工具开始打破这个边界——它们不再满足于「回答」，而是试图「交付」。OmniWork 就是这类工具中比较有代表性的一个。 本文基于对 OmniWork 的实际使用体验，梳理它的核心能力和设计思路。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-25T10:30:00.000Z">
+<meta property="article:modified_time" content="2026-05-25T10:16:09.278Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="效率工具">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="AI工具">
+<meta property="article:tag" content="OmniWork">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/25/omniwork-agent-os-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/25/omniwork-agent-os-2026/","path":"2026/05/25/omniwork-agent-os-2026/","title":"从公众号运营到脱口秀视频：OmniWork 这款 AI Agent OS 到底能做什么？"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>从公众号运营到脱口秀视频：OmniWork 这款 AI Agent OS 到底能做什么？ | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OmniWork-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">OmniWork 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%EF%BC%9A%E4%B8%93%E5%AE%B6-Agent-%E4%BD%93%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">核心设计：专家 Agent 体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B"><span class="nav-number">4.</span> <span class="nav-text">三个核心能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BA%A4%E4%BB%98%E5%85%B7%E4%BD%93%E4%BA%A7%E5%87%BA"><span class="nav-number">4.1.</span> <span class="nav-text">1. 交付具体产出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8C%81%E4%B9%85%E8%AE%B0%E5%BF%86%E4%B8%8E%E6%8A%80%E8%83%BD%E6%B2%89%E6%B7%80"><span class="nav-number">4.2.</span> <span class="nav-text">2. 持久记忆与技能沉淀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.3.</span> <span class="nav-text">3. 自动化定时任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%85%B8%E5%9E%8B%E7%94%A8%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">两个典型用例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%80%EF%BC%9A%E5%85%AC%E4%BC%97%E5%8F%B7%E8%BF%90%E8%90%A5%E5%92%A8%E8%AF%A2"><span class="nav-number">5.1.</span> <span class="nav-text">场景一：公众号运营咨询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA%E8%84%B1%E5%8F%A3%E7%A7%80%E8%87%AA%E5%AA%92%E4%BD%93%E5%8F%B7"><span class="nav-number">5.2.</span> <span class="nav-text">场景二：从零启动一个脱口秀自媒体号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E6%80%9D%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">我的思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/25/omniwork-agent-os-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="从公众号运营到脱口秀视频：OmniWork 这款 AI Agent OS 到底能做什么？ | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从公众号运营到脱口秀视频：OmniWork 这款 AI Agent OS 到底能做什么？
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-25 18:30:00 / 修改时间：18:16:09" itemprop="dateCreated datePublished" datetime="2026-05-25T18:30:00+08:00">2026-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">AI工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>AI 工具正在经历一场静悄悄的变化：从「能聊天」到「能干活」。</p>
+<p>过去我们习惯了问 AI 一个问题，它给你一段文字回复。但最近出现的 Agent 类工具开始打破这个边界——它们不再满足于「回答」，而是试图「交付」。OmniWork 就是这类工具中比较有代表性的一个。</p>
+<p>本文基于对 OmniWork 的实际使用体验，梳理它的核心能力和设计思路。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="OmniWork-是什么"><a href="#OmniWork-是什么" class="headerlink" title="OmniWork 是什么"></a>OmniWork 是什么</h2><p>简单说，OmniWork 是一个运行在浏览器里的 <strong>Agent OS（智能体操作系统）</strong>。它不是某个单一的 AI 模型，而是一整套 AI 工作流系统。</p>
+<p>传统 AI 工具的模式是：你提问 → AI 回答。OmniWork 的模式是：你提出目标 → 系统拆解任务 → 调用多个专业 Agent 协同完成 → 交付成品。</p>
+<p>这个区别决定了它的使用方式和能力边界都和普通 AI 完全不同。</p>
+<hr>
+<h2 id="核心设计：专家-Agent-体系"><a href="#核心设计：专家-Agent-体系" class="headerlink" title="核心设计：专家 Agent 体系"></a>核心设计：专家 Agent 体系</h2><p>OmniWork 最有意思的设计是它的 <strong>专家 Agent 体系</strong>。</p>
+<p>大多数 AI 工具采用通用模型，什么都能聊一点，但什么都不精。OmniWork 反其道而行——它的系统里内置了数十个不同的「专家 Agent」，每个专家只负责自己擅长的领域：</p>
+<ul>
+<li>有的专家负责账号运营策略</li>
+<li>有的专家专门做视频制作</li>
+<li>有的专家负责内容创作</li>
+<li>还有的负责音乐、社交媒体文案等细分领域</li>
+</ul>
+<p>当用户下达一个任务时，主 Agent 会先拆解任务，然后根据需求动态调用相关的专家 Agent。比如你要制作一个视频，它会自动把文案专家、视频专家、配音专家组合起来，形成一条完整的工作流。</p>
+<p>这种架构的好处是：<strong>每个环节都由最专业的 Agent 完成，而不是让一个通用模型从头包到尾。</strong></p>
+<hr>
+<h2 id="三个核心能力"><a href="#三个核心能力" class="headerlink" title="三个核心能力"></a>三个核心能力</h2><h3 id="1-交付具体产出"><a href="#1-交付具体产出" class="headerlink" title="1. 交付具体产出"></a>1. 交付具体产出</h3><p>这是 OmniWork 和普通 AI 最大的区别。它不只是给你建议，而是直接交付可用的成果。</p>
+<p>比如你让它帮你制作一个公众号文章的分发方案，它会：</p>
+<ul>
+<li>分析你的内容类型</li>
+<li>匹配最适合分发的平台</li>
+<li>生成标题、封面图方案、正文结构</li>
+<li>输出可执行的完整方案</li>
+</ul>
+<p>这不是「建议」，而是「交付」。</p>
+<h3 id="2-持久记忆与技能沉淀"><a href="#2-持久记忆与技能沉淀" class="headerlink" title="2. 持久记忆与技能沉淀"></a>2. 持久记忆与技能沉淀</h3><p>传统 AI 每次对话都是独立的，下次用又要重新交代背景。OmniWork 有持久记忆机制：</p>
+<ul>
+<li><strong>用户画像记忆</strong>：记住你的偏好风格，且可以随时间更新</li>
+<li><strong>项目记忆</strong>：同一个项目内，下次继续工作时无需重复说明</li>
+<li><strong>技能沉淀</strong>：完成一次成功的项目后，可以将流程封装为 Skill（技能），下次直接调用</li>
+</ul>
+<p>这意味着你做一个系列内容时，从第一期到第一百期，不需要每次都从零开始交代背景。</p>
+<h3 id="3-自动化定时任务"><a href="#3-自动化定时任务" class="headerlink" title="3. 自动化定时任务"></a>3. 自动化定时任务</h3><p>工具里内置了定时任务功能。比如你可以设置每天早上 9 点自动搜索 GitHub 热门 AI 项目并推送给你。相当于有一个小助理每天帮你完成固定的信息搜集工作。</p>
+<hr>
+<h2 id="两个典型用例"><a href="#两个典型用例" class="headerlink" title="两个典型用例"></a>两个典型用例</h2><h3 id="场景一：公众号运营咨询"><a href="#场景一：公众号运营咨询" class="headerlink" title="场景一：公众号运营咨询"></a>场景一：公众号运营咨询</h3><p>对于一个刚开始做公众号的新手，OmniWork 能提供的不是泛泛的建议，而是完整的运营体系：</p>
+<ul>
+<li><strong>选题策略</strong>：热门内容和冷门内容分别怎么写</li>
+<li><strong>涨粉手段</strong>：公众号作为封闭平台，如何在第三方社交平台获取曝光</li>
+<li><strong>内容结构</strong>：针对不同类型文章给出框架</li>
+</ul>
+<p>这些对老手来说可能都是常识，但对新手来说，这些信息如果靠自己摸索，往往需要大半年甚至更久。</p>
+<h3 id="场景二：从零启动一个脱口秀自媒体号"><a href="#场景二：从零启动一个脱口秀自媒体号" class="headerlink" title="场景二：从零启动一个脱口秀自媒体号"></a>场景二：从零启动一个脱口秀自媒体号</h3><p>更有意思的是跨领域的应用。作者选择了一个自己并不熟悉的领域——脱口秀，尝试用 OmniWork 从零启动一个抖音自媒体号。</p>
+<p>流程大致是：</p>
+<ol>
+<li><strong>账号定位</strong>：通过对话确定账号名称、风格（最终选择了「自嘲风格」）</li>
+<li><strong>内容公式</strong>：生成账号定位和视频创作公式</li>
+<li><strong>自动创作</strong>：联网搜索热门话题 → 调用视频专家 → 生成稿件 + 视频</li>
+<li><strong>迭代修正</strong>：发现视频台词与稿件不符时，反馈后自动调整流程重新生成</li>
+<li><strong>持续运营</strong>：第一期完成后，后续可以直接基于记忆和 Skill 持续输出</li>
+</ol>
+<p>整个过程基本不需要用户具备脱口秀行业的专业知识。</p>
+<hr>
+<h2 id="我的思考"><a href="#我的思考" class="headerlink" title="我的思考"></a>我的思考</h2><p>这篇文章展示的 OmniWork 用例，实际上折射出一个更大的趋势：<strong>AI 正在从「知识检索工具」进化为「生产能力工具」。</strong></p>
+<p>过去我们使用 AI，本质上是把它当作一个更聪明的搜索引擎或写作助手。但 Agent 类工具的真正价值在于：它能理解一个完整的目标，然后自主协调资源去完成它。</p>
+<p>当然，这类工具目前还处在早期阶段。OmniWork 还在内测，很多细节有待打磨。但从产品思路上看，它代表了 AI 工具发展的一个明确方向——从对话式 AI 到任务式 AI。</p>
+<p>对于创作者来说，这意味着两件事：</p>
+<ol>
+<li><strong>降低入门门槛</strong>：不熟悉的领域，也能快速产出专业级内容</li>
+<li><strong>提高生产效率</strong>：重复性的工作可以封装成 Skill 自动执行</li>
+</ol>
+<p>但也要看到，工具始终是工具。最终的内容质量和创意方向，仍然取决于使用者的判断力。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>OmniWork 是一款值得关注的 Agent OS 产品。它的核心优势不在于 AI 模型本身有多强，而在于<strong>系统架构的设计</strong>——通过专家 Agent 分工协作 + 持久记忆 + 技能沉淀 + 自动化，构建了一个相对完整的 AI 生产力体系。</p>
+<p>如果你对这类工具感兴趣，可以关注 omniwork.ai 的后续开放进度。不过在等待的同时，也可以思考一个问题：<strong>当工具越来越强大的时候，我们作为创作者的核心价值在哪里？</strong> 这个问题可能比任何工具本身都更重要。</p>
+<hr>
+<p><em>本文基于微信公众号文章内容整理，结合个人理解与分析重新撰写。整理日期：2026-05-25。</em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" rel="tag"># 效率工具</a>
+              <a href="/tags/Agent/" rel="tag"># Agent</a>
+              <a href="/tags/AI%E5%B7%A5%E5%85%B7/" rel="tag"># AI工具</a>
+              <a href="/tags/OmniWork/" rel="tag"># OmniWork</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/24/Codex-Reconnecting-Fix-2026/" rel="prev" title="Codex 每次都要 Reconnecting 5 次？三个方案彻底解决">
+                  <i class="fa fa-angle-left"></i> Codex 每次都要 Reconnecting 5 次？三个方案彻底解决
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
