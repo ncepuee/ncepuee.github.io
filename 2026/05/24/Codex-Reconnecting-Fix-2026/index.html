@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言有个问题挺烦的——每次打开 Codex，让它回答之前，都会先来一套： 12345Reconnecting… 1&#x2F;5Reconnecting… 2&#x2F;5Reconnecting… 3&#x2F;5Reconnecting… 4&#x2F;5Reconnecting… 5&#x2F;5  好家伙，不是一次两次，是每次都这样。而且最恶心的是，它最后又不是不能用——它会卡那么一会儿，然后突然正常开始回答。这就很迷惑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codex 每次都要 Reconnecting 5 次？三个方案彻底解决">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/24/Codex-Reconnecting-Fix-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="前言有个问题挺烦的——每次打开 Codex，让它回答之前，都会先来一套： 12345Reconnecting… 1&#x2F;5Reconnecting… 2&#x2F;5Reconnecting… 3&#x2F;5Reconnecting… 4&#x2F;5Reconnecting… 5&#x2F;5  好家伙，不是一次两次，是每次都这样。而且最恶心的是，它最后又不是不能用——它会卡那么一会儿，然后突然正常开始回答。这就很迷惑。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-24T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-25T04:01:27.289Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="代理配置">
+<meta property="article:tag" content="AI工具">
+<meta property="article:tag" content="Codex">
+<meta property="article:tag" content="网络问题">
+<meta property="article:tag" content="踩坑记录">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/24/Codex-Reconnecting-Fix-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/24/Codex-Reconnecting-Fix-2026/","path":"2026/05/24/Codex-Reconnecting-Fix-2026/","title":"Codex 每次都要 Reconnecting 5 次？三个方案彻底解决"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Codex 每次都要 Reconnecting 5 次？三个方案彻底解决 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A0%B9%E6%9C%AC%E5%8E%9F%E5%9B%A0%EF%BC%9AWebSocket-%E6%B2%A1%E8%B5%B0%E9%80%9A"><span class="nav-number">2.</span> <span class="nav-text">一、根本原因：WebSocket 没走通</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E7%9B%B4%E6%8E%A5%E7%A6%81%E7%94%A8-WebSocket%EF%BC%88%E6%9C%80%E5%BF%AB%E6%9C%80%E7%9B%B4%E6%8E%A5%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">二、方案一：直接禁用 WebSocket（最快最直接）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%BE%E5%88%B0%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">找到配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">修改配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%90%8E%E9%87%8D%E5%90%AF-Codex"><span class="nav-number">3.3.</span> <span class="nav-text">保存后重启 Codex</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A%E9%85%8D%E7%BD%AE-env-%E8%AE%A9-WebSocket-%E4%B9%9F%E8%B5%B0%E4%BB%A3%E7%90%86%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">三、方案二：配置 .env 让 WebSocket 也走代理（推荐）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-env-%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">创建 .env 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">4.2.</span> <span class="nav-text">文件内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%96%B9%E6%A1%88%E4%B8%89%EF%BC%9ATUN-%E5%85%9C%E5%BA%95%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">四、方案三：TUN 兜底方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%86%E6%88%91%E4%B8%8D%E5%BB%BA%E8%AE%AE%E4%B8%80%E4%B8%8A%E6%9D%A5%E5%B0%B1%E5%BC%80-TUN"><span class="nav-number">5.1.</span> <span class="nav-text">但我不建议一上来就开 TUN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E8%AE%AE%E9%A1%BA%E5%BA%8F"><span class="nav-number">5.2.</span> <span class="nav-text">建议顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%88%91%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">五、我的建议</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">78</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/24/Codex-Reconnecting-Fix-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Codex 每次都要 Reconnecting 5 次？三个方案彻底解决 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Codex 每次都要 Reconnecting 5 次？三个方案彻底解决
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-05-24 12:00:00" itemprop="dateCreated datePublished" datetime="2026-05-24T12:00:00+08:00">2026-05-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-05-25 12:01:27" itemprop="dateModified" datetime="2026-05-25T12:01:27+08:00">2026-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">AI工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有个问题挺烦的——每次打开 Codex，让它回答之前，都会先来一套：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Reconnecting… 1/5</span><br><span class="line">Reconnecting… 2/5</span><br><span class="line">Reconnecting… 3/5</span><br><span class="line">Reconnecting… 4/5</span><br><span class="line">Reconnecting… 5/5</span><br></pre></td></tr></table></figure>
+
+<p>好家伙，不是一次两次，是每次都这样。而且最恶心的是，它最后又不是不能用——它会卡那么一会儿，然后突然正常开始回答。这就很迷惑。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="一、根本原因：WebSocket-没走通"><a href="#一、根本原因：WebSocket-没走通" class="headerlink" title="一、根本原因：WebSocket 没走通"></a>一、根本原因：WebSocket 没走通</h2><p>原因并不复杂。Codex 默认会优先使用 <strong>WebSocket（WSS 协议）</strong> 去和服务器建立实时连接。但很多代理环境下，WSS 不一定能正常走代理。</p>
+<p>于是就会出现一个典型现象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Codex 尝试 WebSocket 连接 → 失败</span><br><span class="line">  → 再试 → 再失败</span><br><span class="line">    → 继续试 → 连续失败 5 次</span><br><span class="line">      → 每次超时约 20 秒</span><br><span class="line">        → 5 次下来，一两分钟在罚站</span><br><span class="line">          → 放弃 WebSocket，降级回退到普通 HTTP</span><br><span class="line">            → HTTP 正常走代理 → 突然能用了</span><br></pre></td></tr></table></figure>
+
+<p><strong>不是模型慢、不是账号问题、不是 Codex 崩了</strong>——大概率就是 WebSocket 没走通。</p>
+<hr>
+<h2 id="二、方案一：直接禁用-WebSocket（最快最直接）"><a href="#二、方案一：直接禁用-WebSocket（最快最直接）" class="headerlink" title="二、方案一：直接禁用 WebSocket（最快最直接）"></a>二、方案一：直接禁用 WebSocket（最快最直接）</h2><p>如果你不想折腾代理配置，最简单的办法就是让 Codex 别再优先走 WebSocket，直接强制它只用 HTTPS。</p>
+<h3 id="找到配置文件"><a href="#找到配置文件" class="headerlink" title="找到配置文件"></a>找到配置文件</h3><table>
+<thead>
+<tr>
+<th>系统</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>macOS &#x2F; Linux</td>
+<td><code>~/.codex/config.toml</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>C:\Users\你的用户名\.codex\config.toml</code></td>
+</tr>
+</tbody></table>
+<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>在配置文件<strong>顶部</strong>添加或修改：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">model_provider</span> = <span class="string">&quot;openai_http&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在文件<strong>末尾</strong>添加：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[model_providers.openai_http]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;OpenAI HTTP only&quot;</span></span><br><span class="line"><span class="attr">wire_api</span> = <span class="string">&quot;responses&quot;</span></span><br><span class="line"><span class="attr">supports_websockets</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="保存后重启-Codex"><a href="#保存后重启-Codex" class="headerlink" title="保存后重启 Codex"></a>保存后重启 Codex</h3><p>这波操作的意思很简单：告诉 Codex 别连 WebSocket 了，直接走 HTTP。这样就不会再出现前面 5 次 Reconnecting 的罚站流程。</p>
+<p><strong>副作用：</strong> Codex 的历史会话可能会按 provider 分组。切到 <code>openai_http</code> 之后，原来 provider 下面的部分历史会话可能暂时看不到。不是没了，只是分组变了——如果想回去，把配置还原即可。</p>
+<hr>
+<h2 id="三、方案二：配置-env-让-WebSocket-也走代理（推荐）"><a href="#三、方案二：配置-env-让-WebSocket-也走代理（推荐）" class="headerlink" title="三、方案二：配置 .env 让 WebSocket 也走代理（推荐）"></a>三、方案二：配置 .env 让 WebSocket 也走代理（推荐）</h2><p>如果你希望 Codex 保持默认能力，不想禁用 WebSocket，这个方案更推荐。</p>
+<h3 id="创建-env-文件"><a href="#创建-env-文件" class="headerlink" title="创建 .env 文件"></a>创建 .env 文件</h3><p>路径如下：</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>macOS &#x2F; Linux</td>
+<td><code>~/.codex/.env</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>C:\Users\你的用户名\.codex\.env</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>注意：</strong> 文件名就是 <code>.env</code>，不是 <code>.env.txt</code>。Windows 用户尤其注意别让系统隐藏了后缀名。</p>
+</blockquote>
+<h3 id="文件内容"><a href="#文件内容" class="headerlink" title="文件内容"></a>文件内容</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HTTP_PROXY=&quot;http://127.0.0.1:你的代理端口&quot;</span><br><span class="line">HTTPS_PROXY=&quot;http://127.0.0.1:你的代理端口&quot;</span><br><span class="line">NO_PROXY=&quot;localhost,127.0.0.1,::1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>端口号换成你代理软件实际使用的端口：</p>
+<table>
+<thead>
+<tr>
+<th>代理软件</th>
+<th>常见端口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clash</td>
+<td><code>7890</code></td>
+</tr>
+<tr>
+<td>v2rayN</td>
+<td><code>10808</code></td>
+</tr>
+</tbody></table>
+<p>具体以你自己的代理软件里显示的端口为准。</p>
+<p>这个方案的核心思路是<strong>不禁用 WebSocket，而是让 WebSocket 握手也能正确走代理</strong>，这样 Codex 就不用先失败 5 次再 fallback 到 HTTP 了。</p>
+<hr>
+<h2 id="四、方案三：TUN-兜底方案"><a href="#四、方案三：TUN-兜底方案" class="headerlink" title="四、方案三：TUN 兜底方案"></a>四、方案三：TUN 兜底方案</h2><p>还有一种办法——直接在代理软件里开启 <strong>TUN 模式</strong>。</p>
+<p>TUN 的逻辑更粗暴：它不是只代理某个软件，也不是只代理终端环境变量，而是<strong>从虚拟网卡层面接管系统流量</strong>。</p>
+<p>所以理论上，Codex 的 WebSocket、HTTPS、各种请求都更容易被接住。</p>
+<h3 id="但我不建议一上来就开-TUN"><a href="#但我不建议一上来就开-TUN" class="headerlink" title="但我不建议一上来就开 TUN"></a>但我不建议一上来就开 TUN</h3><p>原因很简单：<strong>TUN 影响范围太大</strong>。它可能会影响：</p>
+<ul>
+<li>其他软件联网</li>
+<li>内网访问</li>
+<li>公司本地开发服务</li>
+<li>某些 App 的网络行为</li>
+</ul>
+<h3 id="建议顺序"><a href="#建议顺序" class="headerlink" title="建议顺序"></a>建议顺序</h3><p>TUN 更适合当<strong>兜底方案</strong>——前面两个方案都不行，再考虑它。</p>
+<hr>
+<h2 id="五、我的建议"><a href="#五、我的建议" class="headerlink" title="五、我的建议"></a>五、我的建议</h2><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>推荐度</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>方案一：禁用 WebSocket</strong></td>
+<td>⭐⭐⭐</td>
+<td>想马上解决，不想理解网络细节</td>
+</tr>
+<tr>
+<td><strong>方案二：配置 .env</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>想保留默认能力，更规范的长期方案</td>
+</tr>
+<tr>
+<td><strong>方案三：TUN 模式</strong></td>
+<td>⭐⭐</td>
+<td>兜底，前面都不行再试</td>
+</tr>
+</tbody></table>
+<p>如果你已经在用 Clash、Surge、Shadowrocket、v2rayN 这类工具，并且熟悉 TUN 的话，方案三也可以用——但不要上来就开。</p>
+<p>因为它不是只影响 Codex，而是可能影响<strong>整个系统网络</strong>。别 Codex 是好了，其他软件又开始抽风了。</p>
+<hr>
+<p><em>本文内容整理自微信公众号文章，整理日期：2026-05-24。</em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" rel="tag"># 代理配置</a>
+              <a href="/tags/AI%E5%B7%A5%E5%85%B7/" rel="tag"># AI工具</a>
+              <a href="/tags/Codex/" rel="tag"># Codex</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/" rel="tag"># 网络问题</a>
+              <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" rel="tag"># 踩坑记录</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/24/OpenClaw-Hardware-Software-Setup-2026/" rel="prev" title="OpenClaw 软硬件设置实操：Mac Mini + 语音交互 + 多模型搭配">
+                  <i class="fa fa-angle-left"></i> OpenClaw 软硬件设置实操：Mac Mini + 语音交互 + 多模型搭配
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
