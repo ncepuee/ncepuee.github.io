@@ -20,15 +20,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="前言最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。 听起来很简单对吧？但实际上，它牵出了一整条技术链路——从 Windows 进程内存扫描，到 SQLCipher 数据库解密，再到 Hexo 博客构建部署。这篇文章就记录这个打通的过程和方法。">
+    <meta name="description" content="⚠️ 2026-05-26 更新：微信账号被封风险警告 本文最初版本记录了通过扫描微信进程内存、解密本地 SQLCipher 数据库来提取文章的方法。这种方法已被微信安全机制检测并导致账号被封禁。 如果你只是想发布公众号文章到博客，请直接跳到文末的安全方案，使用朋友转发链接的方式即可，不要碰任何微信进程和解密工具。  前言最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从零打通微信数据到博客发布：一次 AI Agent 集成实践">
 <meta property="og:url" content="http://ncepuee.github.io/2026/05/25/wechat-data-to-blog-pipeline-2026/index.html">
 <meta property="og:site_name" content="School boy">
-<meta property="og:description" content="前言最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。 听起来很简单对吧？但实际上，它牵出了一整条技术链路——从 Windows 进程内存扫描，到 SQLCipher 数据库解密，再到 Hexo 博客构建部署。这篇文章就记录这个打通的过程和方法。">
+<meta property="og:description" content="⚠️ 2026-05-26 更新：微信账号被封风险警告 本文最初版本记录了通过扫描微信进程内存、解密本地 SQLCipher 数据库来提取文章的方法。这种方法已被微信安全机制检测并导致账号被封禁。 如果你只是想发布公众号文章到博客，请直接跳到文末的安全方案，使用朋友转发链接的方式即可，不要碰任何微信进程和解密工具。  前言最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-25T11:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-25T11:25:37.614Z">
+<meta property="article:modified_time" content="2026-05-26T01:12:18.218Z">
 <meta property="article:author" content="菜菜的黄">
 <meta property="article:tag" content="Agent">
 <meta property="article:tag" content="AI工具">
@@ -139,7 +139,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E4%B8%8E%E7%9B%AE%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">背景与目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%85%B3%EF%BC%9A%E7%90%86%E8%A7%A3%E5%BE%AE%E4%BF%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">3.</span> <span class="nav-text">第一关：理解微信的数据存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1-4-x-%E7%9A%84%E6%96%B0%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">微信 4.x 的新格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLCipher-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.2.</span> <span class="nav-text">SQLCipher 是什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%85%B3%EF%BC%9A%E5%AF%86%E9%92%A5%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="nav-number">4.</span> <span class="nav-text">第二关：密钥在哪里</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E6%89%AB%E6%8F%8F"><span class="nav-number">4.1.</span> <span class="nav-text">进程内存扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%B5%B7%E9%87%8F%E5%86%85%E5%AD%98%E4%B8%AD%E6%89%BE%E5%88%B0%E5%AF%86%E9%92%A5"><span class="nav-number">4.2.</span> <span class="nav-text">从海量内存中找到密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%AF%86%E9%92%A5%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">验证密钥的正确性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%8F%E5%A4%96%E5%8F%91%E7%8E%B0%EF%BC%9A%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E4%B8%8D%E5%90%8C%E5%AF%86%E9%92%A5"><span class="nav-number">4.4.</span> <span class="nav-text">意外发现：不同数据库用不同密钥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E5%85%B3%EF%BC%9A%E7%8E%B0%E6%9C%89%E5%B7%A5%E5%85%B7%E7%9A%84%E5%B1%80%E9%99%90"><span class="nav-number">5.</span> <span class="nav-text">第三关：现有工具的局限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wx-cli-jackwener-wx-cli"><span class="nav-number">5.1.</span> <span class="nav-text">wx-cli (@jackwener&#x2F;wx-cli)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wechat-cli-canghe-ai-wechat-cli"><span class="nav-number">5.2.</span> <span class="nav-text">wechat-cli (@canghe_ai&#x2F;wechat-cli)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9AZedeX-weixin-decrypte-script"><span class="nav-number">5.3.</span> <span class="nav-text">解决方案：ZedeX&#x2F;weixin-decrypte-script</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E5%85%B3%EF%BC%9A%E5%A4%84%E7%90%86%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9"><span class="nav-number">6.</span> <span class="nav-text">第四关：处理公众号文章内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">完整工作流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E9%AA%8C%E4%B8%8E%E6%95%99%E8%AE%AD"><span class="nav-number">8.</span> <span class="nav-text">经验与教训</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E8%A6%81%E5%81%87%E8%AE%BE%E6%97%A7%E5%B7%A5%E5%85%B7%E8%83%BD%E7%94%A8"><span class="nav-number">8.1.</span> <span class="nav-text">1. 不要假设旧工具能用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E6%98%AF%E5%AE%9D%E8%97%8F"><span class="nav-number">8.2.</span> <span class="nav-text">2. 进程内存是宝藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%8D%E5%90%8C%E5%B7%A5%E5%85%B7%E4%B9%8B%E9%97%B4%E4%BA%92%E8%A1%A5"><span class="nav-number">8.3.</span> <span class="nav-text">3. 不同工具之间互补</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E6%B0%B8%E8%BF%9C%E6%98%AF%E9%97%A8%E6%A7%9B"><span class="nav-number">8.4.</span> <span class="nav-text">4. 权限问题永远是门槛</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E7%A7%81%E4%B8%8E%E5%AE%89%E5%85%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">9.</span> <span class="nav-text">隐私与安全说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E4%B8%8E%E7%9B%AE%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">背景与目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%85%B3%EF%BC%9A%E7%90%86%E8%A7%A3%E5%BE%AE%E4%BF%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">3.</span> <span class="nav-text">第一关：理解微信的数据存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1-4-x-%E7%9A%84%E6%96%B0%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">微信 4.x 的新格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLCipher-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.2.</span> <span class="nav-text">SQLCipher 是什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%85%B3%EF%BC%9A%E5%AF%86%E9%92%A5%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="nav-number">4.</span> <span class="nav-text">第二关：密钥在哪里</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E6%89%AB%E6%8F%8F"><span class="nav-number">4.1.</span> <span class="nav-text">进程内存扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%B5%B7%E9%87%8F%E5%86%85%E5%AD%98%E4%B8%AD%E6%89%BE%E5%88%B0%E5%AF%86%E9%92%A5"><span class="nav-number">4.2.</span> <span class="nav-text">从海量内存中找到密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%AF%86%E9%92%A5%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">验证密钥的正确性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%8F%E5%A4%96%E5%8F%91%E7%8E%B0%EF%BC%9A%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E4%B8%8D%E5%90%8C%E5%AF%86%E9%92%A5"><span class="nav-number">4.4.</span> <span class="nav-text">意外发现：不同数据库用不同密钥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E5%85%B3%EF%BC%9A%E7%8E%B0%E6%9C%89%E5%B7%A5%E5%85%B7%E7%9A%84%E5%B1%80%E9%99%90"><span class="nav-number">5.</span> <span class="nav-text">第三关：现有工具的局限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wx-cli-jackwener-wx-cli"><span class="nav-number">5.1.</span> <span class="nav-text">wx-cli (@jackwener&#x2F;wx-cli)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wechat-cli-canghe-ai-wechat-cli"><span class="nav-number">5.2.</span> <span class="nav-text">wechat-cli (@canghe_ai&#x2F;wechat-cli)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#huohuoer-wechat-cli"><span class="nav-number">5.3.</span> <span class="nav-text">huohuoer&#x2F;wechat-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9AZedeX-weixin-decrypte-script"><span class="nav-number">5.4.</span> <span class="nav-text">解决方案：ZedeX&#x2F;weixin-decrypte-script</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E5%85%B3%EF%BC%9A%E5%A4%84%E7%90%86%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9"><span class="nav-number">6.</span> <span class="nav-text">第四关：处理公众号文章内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E5%B7%A5%E4%BD%9C%E6%B5%81%EF%BC%88%E6%97%A7%E6%96%B9%E6%A1%88%EF%BC%8C%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">完整工作流（旧方案，已废弃）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88"><span class="nav-number">8.</span> <span class="nav-text">最终推荐方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88%EF%BC%9A%E6%89%8B%E5%8A%A8%E8%BD%AC%E5%8F%91-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83"><span class="nav-number">9.</span> <span class="nav-text">安全方案：手动转发 + 自动发布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">9.1.</span> <span class="nav-text">实际操作流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E9%AA%8C%E4%B8%8E%E6%95%99%E8%AE%AD"><span class="nav-number">10.</span> <span class="nav-text">经验与教训</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-%E2%9A%A0%EF%B8%8F-%E4%B8%8D%E8%A6%81%E6%89%AB%E6%8F%8F%E5%BE%AE%E4%BF%A1%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%EF%BC%88%E8%A1%80%E7%9A%84%E6%95%99%E8%AE%AD%EF%BC%89"><span class="nav-number">10.1.</span> <span class="nav-text">0. ⚠️ 不要扫描微信进程内存（血的教训）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E8%A6%81%E5%81%87%E8%AE%BE%E6%97%A7%E5%B7%A5%E5%85%B7%E8%83%BD%E7%94%A8"><span class="nav-number">10.2.</span> <span class="nav-text">1. 不要假设旧工具能用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E6%98%AF%E5%AE%9D%E8%97%8F%E2%80%94%E2%80%94%E4%BD%86%E5%88%AB%E7%A2%B0"><span class="nav-number">10.3.</span> <span class="nav-text">2. 进程内存是宝藏——但别碰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%AE%80%E5%8D%95%E6%96%B9%E6%A1%88%E8%83%9C%E8%BF%87%E5%A4%8D%E6%9D%82%E6%96%B9%E6%A1%88"><span class="nav-number">10.4.</span> <span class="nav-text">3. 简单方案胜过复杂方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E6%B0%B8%E8%BF%9C%E6%98%AF%E9%97%A8%E6%A7%9B"><span class="nav-number">10.5.</span> <span class="nav-text">4. 权限问题永远是门槛</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E7%A7%81%E4%B8%8E%E5%AE%89%E5%85%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">11.</span> <span class="nav-text">隐私与安全说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">12.</span> <span class="nav-text">总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -224,9 +224,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-05-25 19:00:00 / 修改时间：19:25:37" itemprop="dateCreated datePublished" datetime="2026-05-25T19:00:00+08:00">2026-05-25</time>
+      <time title="创建时间：2026-05-25 19:00:00" itemprop="dateCreated datePublished" datetime="2026-05-25T19:00:00+08:00">2026-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-05-26 09:12:18" itemprop="dateModified" datetime="2026-05-26T09:12:18+08:00">2026-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,7 +253,12 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。</p>
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>⚠️ <strong>2026-05-26 更新：微信账号被封风险警告</strong></p>
+<p>本文最初版本记录了通过扫描微信进程内存、解密本地 SQLCipher 数据库来提取文章的方法。<strong>这种方法已被微信安全机制检测并导致账号被封禁。</strong></p>
+<p>如果你只是想发布公众号文章到博客，请直接跳到文末的<a href="#%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88-%E6%89%8B%E5%8A%A8%E8%BD%AC%E5%8F%91%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83">安全方案</a>，使用朋友转发链接的方式即可，不要碰任何微信进程和解密工具。</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。</p>
 <p>听起来很简单对吧？但实际上，它牵出了一整条技术链路——从 Windows 进程内存扫描，到 SQLCipher 数据库解密，再到 Hexo 博客构建部署。这篇文章就记录这个打通的过程和方法。</p>
 <span id="more"></span>
 
@@ -331,18 +342,23 @@
 <li><strong>单密钥模型</strong>：所有数据库共享一个 <code>master_key</code>，但微信 4.x 每个库的密钥不同</li>
 </ol>
 <p>即使手动配置文件路径和密钥，也无法正常工作。</p>
-<h3 id="wechat-cli-canghe-ai-wechat-cli"><a href="#wechat-cli-canghe-ai-wechat-cli" class="headerlink" title="wechat-cli (@canghe_ai&#x2F;wechat-cli)"></a>wechat-cli (@canghe_ai&#x2F;wechat-cli)</h3><p>另一个 Python 实现，自带内存密钥提取功能。但在 Windows 上安装受限：</p>
-<ul>
-<li>npm 包只有 macOS arm64 二进制</li>
-<li>pip 包需要 Python 3.10+（而很多 Windows 环境是 3.8&#x2F;3.9）</li>
-</ul>
-<h3 id="解决方案：ZedeX-weixin-decrypte-script"><a href="#解决方案：ZedeX-weixin-decrypte-script" class="headerlink" title="解决方案：ZedeX&#x2F;weixin-decrypte-script"></a>解决方案：ZedeX&#x2F;weixin-decrypte-script</h3><p>最终使用的是这个开源工具集。它的优势在于：</p>
+<h3 id="wechat-cli-canghe-ai-wechat-cli"><a href="#wechat-cli-canghe-ai-wechat-cli" class="headerlink" title="wechat-cli (@canghe_ai&#x2F;wechat-cli)"></a>wechat-cli (@canghe_ai&#x2F;wechat-cli)</h3><p>一个 npm 包，自带内存密钥提取功能。在 Windows 上安装受限——npm 包只提供了 macOS arm64 二进制。</p>
+<h3 id="huohuoer-wechat-cli"><a href="#huohuoer-wechat-cli" class="headerlink" title="huohuoer&#x2F;wechat-cli"></a>huohuoer&#x2F;wechat-cli</h3><p>另一个 Python 实现的 CLI 工具（v0.2.4），设计思路清晰、AI 友好的 JSON 输出。实际测试中通过 conda 创建 Python 3.10 环境后能在 Windows 上正常运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实测可用的安装方式</span></span><br><span class="line">conda create -n wechat-cli python=3.10</span><br><span class="line">conda install -n wechat-cli click pycryptodome zstandard</span><br><span class="line">pip install huohuoer/wechat-cli</span><br><span class="line">wechat-cli init --db-dir ~/Documents/xwechat_files/xxx/db_storage</span><br><span class="line">wechat-cli sessions</span><br></pre></td></tr></table></figure>
+
+<p>内存扫描能提取全部 28 个数据库密钥，查询功能正常。</p>
+<h3 id="解决方案：ZedeX-weixin-decrypte-script"><a href="#解决方案：ZedeX-weixin-decrypte-script" class="headerlink" title="解决方案：ZedeX&#x2F;weixin-decrypte-script"></a>解决方案：ZedeX&#x2F;weixin-decrypte-script</h3><p>另一个可用的开源工具集。优势在于：</p>
 <ul>
 <li><strong>Python 3.8+ 兼容</strong>，Windows 原生支持</li>
 <li><strong>支持微信 4.x</strong> 的 <code>xwechat_files</code> 格式</li>
 <li><strong>自动扫描进程内存</strong>提取密钥</li>
 <li>提供解密、读取、API 服务的完整工具链</li>
 </ul>
+<p>实际测试中，在已有 conda 环境内安装 <code>pymem</code> 依赖后，扫描全部 5 个微信子进程，成功提取到 28&#x2F;29 个数据库密钥。</p>
+<hr>
+<blockquote>
+<p>⚠️ <strong>但上述工具最终都因扫描微信进程内存触发了安全检测，导致账号被封禁。</strong> 详见下文「血的教训」。</p>
+</blockquote>
 <hr>
 <h2 id="第四关：处理公众号文章内容"><a href="#第四关：处理公众号文章内容" class="headerlink" title="第四关：处理公众号文章内容"></a>第四关：处理公众号文章内容</h2><p>解密数据库只是第一步。从数据库中读到的公众号文章消息是 XML 格式的：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">msg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">appmsg</span> <span class="attr">appid</span>=<span class="string">&quot;&quot;</span> <span class="attr">sdkver</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>&lt;![CDATA[文章标题]]&gt;<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">des</span>&gt;</span>&lt;![CDATA[文章描述]]&gt;<span class="tag">&lt;/<span class="name">des</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>5<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>&lt;![CDATA[https://mp.weixin.qq.com/s/...]]&gt;<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appmsg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">msg</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -350,33 +366,55 @@
 <p>而且消息体经过 <strong>Zstandard (zstd)</strong> 压缩，需要先解压才能解析。</p>
 <p>提取出文章 URL 后，再通过 HTTP 抓取获取完整正文，最终生成博客文章。</p>
 <hr>
-<h2 id="完整工作流"><a href="#完整工作流" class="headerlink" title="完整工作流"></a>完整工作流</h2><p>最终打通的全流程：</p>
+<h2 id="完整工作流（旧方案，已废弃）"><a href="#完整工作流（旧方案，已废弃）" class="headerlink" title="完整工作流（旧方案，已废弃）"></a>完整工作流（旧方案，已废弃）</h2><p>⚠️ <strong>以下方案因扫描微信进程内存已被封号，仅供参考，请勿效仿。</strong></p>
+<p>旧方案的全流程：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 微信运行中 → 扫描 Weixin.exe 进程内存 → 提取 SQLCipher 密钥</span><br><span class="line">2. 用密钥解密 biz_message_*.db 数据库</span><br><span class="line">3. 读取数据库中的消息记录 → zstd 解压 → 解析 XML → 提取文章 URL</span><br><span class="line">4. 通过 HTTP 抓取文章全文</span><br><span class="line">5. 学习内化内容，重新组织为博客文章</span><br><span class="line">6. 生成 Hexo Markdown 文件（含 front-matter）</span><br><span class="line">7. 执行 hexo generate + deploy → 发布到 GitHub Pages</span><br></pre></td></tr></table></figure>
 
-<p>整个过程从手动执行到半自动，再到现在的脚本化一键完成。</p>
+<p>整个过程从手动执行到半自动，再到脚本化一键完成——<strong>但这条路已经被微信封死</strong>。</p>
+<h2 id="最终推荐方案"><a href="#最终推荐方案" class="headerlink" title="最终推荐方案"></a>最终推荐方案</h2><p>如果你也想做公众号文章到博客的自动化，建议直接用最轻量的方案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">朋友/自己转发链接 → 复制 URL → fetch_article.py 抓取 → generate_blog.py 生成 → deploy 上线</span><br></pre></td></tr></table></figure>
+
+<p>不需要管理员权限，不需要解密任何数据库，不需要扫描进程内存。微信零感知。</p>
+<p>具体工具链见 <a target="_blank" rel="noopener" href="https://github.com/ncepuee/wechat-to-blog">wechat-to-blog skill</a>。</p>
 <hr>
-<h2 id="经验与教训"><a href="#经验与教训" class="headerlink" title="经验与教训"></a>经验与教训</h2><h3 id="1-不要假设旧工具能用"><a href="#1-不要假设旧工具能用" class="headerlink" title="1. 不要假设旧工具能用"></a>1. 不要假设旧工具能用</h3><p>微信的本地数据存储格式在 4.x 版本发生了根本性变化。很多基于旧版微信的工具已经失效。遇到问题时，第一反应应该是检查目标软件版本，而不是在错误的方向上调试。</p>
-<h3 id="2-进程内存是宝藏"><a href="#2-进程内存是宝藏" class="headerlink" title="2. 进程内存是宝藏"></a>2. 进程内存是宝藏</h3><p>桌面应用的敏感数据（密钥、令牌、解密后的内容）几乎必然出现在进程内存中。只要有权访问进程内存，就能找到这些数据。这是很多所谓”本地加密”方案的软肋。</p>
-<h3 id="3-不同工具之间互补"><a href="#3-不同工具之间互补" class="headerlink" title="3. 不同工具之间互补"></a>3. 不同工具之间互补</h3><p>wx-cli 虽然不兼容新版本，但它的设计思路（AI 友好的 JSON 输出、命令式交互）值得借鉴。ZedeX 工具虽然解密能力强，但缺少一些高级查询功能。最终方案是组合使用：ZedeX 负责底层数据访问，上层自己构建业务逻辑。</p>
-<h3 id="4-权限问题永远是门槛"><a href="#4-权限问题永远是门槛" class="headerlink" title="4. 权限问题永远是门槛"></a>4. 权限问题永远是门槛</h3><p>读取进程内存需要管理员权限。这意味着这个工作流必须显式地以管理员身份运行。在自动化时要注意这一点。</p>
-<hr>
-<h2 id="隐私与安全说明"><a href="#隐私与安全说明" class="headerlink" title="隐私与安全说明"></a>隐私与安全说明</h2><p>这套方法有几个天然的安全边界：</p>
+<h2 id="安全方案：手动转发-自动发布"><a href="#安全方案：手动转发-自动发布" class="headerlink" title="安全方案：手动转发 + 自动发布"></a>安全方案：手动转发 + 自动发布</h2><p>如果你和我一样只是想发文章到博客，<strong>不要碰微信数据库</strong>。最安全也最简单的工作流：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">朋友转发链接 → 你复制链接 → 脚本抓取全文 → AI 整理 → 生成博客 → 部署上线</span><br></pre></td></tr></table></figure>
+
+<p>这套方案用到的工具完全不涉及微信内部数据：</p>
 <ul>
-<li><strong>完全本地运行</strong>：所有数据读取、解密、处理都在本地完成，不经过任何外部服务器</li>
-<li><strong>只读操作</strong>：只读取进程内存和数据库文件，不修改任何微信数据</li>
+<li><strong><code>fetch_article.py</code></strong> — 用 curl 模拟浏览器抓取公众号文章页面，提取标题和正文（纯 HTTP 请求，不碰微信进程）</li>
+<li><strong><code>generate_blog.py</code></strong> — 将提取的内容整理成 Hexo Markdown 文件</li>
+<li><strong><code>deploy_blog.py</code></strong> — 执行 <code>hexo generate</code> + 部署到 GitHub Pages</li>
+</ul>
+<p>三个脚本在一个独立的 wechat-to-blog skill 里，只处理公开的 URL 内容和本地文件，对微信零侵入。</p>
+<h3 id="实际操作流程"><a href="#实际操作流程" class="headerlink" title="实际操作流程"></a>实际操作流程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 朋友发了链接，你复制后执行</span></span><br><span class="line">python scripts/fetch_article.py <span class="string">&quot;https://mp.weixin.qq.com/s/XXXXX&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 生成博客文章</span></span><br><span class="line">python scripts/generate_blog.py _temp/article.json \</span><br><span class="line">  -t <span class="string">&quot;文章标题&quot;</span> --tags <span class="string">&quot;标签1,标签2&quot;</span> --category <span class="string">&quot;分类&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 部署上线</span></span><br><span class="line">python scripts/deploy_blog.py</span><br></pre></td></tr></table></figure>
+
+<p>整个过程不到 30 秒，零风险。</p>
+<hr>
+<h2 id="经验与教训"><a href="#经验与教训" class="headerlink" title="经验与教训"></a>经验与教训</h2><h3 id="0-⚠️-不要扫描微信进程内存（血的教训）"><a href="#0-⚠️-不要扫描微信进程内存（血的教训）" class="headerlink" title="0. ⚠️ 不要扫描微信进程内存（血的教训）"></a>0. ⚠️ 不要扫描微信进程内存（血的教训）</h3><p><strong>这是最重要的教训：任何读写微信进程内存、解密微信数据库的操作，都会被微信的安全机制检测到，导致账号被封禁。</strong></p>
+<p>2026年5月，我在测试 <code>wechat-cli</code> 和 <code>weixin-decrypte-script</code> 等工具后，微信直接封停了账号。这些工具的原理——<code>OpenProcess</code> + <code>ReadProcessMemory</code> 扫描进程内存、SQLCipher 数据库解密——触发了微信的反外挂检测。</p>
+<p>如果你的目的只是发博客文章，完全不需要走这条路。</p>
+<h3 id="1-不要假设旧工具能用"><a href="#1-不要假设旧工具能用" class="headerlink" title="1. 不要假设旧工具能用"></a>1. 不要假设旧工具能用</h3><p>微信的本地数据存储格式在 4.x 版本发生了根本性变化。很多基于旧版微信的工具已经失效。遇到问题时，第一反应应该是检查目标软件版本，而不是在错误的方向上调试。</p>
+<h3 id="2-进程内存是宝藏——但别碰"><a href="#2-进程内存是宝藏——但别碰" class="headerlink" title="2. 进程内存是宝藏——但别碰"></a>2. 进程内存是宝藏——但别碰</h3><p>桌面应用的敏感数据（密钥、令牌、解密后的内容）几乎必然出现在进程内存中。只要有权访问进程内存，就能找到这些数据。但微信对此有严格的检测机制，<strong>碰了就会封号</strong>。</p>
+<h3 id="3-简单方案胜过复杂方案"><a href="#3-简单方案胜过复杂方案" class="headerlink" title="3. 简单方案胜过复杂方案"></a>3. 简单方案胜过复杂方案</h3><p>一开始我走入了误区：觉得”自动化”就必须从数据库源头打通。实际上最简单的方案——<strong>朋友转发链接，我复制到脚本里抓取</strong>——已经能满足 100% 的需求，而且零风险。在开始复杂的技术方案之前，先问问自己：有没有更简单的做法？</p>
+<p>wx-cli 虽然不兼容新版本，但它的设计思路（AI 友好的 JSON 输出、命令式交互）值得借鉴。</p>
+<h3 id="4-权限问题永远是门槛"><a href="#4-权限问题永远是门槛" class="headerlink" title="4. 权限问题永远是门槛"></a>4. 权限问题永远是门槛</h3><p>读取进程内存需要管理员权限。但安全方案（URL 抓取）不需要任何特殊权限，普通用户就可运行。</p>
+<hr>
+<h2 id="隐私与安全说明"><a href="#隐私与安全说明" class="headerlink" title="隐私与安全说明"></a>隐私与安全说明</h2><p>安全方案的特点：</p>
+<ul>
+<li><strong>零侵入</strong>：只通过 HTTP 请求访问公开的公众号文章 URL，不碰微信进程和数据</li>
 <li><strong>可控输出</strong>：发布到博客的内容需要人工审核，不会自动公开私人信息</li>
+<li><strong>低权限</strong>：不需要管理员权限，普通用户即可运行</li>
 </ul>
 <hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>打通微信数据到博客的技术路径不算短，但每一步都有清晰的逻辑：</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>打通微信文章到博客的自动化，最终落地的是一条<strong>安全、简单</strong>的路径：</p>
 <ol>
-<li><strong>数据在哪</strong> → <code>xwechat_files</code> 目录下的 SQLCipher 加密数据库</li>
-<li><strong>密钥在哪</strong> → 微信进程的运行内存中</li>
-<li><strong>怎么提取</strong> → 通过 Windows API 扫描进程内存，匹配 <code>x&#39;&lt;hex&gt;&#39;</code> 特征</li>
-<li><strong>怎么解密</strong> → 用提取的密钥 + 数据库头部的 salt 进行 SQLCipher 解密</li>
-<li><strong>怎么用</strong> → 读取解压后的消息 → 提取文章 URL → 抓取全文 → 生成博客</li>
+<li><strong>获取文章</strong> → 朋友转发链接，你手动复制</li>
+<li><strong>抓取内容</strong> → <code>fetch_article.py</code> 通过 HTTP 抓取公开页面</li>
+<li><strong>整理发布</strong> → <code>generate_blog.py</code> 生成 Hexo 文章 + <code>deploy_blog.py</code> 部署上线</li>
 </ol>
-<p>这是一次典型的 AI Agent 工具集成实践：把多个开源工具、脚本和工作流串联起来，解决一个具体的自动化需求。本质上，就是让 AI Agent 拥有了”读取微信数据”的能力，然后基于这些数据完成更上层的任务。</p>
-<p>如果你也在做类似的本地数据集成，希望这篇文章能给你一些参考。</p>
+<p>最初尝试的数据库解密方案虽然技术上更有趣，但最终证明是<strong>错误的方向</strong>——不仅复杂度高，而且导致了微信账号被封。</p>
+<p>如果你也在做类似的数据集成，建议先问自己：<strong>最简单的方案是什么？</strong> 很多时候，手动复制一个链接比逆向整个系统要明智得多。</p>
 <hr>
 <p><em>本文为技术实践记录，不涉及具体密钥、账号信息及本地路径。</em></p>
 

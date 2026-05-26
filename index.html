@@ -304,9 +304,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-05-25 19:00:00 / 修改时间：19:25:37" itemprop="dateCreated datePublished" datetime="2026-05-25T19:00:00+08:00">2026-05-25</time>
+      <time title="创建时间：2026-05-25 19:00:00" itemprop="dateCreated datePublished" datetime="2026-05-25T19:00:00+08:00">2026-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-05-26 09:12:18" itemprop="dateModified" datetime="2026-05-26T09:12:18+08:00">2026-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -328,7 +334,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。</p>
+          <blockquote>
+<p>⚠️ <strong>2026-05-26 更新：微信账号被封风险警告</strong></p>
+<p>本文最初版本记录了通过扫描微信进程内存、解密本地 SQLCipher 数据库来提取文章的方法。<strong>这种方法已被微信安全机制检测并导致账号被封禁。</strong></p>
+<p>如果你只是想发布公众号文章到博客，请直接跳到文末的<a href="#%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88-%E6%89%8B%E5%8A%A8%E8%BD%AC%E5%8F%91%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83">安全方案</a>，使用朋友转发链接的方式即可，不要碰任何微信进程和解密工具。</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。</p>
 <p>听起来很简单对吧？但实际上，它牵出了一整条技术链路——从 Windows 进程内存扫描，到 SQLCipher 数据库解密，再到 Hexo 博客构建部署。这篇文章就记录这个打通的过程和方法。</p>
           <!--noindex-->
             <div class="post-button">
