@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、前言2026年的 Codex 跟几个月前相比几乎是两个产品。从最初的 CLI 工具，到现在拥有桌面应用、可视化 UI、Skills 插件系统、Computer Use 甚至手机远程控制——Codex 的进化速度令人惊叹。 本文将从零开始，带你全面了解 Codex 的核心功能，并通过两个实战案例（一个网页 + 一个 App）串联起整个使用流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenAI Codex 从入门到实战：2026年最新保姆级教程">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/28/Codex-Ultimate-Tutorial-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、前言2026年的 Codex 跟几个月前相比几乎是两个产品。从最初的 CLI 工具，到现在拥有桌面应用、可视化 UI、Skills 插件系统、Computer Use 甚至手机远程控制——Codex 的进化速度令人惊叹。 本文将从零开始，带你全面了解 Codex 的核心功能，并通过两个实战案例（一个网页 + 一个 App）串联起整个使用流程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-28T03:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-28T17:26:44.492Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="AI Agent">
+<meta property="article:tag" content="Vibe Coding">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="Codex">
+<meta property="article:tag" content="OpenAI">
+<meta property="article:tag" content="2026">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/28/Codex-Ultimate-Tutorial-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/28/Codex-Ultimate-Tutorial-2026/","path":"2026/05/28/Codex-Ultimate-Tutorial-2026/","title":"OpenAI Codex 从入门到实战：2026年最新保姆级教程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenAI Codex 从入门到实战：2026年最新保姆级教程 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85%E4%B8%8E%E7%99%BB%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">二、安装与登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E7%99%BB%E5%BD%95%E4%B8%8E%E9%A2%9D%E5%BA%A6"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 登录与额度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E4%B8%80%E9%94%AE%E8%BF%81%E7%A7%BB"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 一键迁移</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%AE%A4%E8%AF%86%E7%95%8C%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">三、认识界面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%9F%9F"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 核心区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%BB%BA%E8%AE%AE"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 项目管理建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%9D%83%E9%99%90%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 权限模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%8E%A8%E7%90%86%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 模型与推理设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%85%B3%E9%94%AE%E8%AE%BE%E7%BD%AE%EF%BC%88%E4%B8%8D%E8%83%BD%E8%B7%B3%E8%BF%87%EF%BC%81%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">四、关键设置（不能跳过！）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%B8%B8%E8%A7%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 常规设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-AGENTS-md%EF%BC%9A%E4%BD%A0%E7%9A%84%E2%80%9D%E5%AE%B6%E6%B3%95%E2%80%9D"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 AGENTS.md：你的”家法”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81Skills-%E4%B8%8E%E6%8F%92%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">五、Skills 与插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AE%9E%E6%88%98%E4%B8%80%EF%BC%9A%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E7%BD%91%E9%A1%B5"><span class="nav-number">6.</span> <span class="nav-text">六、实战一：开发一个网页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E5%BC%80%E5%90%AF%E8%AE%A1%E5%88%92%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 开启计划模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E6%8F%8F%E8%BF%B0%E9%9C%80%E6%B1%82"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 描述需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E7%A1%AE%E8%AE%A4%E5%B9%B6%E6%89%A7%E8%A1%8C"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 确认并执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-%E5%86%85%E7%BD%AE%E6%B5%8F%E8%A7%88%E5%99%A8%E9%A2%84%E8%A7%88"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 内置浏览器预览</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%AE%9E%E6%88%98%E4%BA%8C%EF%BC%9A%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA-App"><span class="nav-number">7.</span> <span class="nav-text">七、实战二：开发一个 App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E7%9C%9F%E5%AE%9E%E9%9C%80%E6%B1%82%E9%A9%B1%E5%8A%A8"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 真实需求驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E5%90%8C%E6%A0%B7%E5%BC%80%E5%90%AF%E8%AE%A1%E5%88%92%E6%A8%A1%E5%BC%8F"><span class="nav-number">7.2.</span> <span class="nav-text">7.2 同样开启计划模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%88%B0%E6%89%8B%E6%9C%BA"><span class="nav-number">7.3.</span> <span class="nav-text">7.3 编译安装到手机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-%E6%89%8B%E6%9C%BA%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">7.4.</span> <span class="nav-text">7.4 手机端操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81Mac-vs-Windows%EF%BC%9A%E5%8A%9F%E8%83%BD%E5%B7%AE%E8%B7%9D"><span class="nav-number">8.</span> <span class="nav-text">八、Mac vs Windows：功能差距</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">九、总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/28/Codex-Ultimate-Tutorial-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OpenAI Codex 从入门到实战：2026年最新保姆级教程 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenAI Codex 从入门到实战：2026年最新保姆级教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-05-28 11:00:00" itemprop="dateCreated datePublished" datetime="2026-05-28T11:00:00+08:00">2026-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-05-29 01:26:44" itemprop="dateModified" datetime="2026-05-29T01:26:44+08:00">2026-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">AI工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>2026年的 Codex 跟几个月前相比几乎是两个产品。从最初的 CLI 工具，到现在拥有桌面应用、可视化 UI、Skills 插件系统、Computer Use 甚至手机远程控制——Codex 的进化速度令人惊叹。</p>
+<p>本文将从零开始，带你全面了解 Codex 的核心功能，并通过两个实战案例（一个网页 + 一个 App）串联起整个使用流程。</p>
+<span id="more"></span>
+
+<h2 id="二、安装与登录"><a href="#二、安装与登录" class="headerlink" title="二、安装与登录"></a>二、安装与登录</h2><h3 id="2-1-下载安装"><a href="#2-1-下载安装" class="headerlink" title="2.1 下载安装"></a>2.1 下载安装</h3><p>前提条件：需要科学上网和 ChatGPT 账号。</p>
+<p>前往 <a target="_blank" rel="noopener" href="https://chatgpt.com/zh-Hans-CN/codex/">Codex 官网</a> 下载安装，Mac 和 Windows 都有客户端。</p>
+<h3 id="2-2-登录与额度"><a href="#2-2-登录与额度" class="headerlink" title="2.2 登录与额度"></a>2.2 登录与额度</h3><p>Codex 的额度与你的 ChatGPT 会员等级挂钩：</p>
+<table>
+<thead>
+<tr>
+<th>计划</th>
+<th>价格</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Plus</td>
+<td>$20&#x2F;月</td>
+<td>轻度使用，勉强够用</td>
+</tr>
+<tr>
+<td>Pro</td>
+<td>$100&#x2F;月</td>
+<td>日常开发，推荐</td>
+</tr>
+<tr>
+<td>Pro+</td>
+<td>$200&#x2F;月</td>
+<td>重度使用</td>
+</tr>
+</tbody></table>
+<p>也可以使用 API Key 方式接入，看个人需求。</p>
+<h3 id="2-3-一键迁移"><a href="#2-3-一键迁移" class="headerlink" title="2.3 一键迁移"></a>2.3 一键迁移</h3><p>登录后有一个非常贴心的功能——<strong>可以从 Claude Code 和 Cowork 直接导入所有配置</strong>。Codex 不光天天重置额度喊你来用，还能帮你一键搬家，继承之前的所有设置和记忆。</p>
+<h2 id="三、认识界面"><a href="#三、认识界面" class="headerlink" title="三、认识界面"></a>三、认识界面</h2><h3 id="3-1-核心区域"><a href="#3-1-核心区域" class="headerlink" title="3.1 核心区域"></a>3.1 核心区域</h3><ul>
+<li><strong>中央对话区</strong>：日常与 AI 对话的主区域</li>
+<li><strong>左侧栏</strong>：管理所有对话和项目<ul>
+<li><strong>对话</strong>：不需要绑定特定文件夹的零碎任务（调研、规划等）</li>
+<li><strong>项目</strong>：Codex 的主战场，绑定本地文件夹作为工作区间</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-项目管理建议"><a href="#3-2-项目管理建议" class="headerlink" title="3.2 项目管理建议"></a>3.2 项目管理建议</h3><p>选一个本地文件夹作为项目目录，Codex 会以此为工作区间，所有生成的文件自动存入。一个项目里可以开多个对话，每条对话是独立任务线，共享文件但记录隔离。</p>
+<blockquote>
+<p><strong>建议</strong>：同一方向的任务放同一个项目，具体每件事开新对话。前期做好分类，不然后期会很抓狂。</p>
+</blockquote>
+<h3 id="3-3-权限模式"><a href="#3-3-权限模式" class="headerlink" title="3.3 权限模式"></a>3.3 权限模式</h3><p>对话框左下角有三档权限：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>默认权限</strong></td>
+<td>每次操作都需要审批</td>
+</tr>
+<tr>
+<td><strong>自动审查</strong></td>
+<td>日常开发推荐，只在高风险操作时拦截</td>
+</tr>
+<tr>
+<td><strong>完全访问</strong></td>
+<td>全部自动运行，不征询确认</td>
+</tr>
+</tbody></table>
+<h3 id="3-4-模型与推理设置"><a href="#3-4-模型与推理设置" class="headerlink" title="3.4 模型与推理设置"></a>3.4 模型与推理设置</h3><p>对话框右下角可切换：</p>
+<ul>
+<li><strong>模型</strong>：直接选目前最强的 GPT-5.5</li>
+<li><strong>推理等级</strong>：日常用”高”就够，遇到硬活再开”超高”</li>
+<li><strong>速度</strong>：推荐”标准”模式（快速模式是 1.5 倍速但消耗 2 倍 token）</li>
+</ul>
+<h2 id="四、关键设置（不能跳过！）"><a href="#四、关键设置（不能跳过！）" class="headerlink" title="四、关键设置（不能跳过！）"></a>四、关键设置（不能跳过！）</h2><h3 id="4-1-常规设置"><a href="#4-1-常规设置" class="headerlink" title="4.1 常规设置"></a>4.1 常规设置</h3><p>打开左下角设置，<strong>务必开启以下三个选项</strong>：</p>
+<ul>
+<li>常规设置中的自动保存、自动运行等基础功能</li>
+<li><strong>跟进行为</strong>改为”引导”——这样在任务执行中途可以直接插入修改，不用等做完</li>
+<li><strong>记忆功能</strong>：开启后 Codex 会在对话结束或闲置后自动总结记忆，下次遇到相关场景自动调用</li>
+</ul>
+<h3 id="4-2-AGENTS-md：你的”家法”"><a href="#4-2-AGENTS-md：你的”家法”" class="headerlink" title="4.2 AGENTS.md：你的”家法”"></a>4.2 AGENTS.md：你的”家法”</h3><p>这是从上往下分层穿透的约束体系。第一层是<strong>全局生效的 AGENTS.md</strong>，在个性化设置的自定义指令中修改。</p>
+<p>推荐使用 Andrej Karpathy 的模板：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 1. Think Before Coding</span></span><br><span class="line">Don&#x27;t assume. Don&#x27;t hide confusion. Surface tradeoffs.</span><br><span class="line"></span><br><span class="line">Before implementing:</span><br><span class="line"><span class="bullet">-</span> State your assumptions explicitly. If uncertain, ask.</span><br><span class="line"><span class="bullet">-</span> If multiple interpretations exist, present them — don&#x27;t pick silently.</span><br><span class="line"><span class="bullet">-</span> If a simpler approach exists, say so. Push back when warranted.</span><br><span class="line"></span><br><span class="line"><span class="section">## 2. Simplicity First</span></span><br><span class="line">Minimum code that solves the problem. Nothing speculative.</span><br><span class="line"><span class="bullet">-</span> No features beyond what was asked.</span><br><span class="line"><span class="bullet">-</span> No abstractions for single-use code.</span><br><span class="line"><span class="bullet">-</span> If you write 200 lines and it could be 50, rewrite it.</span><br><span class="line"></span><br><span class="line"><span class="section">## 3. Surgical Changes</span></span><br><span class="line">Touch only what you must. Clean up only your own mess.</span><br><span class="line"><span class="bullet">-</span> Don&#x27;t &quot;improve&quot; adjacent code, comments, or formatting.</span><br><span class="line"><span class="bullet">-</span> Don&#x27;t refactor things that aren&#x27;t broken.</span><br><span class="line"><span class="bullet">-</span> Match existing style, even if you&#x27;d do it differently.</span><br><span class="line"></span><br><span class="line"><span class="section">## 4. Goal-Driven Execution</span></span><br><span class="line">Define success criteria. Loop until verified.</span><br><span class="line"><span class="bullet">-</span> &quot;Add validation&quot; → &quot;Write tests for invalid inputs, then make them pass&quot;</span><br><span class="line"><span class="bullet">-</span> &quot;Fix the bug&quot; → &quot;Write a test that reproduces it, then make it pass&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、Skills-与插件"><a href="#五、Skills-与插件" class="headerlink" title="五、Skills 与插件"></a>五、Skills 与插件</h2><p>Codex 将 Skills 和插件做了可视化 UI 管理。在”插件” Tab 中可以切换查看：</p>
+<ul>
+<li><strong>Skills</strong>：给 Agent 用的技能包</li>
+<li><strong>插件</strong>：一组技能、工具、配置的打包安装包，比单独 Skill 更成熟</li>
+</ul>
+<p>右上角可以直接创建自定义 Skill 和插件。要安装第三方资源，直接把链接甩给 Codex 即可。</p>
+<h2 id="六、实战一：开发一个网页"><a href="#六、实战一：开发一个网页" class="headerlink" title="六、实战一：开发一个网页"></a>六、实战一：开发一个网页</h2><h3 id="6-1-开启计划模式"><a href="#6-1-开启计划模式" class="headerlink" title="6.1 开启计划模式"></a>6.1 开启计划模式</h3><p>建好项目文件夹后，点击左侧加号，<strong>打开计划模式</strong>。这个模式只规划不动手，先帮你理清方案，确认后再执行。</p>
+<blockquote>
+<p>每个稍复杂的项目，都推荐先用计划模式过一遍。</p>
+</blockquote>
+<h3 id="6-2-描述需求"><a href="#6-2-描述需求" class="headerlink" title="6.2 描述需求"></a>6.2 描述需求</h3><p>告诉 Codex 你的需求，它会先问几个问题，你点选回答后，它会给出一份完整的方案计划。</p>
+<h3 id="6-3-确认并执行"><a href="#6-3-确认并执行" class="headerlink" title="6.3 确认并执行"></a>6.3 确认并执行</h3><p>确认方案没问题后，点击开始实施。整个开发过程全自动，这种小网页基本一遍成。</p>
+<h3 id="6-4-内置浏览器预览"><a href="#6-4-内置浏览器预览" class="headerlink" title="6.4 内置浏览器预览"></a>6.4 内置浏览器预览</h3><p>做完后可以用 Codex 的内置浏览器直接预览效果，支持左右拖动对比。右上角有几个实用功能：</p>
+<ul>
+<li><strong>截图</strong>：一键截取当前页面</li>
+<li><strong>批注</strong>（强烈推荐）：直接在页面上圈选元素，写修改意见。比如选中某个 logo，输入”换成官方 logo”，Codex 就能理解并修改。新版本还支持字体、字号、颜色等参数的实时调整。</li>
+</ul>
+<h2 id="七、实战二：开发一个-App"><a href="#七、实战二：开发一个-App" class="headerlink" title="七、实战二：开发一个 App"></a>七、实战二：开发一个 App</h2><h3 id="7-1-真实需求驱动"><a href="#7-1-真实需求驱动" class="headerlink" title="7.1 真实需求驱动"></a>7.1 真实需求驱动</h3><p>以一个真实场景为例：体检后医生开了三种药，一天吃两到三次，有的饭前有的饭后，经常搞混。于是决定做一个<strong>手机用药提醒 App</strong>。</p>
+<h3 id="7-2-同样开启计划模式"><a href="#7-2-同样开启计划模式" class="headerlink" title="7.2 同样开启计划模式"></a>7.2 同样开启计划模式</h3><p>描述需求 → Codex 提问 → 回答 → 确认方案 → 自动执行。大约二十分钟后，App 代码自动生成完毕。</p>
+<h3 id="7-3-编译安装到手机"><a href="#7-3-编译安装到手机" class="headerlink" title="7.3 编译安装到手机"></a>7.3 编译安装到手机</h3><p>开发 App 跟网页不同，需要 <strong>Xcode</strong>（Mac 上的 iOS 开发工具）来编译。大多数人电脑上可能没有提前安装 Xcode，这里有一个很酷的方法：</p>
+<p>用 <strong>@Computer Use</strong> 插件让 Codex 帮你搜索、下载和安装 Xcode。</p>
+<p>Computer Use 是 Codex 上最出色的能力之一——它能视觉化操控你的电脑。使用前需要在设置中开启 Computer Use 开关。</p>
+<p>使用过程中电脑上方会显示操控状态提示条。涉及密码输入或账号登录等安全步骤时，Codex 会暂停让你自己操作。</p>
+<h3 id="7-4-手机端操作"><a href="#7-4-手机端操作" class="headerlink" title="7.4 手机端操作"></a>7.4 手机端操作</h3><p>安装到手机后，可以掏出手机继续远程操作 Codex。这是近期刚上线的新功能，支持 iOS 和 Android 手机连接 Mac 上的 Codex，实现<strong>随时随地 Vibe Coding</strong>。</p>
+<h2 id="八、Mac-vs-Windows：功能差距"><a href="#八、Mac-vs-Windows：功能差距" class="headerlink" title="八、Mac vs Windows：功能差距"></a>八、Mac vs Windows：功能差距</h2><p>Windows 用户需要注意，目前 Codex 的部分高级功能仅支持 Mac：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Mac</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Computer Use（视觉操控电脑）</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>远程手机连接</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Appshots（双击 Command 截屏发送）</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Locked Computer Use（锁屏后继续操控）</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Chronicle（屏幕上下文记忆）</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+<p>Mac 用户目前是 Codex 的”高贵 VIP”，Windows 用户还需要等待这些功能的适配。</p>
+<h2 id="九、总结"><a href="#九、总结" class="headerlink" title="九、总结"></a>九、总结</h2><p>Codex 在2026年已经成为 AI Agent 领域的标杆产品之一。从简单的代码补全到完整的 App 开发，从桌面到手机远程控制，它的能力边界在不断扩展。</p>
+<p>几个核心使用建议：</p>
+<ol>
+<li><strong>先设置 AGENTS.md</strong>：用 Karpathy 模板打好基础</li>
+<li><strong>善用计划模式</strong>：复杂任务先规划后执行</li>
+<li><strong>用好批注功能</strong>：在预览页面直接圈选修改，比截图描述高效十倍</li>
+<li><strong>管理好对话</strong>：一个任务一条对话，别全堆在一起</li>
+<li><strong>Computer Use 是杀手级功能</strong>：能让 AI 帮你操作电脑上的其他软件</li>
+</ol>
+<hr>
+<blockquote>
+<p>参考来源：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/5kgVdLNABViv8uAnD0M6Ag">从0到1带你速通Codex，我整理的终极保姆教程来了 - 微信公众号</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI-Agent/" rel="tag"># AI Agent</a>
+              <a href="/tags/Vibe-Coding/" rel="tag"># Vibe Coding</a>
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+              <a href="/tags/Codex/" rel="tag"># Codex</a>
+              <a href="/tags/OpenAI/" rel="tag"># OpenAI</a>
+              <a href="/tags/2026/" rel="tag"># 2026</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/28/AI-Tools-Trending-May-2026/" rel="prev" title="2026年5月 AI 编程工具热点速览：Claude Code、Codex、Gemini CLI 的三国演义">
+                  <i class="fa fa-angle-left"></i> 2026年5月 AI 编程工具热点速览：Claude Code、Codex、Gemini CLI 的三国演义
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
