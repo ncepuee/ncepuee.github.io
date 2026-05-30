@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、为什么需要 CC Switch？2026年的 AI 编程工具生态已经进入”三国演义”时代：Claude Code、Codex、Gemini CLI 各有优势，很多开发者同时使用多个工具。但每个工具都有自己的配置格式——Claude Code 用 JSON，Codex 用 TOML，Gemini CLI 用 YAML。切换 API 提供商意味着手动编辑不同的配置文件，管理 MCP 服务器和 Sk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CC Switch：一款桌面工具统一管理 Claude Code、Codex、Gemini CLI 等 AI 编程助手">
+<meta property="og:url" content="http://ncepuee.github.io/2026/05/30/CC-Switch-AI-Tools-Manager-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、为什么需要 CC Switch？2026年的 AI 编程工具生态已经进入”三国演义”时代：Claude Code、Codex、Gemini CLI 各有优势，很多开发者同时使用多个工具。但每个工具都有自己的配置格式——Claude Code 用 JSON，Codex 用 TOML，Gemini CLI 用 YAML。切换 API 提供商意味着手动编辑不同的配置文件，管理 MCP 服务器和 Sk">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-30T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-30T09:30:17.965Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="AI Agent">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="Codex">
+<meta property="article:tag" content="2026">
+<meta property="article:tag" content="CC Switch">
+<meta property="article:tag" content="Gemini CLI">
+<meta property="article:tag" content="开发工具">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/05/30/CC-Switch-AI-Tools-Manager-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/05/30/CC-Switch-AI-Tools-Manager-2026/","path":"2026/05/30/CC-Switch-AI-Tools-Manager-2026/","title":"CC Switch：一款桌面工具统一管理 Claude Code、Codex、Gemini CLI 等 AI 编程助手"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CC Switch：一款桌面工具统一管理 Claude Code、Codex、Gemini CLI 等 AI 编程助手 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-CC-Switch%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">一、为什么需要 CC Switch？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">二、核心功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%EF%BC%8C%E7%AE%A1%E7%90%86%E5%85%AD%E4%B8%AA-CLI-%E5%B7%A5%E5%85%B7"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 一个应用，管理六个 CLI 工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-50-API-%E6%8F%90%E4%BE%9B%E5%95%86%E9%A2%84%E8%AE%BE"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 50+ API 提供商预设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E7%BB%9F%E4%B8%80-MCP-%E5%92%8C-Skills-%E7%AE%A1%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 统一 MCP 和 Skills 管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 系统托盘快速切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E4%BA%91%E7%AB%AF%E5%90%8C%E6%AD%A5"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 云端同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E7%94%A8%E9%87%8F%E5%92%8C%E6%88%90%E6%9C%AC%E8%BF%BD%E8%B8%AA"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 用量和成本追踪</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">三、安装和使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%B7%BB%E5%8A%A0%E6%8F%90%E4%BE%9B%E5%95%86"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 添加提供商</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%88%87%E6%8D%A2%E6%8F%90%E4%BE%9B%E5%95%86"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 切换提供商</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E7%AE%A1%E7%90%86-MCP-%E5%92%8C-Skills"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 管理 MCP 和 Skills</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">四、技术架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%A4%BE%E5%8C%BA%E7%94%9F%E6%80%81"><span class="nav-number">5.</span> <span class="nav-text">五、社区生态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">六、使用建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E9%80%82%E5%90%88%E8%B0%81%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 适合谁使用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E9%85%8D%E5%90%88-Claude-Code-%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 配合 Claude Code 的最佳实践</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">七、总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">94</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/30/CC-Switch-AI-Tools-Manager-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CC Switch：一款桌面工具统一管理 Claude Code、Codex、Gemini CLI 等 AI 编程助手 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CC Switch：一款桌面工具统一管理 Claude Code、Codex、Gemini CLI 等 AI 编程助手
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-05-30 10:00:00 / 修改时间：17:30:17" itemprop="dateCreated datePublished" datetime="2026-05-30T10:00:00+08:00">2026-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">AI工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、为什么需要-CC-Switch？"><a href="#一、为什么需要-CC-Switch？" class="headerlink" title="一、为什么需要 CC Switch？"></a>一、为什么需要 CC Switch？</h2><p>2026年的 AI 编程工具生态已经进入”三国演义”时代：Claude Code、Codex、Gemini CLI 各有优势，很多开发者同时使用多个工具。但每个工具都有自己的配置格式——Claude Code 用 JSON，Codex 用 TOML，Gemini CLI 用 YAML。切换 API 提供商意味着手动编辑不同的配置文件，管理 MCP 服务器和 Skills 更是分散在各个工具的不同目录中。</p>
+<p><strong>CC Switch</strong> 正是为解决这个痛点而生。它由 Jason Young（<a target="_blank" rel="noopener" href="https://x.com/Jason_Young1231">@Jason_Young1231</a>）开发，是一个基于 Tauri 2 构建的跨平台桌面应用，目前在 GitHub 上已获得广泛关注。</p>
+<span id="more"></span>
+
+<h2 id="二、核心功能"><a href="#二、核心功能" class="headerlink" title="二、核心功能"></a>二、核心功能</h2><h3 id="2-1-一个应用，管理六个-CLI-工具"><a href="#2-1-一个应用，管理六个-CLI-工具" class="headerlink" title="2.1 一个应用，管理六个 CLI 工具"></a>2.1 一个应用，管理六个 CLI 工具</h3><p>CC Switch 支持统一管理以下 AI 编程 CLI 工具：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>开发商</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Claude Code</strong></td>
+<td>Anthropic</td>
+<td>终端 AI 代理，深度理解代码库</td>
+</tr>
+<tr>
+<td><strong>Codex</strong></td>
+<td>OpenAI</td>
+<td>云端异步执行，开源 CLI</td>
+</tr>
+<tr>
+<td><strong>Gemini CLI</strong></td>
+<td>Google</td>
+<td>超长上下文，免费额度慷慨</td>
+</tr>
+<tr>
+<td><strong>OpenCode</strong></td>
+<td>社区</td>
+<td>开源替代方案</td>
+</tr>
+<tr>
+<td><strong>OpenClaw</strong></td>
+<td>社区</td>
+<td>多技能系统</td>
+</tr>
+<tr>
+<td><strong>Hermes Agent</strong></td>
+<td>社区</td>
+<td>社区驱动的 AI 代理</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-50-API-提供商预设"><a href="#2-2-50-API-提供商预设" class="headerlink" title="2.2 50+ API 提供商预设"></a>2.2 50+ API 提供商预设</h3><p>CC Switch 内置了 50 多个 API 提供商预设，包括：</p>
+<ul>
+<li><strong>官方渠道</strong>：Anthropic、OpenAI、Google</li>
+<li><strong>云服务商</strong>：AWS Bedrock、NVIDIA NIM、火山引擎</li>
+<li><strong>社区中继</strong>：PackyCode、AIGoCode、CrazyRouter、RunAPI 等</li>
+<li><strong>国内平台</strong>：硅基流动、DeepSeek、豆包等</li>
+</ul>
+<p>只需复制 API Key，一键导入即可切换，无需手动编辑配置文件。</p>
+<h3 id="2-3-统一-MCP-和-Skills-管理"><a href="#2-3-统一-MCP-和-Skills-管理" class="headerlink" title="2.3 统一 MCP 和 Skills 管理"></a>2.3 统一 MCP 和 Skills 管理</h3><p>这是 CC Switch 最实用的功能之一：</p>
+<ul>
+<li><strong>MCP 统一面板</strong>：在一个界面管理所有工具的 MCP 服务器，支持双向同步</li>
+<li><strong>Skills 一键安装</strong>：从 GitHub 仓库或 ZIP 文件一键安装 Skills，支持自定义仓库管理</li>
+<li><strong>跨应用同步</strong>：MCP 和 Skills 配置可以在 Claude Code、Codex、Gemini CLI 之间同步</li>
+</ul>
+<h3 id="2-4-系统托盘快速切换"><a href="#2-4-系统托盘快速切换" class="headerlink" title="2.4 系统托盘快速切换"></a>2.4 系统托盘快速切换</h3><p>CC Switch 安装后会在系统托盘常驻，右键即可快速切换 API 提供商，无需打开完整界面。这对于需要频繁切换不同模型或提供商的开发者来说非常方便。</p>
+<h3 id="2-5-云端同步"><a href="#2-5-云端同步" class="headerlink" title="2.5 云端同步"></a>2.5 云端同步</h3><p>支持通过 Dropbox、OneDrive、iCloud 或 WebDAV 服务器在多台设备间同步提供商数据，在办公室和家里使用不同电脑时保持配置一致。</p>
+<h3 id="2-6-用量和成本追踪"><a href="#2-6-用量和成本追踪" class="headerlink" title="2.6 用量和成本追踪"></a>2.6 用量和成本追踪</h3><p>内置用量仪表盘，可以追踪：</p>
+<ul>
+<li>各工具的 API 调用次数和 Token 消耗</li>
+<li>费用趋势图表</li>
+<li>详细的请求日志</li>
+<li>自定义每模型定价</li>
+</ul>
+<h2 id="三、安装和使用"><a href="#三、安装和使用" class="headerlink" title="三、安装和使用"></a>三、安装和使用</h2><h3 id="3-1-下载安装"><a href="#3-1-下载安装" class="headerlink" title="3.1 下载安装"></a>3.1 下载安装</h3><p>前往 CC Switch 官方网站 <a target="_blank" rel="noopener" href="https://ccswitch.io/">ccswitch.io</a> 或 GitHub Releases 页面下载对应平台的安装包：</p>
+<ul>
+<li><strong>Windows</strong>：<code>.msi</code> 或 <code>.exe</code> 安装包</li>
+<li><strong>macOS</strong>：<code>.dmg</code> 安装包</li>
+<li><strong>Linux</strong>：<code>.AppImage</code> 或 <code>.deb</code> 安装包</li>
+</ul>
+<h3 id="3-2-添加提供商"><a href="#3-2-添加提供商" class="headerlink" title="3.2 添加提供商"></a>3.2 添加提供商</h3><ol>
+<li>打开 CC Switch，点击”添加提供商”</li>
+<li>从 50+ 预设中选择你的 API 提供商</li>
+<li>输入 API Key</li>
+<li>点击”导入”，CC Switch 会自动配置到对应的 CLI 工具</li>
+</ol>
+<h3 id="3-3-切换提供商"><a href="#3-3-切换提供商" class="headerlink" title="3.3 切换提供商"></a>3.3 切换提供商</h3><p>两种方式：</p>
+<ul>
+<li><strong>主界面切换</strong>：在提供商列表中点击目标提供商</li>
+<li><strong>托盘切换</strong>：右键系统托盘图标，选择提供商</li>
+</ul>
+<h3 id="3-4-管理-MCP-和-Skills"><a href="#3-4-管理-MCP-和-Skills" class="headerlink" title="3.4 管理 MCP 和 Skills"></a>3.4 管理 MCP 和 Skills</h3><ul>
+<li><strong>MCP</strong>：在统一面板中添加、删除、编辑 MCP 服务器配置</li>
+<li><strong>Skills</strong>：从 GitHub 仓库一键安装，或手动上传 ZIP 文件</li>
+</ul>
+<h2 id="四、技术架构"><a href="#四、技术架构" class="headerlink" title="四、技术架构"></a>四、技术架构</h2><p>CC Switch 基于 <strong>Tauri 2</strong> 构建，这是一个用 Rust 编写的跨平台桌面应用框架：</p>
+<ul>
+<li><strong>前端</strong>：React + TypeScript</li>
+<li><strong>后端</strong>：Rust（Tauri 核心）</li>
+<li><strong>数据库</strong>：SQLite（原子写入保护配置不损坏）</li>
+<li><strong>构建</strong>：支持 Windows、macOS、Linux 三平台</li>
+</ul>
+<p>Tauri 相比 Electron 的优势是更小的安装包体积和更低的内存占用。</p>
+<h2 id="五、社区生态"><a href="#五、社区生态" class="headerlink" title="五、社区生态"></a>五、社区生态</h2><p>CC Switch 拥有活跃的社区生态：</p>
+<ul>
+<li><strong>15+ API 中继服务商赞助</strong>：包括 PackyCode、AIGoCode、CrazyRouter、RunAPI 等</li>
+<li><strong>CC Academy</strong>：官方教程平台，提供详细的使用指南</li>
+<li><strong>GitHub 社区</strong>：活跃的 Issue 讨论和 PR 贡献</li>
+<li><strong>v3.15 最新版</strong>：持续更新，功能不断增强</li>
+</ul>
+<h2 id="六、使用建议"><a href="#六、使用建议" class="headerlink" title="六、使用建议"></a>六、使用建议</h2><h3 id="6-1-适合谁使用？"><a href="#6-1-适合谁使用？" class="headerlink" title="6.1 适合谁使用？"></a>6.1 适合谁使用？</h3><ul>
+<li><strong>多工具开发者</strong>：同时使用 Claude Code + Codex + Gemini CLI</li>
+<li><strong>需要切换 API 提供商的用户</strong>：比如官方额度用完后切换到中继服务</li>
+<li><strong>团队协作</strong>：需要统一管理多个开发者的 AI 工具配置</li>
+<li><strong>成本敏感用户</strong>：通过用量追踪优化 API 消耗</li>
+</ul>
+<h3 id="6-2-配合-Claude-Code-的最佳实践"><a href="#6-2-配合-Claude-Code-的最佳实践" class="headerlink" title="6.2 配合 Claude Code 的最佳实践"></a>6.2 配合 Claude Code 的最佳实践</h3><p>CC Switch 与 Claude Code 配合使用时：</p>
+<ol>
+<li><strong>提供商管理</strong>：在 CC Switch 中配置多个提供商（官方 + 中继），额度用完一键切换</li>
+<li><strong>MCP 同步</strong>：在 CC Switch 中统一管理 MCP 服务器，避免手动编辑 <code>.mcp.json</code></li>
+<li><strong>Skills 管理</strong>：通过 CC Switch 的 Skills 面板一键安装社区 Skills</li>
+<li><strong>Prompt 管理</strong>：统一编辑 CLAUDE.md &#x2F; AGENTS.md，支持跨应用同步</li>
+</ol>
+<h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><p>CC Switch 解决了 AI 编程工具碎片化的核心痛点。在一个桌面应用中，你可以：</p>
+<ul>
+<li>✅ 统一管理 Claude Code、Codex、Gemini CLI 等六个 CLI 工具</li>
+<li>✅ 一键切换 50+ API 提供商</li>
+<li>✅ 统一管理 MCP 服务器和 Skills</li>
+<li>✅ 追踪用量和成本</li>
+<li>✅ 跨设备云端同步</li>
+</ul>
+<p>如果你同时使用多个 AI 编程工具，CC Switch 值得一试。</p>
+<hr>
+<blockquote>
+<p><strong>项目地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/farion1231/cc-switch">github.com&#x2F;farion1231&#x2F;cc-switch</a><br><strong>官方网站</strong>：<a target="_blank" rel="noopener" href="https://ccswitch.io/">ccswitch.io</a><br><strong>作者 Twitter</strong>：<a target="_blank" rel="noopener" href="https://x.com/Jason_Young1231">@Jason_Young1231</a><br><strong>原文推文</strong>：<a target="_blank" rel="noopener" href="https://x.com/Jason_Young1231/status/2060596480315097432">https://x.com/Jason_Young1231&#x2F;status&#x2F;2060596480315097432</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI-Agent/" rel="tag"># AI Agent</a>
+              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/tags/Codex/" rel="tag"># Codex</a>
+              <a href="/tags/2026/" rel="tag"># 2026</a>
+              <a href="/tags/CC-Switch/" rel="tag"># CC Switch</a>
+              <a href="/tags/Gemini-CLI/" rel="tag"># Gemini CLI</a>
+              <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" rel="tag"># 开发工具</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/28/Codex-Ultimate-Tutorial-2026/" rel="prev" title="OpenAI Codex 从入门到实战：2026年最新保姆级教程">
+                  <i class="fa fa-angle-left"></i> OpenAI Codex 从入门到实战：2026年最新保姆级教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
