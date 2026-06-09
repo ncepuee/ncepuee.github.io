@@ -147,7 +147,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -158,7 +158,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">104</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -180,6 +180,130 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/06/09/LLM-Agent-Harness-Three-Things-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/06/09/LLM-Agent-Harness-Three-Things-2026/" class="post-title-link" itemprop="url">三件事讲透大模型、Agent 和 Harness</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-06-09 15:00:00 / 修改时间：12:55:44" itemprop="dateCreated datePublished" datetime="2026-06-09T15:00:00+08:00">2026-06-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E5%89%8D%E6%B2%BF/" itemprop="url" rel="index"><span itemprop="name">AI前沿</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、大语言模型-一个函数"><a href="#一、大语言模型-一个函数" class="headerlink" title="一、大语言模型 &#x3D; 一个函数"></a>一、大语言模型 &#x3D; 一个函数</h2><p>大语言模型是一个函数。你给它输入，它给你输出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出 = 函数(输入)</span><br></pre></td></tr></table></figure>
+
+<p>背后有多复杂，不需要知道。把它当一个黑盒子，进去什么、出来什么，够了。</p>
+<p>不管你用的是 GPT、Claude、Gemini 还是 DeepSeek，对调用者来说，它们都是同一个东西：<strong>一个接收字符串、返回字符串的函数</strong>。</p>
+<h2 id="二、Agent-一个-while-true-循环"><a href="#二、Agent-一个-while-true-循环" class="headerlink" title="二、Agent &#x3D; 一个 while true 循环"></a>二、Agent &#x3D; 一个 while true 循环</h2><p>Agent 是什么？是一个 <code>while true</code> 循环，而且是永不退出的那种——除非你按 Ctrl+C。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">context = []</span><br><span class="line"></span><br><span class="line">while true:</span><br><span class="line">    user_input = 等待用户输入()</span><br><span class="line">    context.append(user_input)</span><br><span class="line">    </span><br><span class="line">    output = 大语言模型(context)</span><br><span class="line">    context.append(output)</span><br><span class="line">    </span><br><span class="line">    if output 是工具调用:</span><br><span class="line">        result = 执行工具(output)</span><br><span class="line">        context.append(result)</span><br><span class="line">        continue  # 不等用户，直接下一轮</span><br><span class="line">    </span><br><span class="line">    # 否则展示给用户，继续等输入</span><br></pre></td></tr></table></figure>
+
+<p>它拿到你的输入，送给大语言模型，模型输出了什么，就把输入和输出一起塞进一个数组，然后继续等你的下一个输入，把它也塞进数组，再次整个发给模型。如此往复，直到永远。</p>
+<p>有一个小小的岔路口：如果模型的输出是一个工具调用——比如「帮我看看当前目录有哪些文件」——它不会立刻问你要下一个输入，而是先在本地执行这个工具，把结果塞进数组，再继续。</p>
+<h2 id="三、上下文-那个数组"><a href="#三、上下文-那个数组" class="headerlink" title="三、上下文 &#x3D; 那个数组"></a>三、上下文 &#x3D; 那个数组</h2><p>这个数组，我们叫它<strong>上下文（Context）</strong>。</p>
+<p>大语言模型没有记忆。每次你以为它「记得」，其实是它把从第一次循环开始到现在的所有内容——你说的每一句话、它的每一个回答、每一次工具调用的结果——<strong>全部打包成一个越来越长的数组，整个发给模型</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">第 1 轮: [用户消息1, 模型回复1]</span><br><span class="line">第 2 轮: [用户消息1, 模型回复1, 用户消息2, 模型回复2]</span><br><span class="line">第 3 轮: [用户消息1, 模型回复1, 用户消息2, 模型回复2, 工具结果, 模型回复3]</span><br><span class="line">...</span><br><span class="line">第 N 轮: [前面所有内容... 用户消息N, 模型回复N]  ← 越来越长</span><br></pre></td></tr></table></figure>
+
+<p>这也是为什么对话久了会变慢——不是模型变笨了，是这个数组太长了。</p>
+<h2 id="四、Harness-循环里的壳"><a href="#四、Harness-循环里的壳" class="headerlink" title="四、Harness &#x3D; 循环里的壳"></a>四、Harness &#x3D; 循环里的壳</h2><p>那 Harness 是什么？</p>
+<p>Harness 是这个死循环里<strong>除了用户输入之外的所有定义</strong>：</p>
+<ul>
+<li>有什么工具可以用？</li>
+<li>有什么 Skill？</li>
+<li>连了哪些 MCP？</li>
+<li>上下文里默认带了什么记忆（比如 CLAUDE.md）？</li>
+<li>权限规则是什么？哪些操作自动批准，哪些需要确认？</li>
+</ul>
+<p>这些东西放在大语言模型和用户之间，给循环套上一层壳，<strong>这层壳就叫 Harness</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────┐</span><br><span class="line">│            Harness (壳)              │</span><br><span class="line">│                                     │</span><br><span class="line">│   工具列表  │  Skills  │  MCP 服务   │</span><br><span class="line">│   权限规则  │  记忆    │  系统提示   │</span><br><span class="line">│                                     │</span><br><span class="line">│   ┌─────────────────────────────┐   │</span><br><span class="line">│   │     while true 循环          │   │</span><br><span class="line">│   │                             │   │</span><br><span class="line">│   │   用户 ←→ 大语言模型        │   │</span><br><span class="line">│   │                             │   │</span><br><span class="line">│   └─────────────────────────────┘   │</span><br><span class="line">└─────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p>同一个 <code>while true</code> 循环，不同的 harness，就是不同的 Agent。</p>
+<ul>
+<li><strong>Claude Code</strong> 是一个 harness（终端开发场景）</li>
+<li><strong>Cursor</strong> 是一个 harness（IDE 编辑场景）</li>
+<li><strong>你公司的客服机器人</strong> 也是一个 harness（问答场景）</li>
+</ul>
+<p>区别不在循环，在循环里装了什么。</p>
+<h2 id="五、一个公式总结"><a href="#五、一个公式总结" class="headerlink" title="五、一个公式总结"></a>五、一个公式总结</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Agent = while true 循环 + 上下文数组 + Harness</span><br><span class="line"></span><br><span class="line">其中:</span><br><span class="line">  while true 循环 = 持续运行的交互引擎</span><br><span class="line">  上下文数组     = 所有历史对话 + 工具结果的累积</span><br><span class="line">  Harness        = 工具 + Skills + MCP + 记忆 + 权限 + 系统提示</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、这有什么用？"><a href="#六、这有什么用？" class="headerlink" title="六、这有什么用？"></a>六、这有什么用？</h2><p>理解了这三件事——函数、循环、上下文——基本上就能读懂现在大多数 Agent 框架的文档了：</p>
+<ul>
+<li>看到 <strong>「调用模型」</strong> → 那是函数</li>
+<li>看到 <strong>「循环执行」</strong> → 那是 Agent</li>
+<li>看到 <strong>「上下文管理」</strong> → 那是数组操作（截断、压缩、检索）</li>
+<li>看到 <strong>「插件&#x2F;工具&#x2F;Skills」</strong> → 那是 Harness 的组成部分</li>
+</ul>
+<p>不用被各种框架的术语吓到。底层都是同一套东西：<strong>一个循环，一个数组，一层壳。</strong></p>
+<hr>
+<p><em>本文基于 X&#x2F;Twitter 上关于 AI Agent 架构的讨论整理。核心观点：把复杂系统拆成三个简单概念，比记住十个框架的 API 有用得多。</em></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -985,104 +1109,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/05/25/Claude-Complete-Tutorial-2026/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/25/wechat-data-to-blog-pipeline-2026/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="菜菜的黄">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="School boy">
-      <meta itemprop="description" content="记录科研生活">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | School boy">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/05/25/wechat-data-to-blog-pipeline-2026/" class="post-title-link" itemprop="url">从零打通微信数据到博客发布：一次 AI Agent 集成实践</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2026-05-25 19:00:00" itemprop="dateCreated datePublished" datetime="2026-05-25T19:00:00+08:00">2026-05-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-05-26 09:12:18" itemprop="dateModified" datetime="2026-05-26T09:12:18+08:00">2026-05-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/" itemprop="url" rel="index"><span itemprop="name">技术实践</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>⚠️ <strong>2026-05-26 更新：微信账号被封风险警告</strong></p>
-<p>本文最初版本记录了通过扫描微信进程内存、解密本地 SQLCipher 数据库来提取文章的方法。<strong>这种方法已被微信安全机制检测并导致账号被封禁。</strong></p>
-<p>如果你只是想发布公众号文章到博客，请直接跳到文末的<a href="#%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88-%E6%89%8B%E5%8A%A8%E8%BD%AC%E5%8F%91%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83">安全方案</a>，使用朋友转发链接的方式即可，不要碰任何微信进程和解密工具。</p>
-</blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个自动化工作流：把微信公众号上看到的好文章，自动提取、整理、发布到个人博客。</p>
-<p>听起来很简单对吧？但实际上，它牵出了一整条技术链路——从 Windows 进程内存扫描，到 SQLCipher 数据库解密，再到 Hexo 博客构建部署。这篇文章就记录这个打通的过程和方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/05/25/wechat-data-to-blog-pipeline-2026/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
