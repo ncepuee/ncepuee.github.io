@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、前言手动发推文的过程其实挺繁琐的：打开浏览器 → 登录 → 写内容 → 调格式 → 发布。如果你同时运营多个账号，或者需要定期发布 AI 日报、技术分享等内容，这个重复劳动会消耗大量时间。 本文介绍一套基于 Claude Code 的 X (Twitter) 自动发布工作流，覆盖从素材收集 → 选题筛选 → 内容创作 → 自动发布的全流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 Claude Code 自动发推文：X (Twitter) 发布工作流完整指南">
+<meta property="og:url" content="http://ncepuee.github.io/2026/06/09/X-Twitter-Auto-Publish-Workflow-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、前言手动发推文的过程其实挺繁琐的：打开浏览器 → 登录 → 写内容 → 调格式 → 发布。如果你同时运营多个账号，或者需要定期发布 AI 日报、技术分享等内容，这个重复劳动会消耗大量时间。 本文介绍一套基于 Claude Code 的 X (Twitter) 自动发布工作流，覆盖从素材收集 → 选题筛选 → 内容创作 → 自动发布的全流程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-09T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-09T04:50:22.499Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="Twitter">
+<meta property="article:tag" content="X">
+<meta property="article:tag" content="Playwright">
+<meta property="article:tag" content="AI自动化">
+<meta property="article:tag" content="社交媒体">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/06/09/X-Twitter-Auto-Publish-Workflow-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/06/09/X-Twitter-Auto-Publish-Workflow-2026/","path":"2026/06/09/X-Twitter-Auto-Publish-Workflow-2026/","title":"用 Claude Code 自动发推文：X (Twitter) 发布工作流完整指南"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>用 Claude Code 自动发推文：X (Twitter) 发布工作流完整指南 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B7%A5%E5%85%B7%E9%93%BE%E6%80%BB%E8%A7%88"><span class="nav-number">2.</span> <span class="nav-text">二、工具链总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">三、安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%AE%89%E8%A3%85-x-skills"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 安装 x-skills</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%AE%89%E8%A3%85-Python-%E4%BE%9D%E8%B5%96"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 安装 Python 依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 配置用户画像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%AE%89%E8%A3%85-Playwright"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 安装 Playwright</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E5%AE%89%E8%A3%85-x-article-publisher%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%8C%E7%94%A8%E4%BA%8E-X-Article-%E9%95%BF%E6%96%87%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 安装 x-article-publisher（可选，用于 X Article 长文）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-%E5%AE%89%E8%A3%85-x-article-in-obsidian%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%8CObsidian-%E9%A2%84%E8%A7%88%EF%BC%89"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 安装 x-article-in-obsidian（可选，Obsidian 预览）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8F%91%E5%B8%83%E6%8E%A8%E6%96%87%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">四、发布推文的两种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9AClaude-Code-%E7%9B%B4%E6%8E%A5%E5%8F%91%E5%B8%83%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 方式一：Claude Code 直接发布（推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9Ax-skills-%E5%85%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 方式二：x-skills 全流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%96%B9%E5%BC%8F%E4%B8%89%EF%BC%9AObsidian-%E9%A2%84%E8%A7%88%E5%90%8E%E5%8F%91%E5%B8%83"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 方式三：Obsidian 预览后发布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81Chrome-CDP-%E8%BF%9E%E6%8E%A5%E8%AF%A6%E8%A7%A3"><span class="nav-number">5.</span> <span class="nav-text">五、Chrome CDP 连接详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E8%BF%9E%E6%8E%A5%E5%B7%B2%E6%9C%89-Chrome%EF%BC%88%E5%B8%A6%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%EF%BC%89"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 连接已有 Chrome（带登录状态）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Playwright-%E6%96%B0%E5%AE%9E%E4%BE%8B%EF%BC%88%E9%9C%80%E9%87%8D%E6%96%B0%E7%99%BB%E5%BD%95%EF%BC%89"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 Playwright 新实例（需重新登录）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E9%AA%8C%E8%AF%81-CDP-%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 验证 CDP 连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81X-%E5%8F%91%E5%B8%83%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">6.</span> <span class="nav-text">六、X 发布的注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E6%8E%A8%E6%96%87%E6%A0%BC%E5%BC%8F"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 推文格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 安全建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%97%A5%E6%8A%A5%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">七、自动化日报工作流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">八、总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/06/09/X-Twitter-Auto-Publish-Workflow-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="用 Claude Code 自动发推文：X (Twitter) 发布工作流完整指南 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用 Claude Code 自动发推文：X (Twitter) 发布工作流完整指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-06-09 12:00:00 / 修改时间：12:50:22" itemprop="dateCreated datePublished" datetime="2026-06-09T12:00:00+08:00">2026-06-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">效率工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>手动发推文的过程其实挺繁琐的：打开浏览器 → 登录 → 写内容 → 调格式 → 发布。如果你同时运营多个账号，或者需要定期发布 AI 日报、技术分享等内容，这个重复劳动会消耗大量时间。</p>
+<p>本文介绍一套基于 Claude Code 的 X (Twitter) 自动发布工作流，覆盖从<strong>素材收集 → 选题筛选 → 内容创作 → 自动发布</strong>的全流程。</p>
+<span id="more"></span>
+
+<h2 id="二、工具链总览"><a href="#二、工具链总览" class="headerlink" title="二、工具链总览"></a>二、工具链总览</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">素材收集 (x-collect)</span><br><span class="line">    ↓</span><br><span class="line">选题筛选 (x-filter)</span><br><span class="line">    ↓</span><br><span class="line">内容创作 (x-create)</span><br><span class="line">    ↓</span><br><span class="line">自动发布 (Playwright + Chrome CDP)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用途</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>x-skills</strong></td>
+<td>素材收集、选题筛选、内容创作</td>
+<td><code>~/.agents/skills/x-skills/</code></td>
+</tr>
+<tr>
+<td><strong>x-article-publisher</strong></td>
+<td>X Article（长文）发布</td>
+<td><code>~/.agents/skills/x-article-publisher/</code></td>
+</tr>
+<tr>
+<td><strong>x-article-in-obsidian</strong></td>
+<td>Obsidian 内预览 X Article</td>
+<td>Obsidian 插件</td>
+</tr>
+<tr>
+<td><strong>Playwright</strong></td>
+<td>浏览器自动化发布</td>
+<td>npm: <code>@playwright/mcp</code></td>
+</tr>
+<tr>
+<td><strong>Chrome CDP</strong></td>
+<td>连接现有浏览器（带登录状态）</td>
+<td>Chrome DevTools Protocol</td>
+</tr>
+</tbody></table>
+<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="3-1-安装-x-skills"><a href="#3-1-安装-x-skills" class="headerlink" title="3.1 安装 x-skills"></a>3.1 安装 x-skills</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.agents/skills</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/kangarooking/x-skills.git</span><br></pre></td></tr></table></figure>
+
+<p>包含 4 个子技能：</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x-collect</td>
+<td><code>/x-collect [话题]</code></td>
+<td>4 轮深度搜索收集素材</td>
+</tr>
+<tr>
+<td>x-filter</td>
+<td><code>/x-filter</code></td>
+<td>多维加权打分筛选选题</td>
+</tr>
+<tr>
+<td>x-create</td>
+<td><code>/x-create [选题]</code></td>
+<td>A&#x2F;B 变体 + Critic 自检创作推文</td>
+</tr>
+<tr>
+<td>x-publish</td>
+<td><code>/x-publish</code></td>
+<td>发布到 X 草稿箱</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-安装-Python-依赖"><a href="#3-2-安装-Python-依赖" class="headerlink" title="3.2 安装 Python 依赖"></a>3.2 安装 Python 依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install Pillow pywin32  <span class="comment"># Windows</span></span><br><span class="line">pip install Pillow pyobjc-framework-Cocoa  <span class="comment"># macOS</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-配置用户画像"><a href="#3-3-配置用户画像" class="headerlink" title="3.3 配置用户画像"></a>3.3 配置用户画像</h3><p>首次使用 <code>/x-create</code> 时会自动进入问答流程：</p>
+<ul>
+<li><strong>账号定位</strong>：AI&#x2F;科技、创业&#x2F;商业、个人成长等</li>
+<li><strong>目标受众</strong>：中文用户、英文用户、双语用户</li>
+<li><strong>人设风格</strong>：专业严肃、轻松幽默、犀利观点、温暖亲和</li>
+</ul>
+<p>配置保存在 <code>x-create/references/user-profile.md</code>。</p>
+<h3 id="3-4-安装-Playwright"><a href="#3-4-安装-Playwright" class="headerlink" title="3.4 安装 Playwright"></a>3.4 安装 Playwright</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @playwright/mcp</span><br><span class="line">npx playwright install chromium</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>~/.claude/.mcp.json</code> 中添加：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;playwright&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npx&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;@playwright/mcp@latest&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;PLAYWRIGHT_MCP_EXTENSION_TOKEN&quot;</span><span class="punctuation">:</span> <span class="string">&quot;你的token&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-安装-x-article-publisher（可选，用于-X-Article-长文）"><a href="#3-5-安装-x-article-publisher（可选，用于-X-Article-长文）" class="headerlink" title="3.5 安装 x-article-publisher（可选，用于 X Article 长文）"></a>3.5 安装 x-article-publisher（可选，用于 X Article 长文）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.agents/skills</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/punk2898/x-article-publisher.git</span><br><span class="line"><span class="comment"># 安装 Chrome 扩展：chrome://extensions → 开发者模式 → 加载已解压 → 选 extension/ 目录</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-安装-x-article-in-obsidian（可选，Obsidian-预览）"><a href="#3-6-安装-x-article-in-obsidian（可选，Obsidian-预览）" class="headerlink" title="3.6 安装 x-article-in-obsidian（可选，Obsidian 预览）"></a>3.6 安装 x-article-in-obsidian（可选，Obsidian 预览）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.agents/skills</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Icy-Cat/x-article-in-obsidian.git</span><br><span class="line"><span class="built_in">cd</span> x-article-in-obsidian</span><br><span class="line">npm install &amp;&amp; npm run build</span><br><span class="line"><span class="comment"># 复制 main.js, manifest.json, styles.css 到 Obsidian vault 的 .obsidian/plugins/x-article-in-obsidian/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="四、发布推文的两种方式"><a href="#四、发布推文的两种方式" class="headerlink" title="四、发布推文的两种方式"></a>四、发布推文的两种方式</h2><h3 id="4-1-方式一：Claude-Code-直接发布（推荐）"><a href="#4-1-方式一：Claude-Code-直接发布（推荐）" class="headerlink" title="4.1 方式一：Claude Code 直接发布（推荐）"></a>4.1 方式一：Claude Code 直接发布（推荐）</h3><p>这是最简单的方式——直接告诉 Claude Code 你想发什么：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">帮我发一条关于 Claude Code 最新功能的推文</span><br></pre></td></tr></table></figure>
+
+<p>Claude Code 会：</p>
+<ol>
+<li>搜索最新资讯</li>
+<li>创作推文内容</li>
+<li>通过 Chrome CDP 自动发布</li>
+</ol>
+<p><strong>技术实现</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 启动 Chrome 带远程调试（需要先关闭已有 Chrome）</span></span><br><span class="line">chrome.<span class="property">exe</span> --remote-debugging-port=<span class="number">9222</span> --user-data-dir=<span class="string">&quot;临时配置文件目录&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 用 Playwright 连接 CDP</span></span><br><span class="line"><span class="keyword">const</span> browser = <span class="keyword">await</span> chromium.<span class="title function_">connectOverCDP</span>(<span class="string">&#x27;http://localhost:9222&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> page = browser.<span class="title function_">contexts</span>()[<span class="number">0</span>].<span class="title function_">pages</span>()[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 导航到发推页面</span></span><br><span class="line"><span class="keyword">await</span> page.<span class="title function_">goto</span>(<span class="string">&#x27;https://x.com/compose/post&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 输入内容</span></span><br><span class="line"><span class="keyword">const</span> editor = page.<span class="title function_">locator</span>(<span class="string">&#x27;[data-testid=&quot;tweetTextarea_0&quot;]&#x27;</span>).<span class="title function_">first</span>();</span><br><span class="line"><span class="keyword">await</span> editor.<span class="title function_">click</span>(&#123; <span class="attr">force</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="keyword">await</span> page.<span class="property">keyboard</span>.<span class="title function_">type</span>(tweetContent, &#123; <span class="attr">delay</span>: <span class="number">3</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 点击发布</span></span><br><span class="line"><span class="keyword">await</span> page.<span class="title function_">getByText</span>(<span class="string">&#x27;发帖&#x27;</span>).<span class="title function_">click</span>(&#123; <span class="attr">force</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键点</strong>：</p>
+<ul>
+<li>使用 <code>--remote-debugging-port=9222</code> 启动 Chrome 以启用 CDP</li>
+<li>使用 <code>--user-data-dir</code> 指定配置文件（首次需登录 X）</li>
+<li><code>force: true</code> 用于绕过 X 页面的遮挡层</li>
+<li><code>page.on(&#39;dialog&#39;)</code> 处理弹窗</li>
+</ul>
+<h3 id="4-2-方式二：x-skills-全流程"><a href="#4-2-方式二：x-skills-全流程" class="headerlink" title="4.2 方式二：x-skills 全流程"></a>4.2 方式二：x-skills 全流程</h3><p>使用 x-skills 的 4 步工作流：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/x-collect Claude Code 最新功能    → 收集素材</span><br><span class="line">/x-filter                          → 筛选选题</span><br><span class="line">/x-create &quot;Claude Code 功能解析&quot;   → 创作推文</span><br><span class="line">/x-publish                         → 发布到草稿箱</span><br></pre></td></tr></table></figure>
+
+<p><strong>x-create 的创作流程</strong>：</p>
+<ol>
+<li>读取用户画像（领域、受众、风格）</li>
+<li>意图路由（干货&#x2F;观点&#x2F;热点&#x2F;故事&#x2F;技术）</li>
+<li>A&#x2F;B 变体生成（两个版本对比）</li>
+<li>Critic 自检打分（低于阈值自动重写）</li>
+<li>Humanize Pass（去 AI 味）</li>
+</ol>
+<h3 id="4-3-方式三：Obsidian-预览后发布"><a href="#4-3-方式三：Obsidian-预览后发布" class="headerlink" title="4.3 方式三：Obsidian 预览后发布"></a>4.3 方式三：Obsidian 预览后发布</h3><p>适合写 X Article 长文：</p>
+<ol>
+<li>在 Obsidian 中写 Markdown 笔记</li>
+<li>设置 frontmatter：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">formatter:</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">文章标题</span></span><br><span class="line">  <span class="attr">cover:</span> <span class="string">https://example.com/cover.jpg</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure></li>
+<li>打开 X Article 预览窗口（📰图标）</li>
+<li>点击「上传到草稿箱」</li>
+<li>在 X 网页确认后手动发布</li>
+</ol>
+<h2 id="五、Chrome-CDP-连接详解"><a href="#五、Chrome-CDP-连接详解" class="headerlink" title="五、Chrome CDP 连接详解"></a>五、Chrome CDP 连接详解</h2><p>Chrome DevTools Protocol (CDP) 是实现自动发布的核心。有两种连接方式：</p>
+<h3 id="5-1-连接已有-Chrome（带登录状态）"><a href="#5-1-连接已有-Chrome（带登录状态）" class="headerlink" title="5.1 连接已有 Chrome（带登录状态）"></a>5.1 连接已有 Chrome（带登录状态）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 关闭所有 Chrome</span></span><br><span class="line">taskkill //F //IM chrome.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 用 CDP 重新打开</span></span><br><span class="line">chrome.exe --remote-debugging-port=9222 \</span><br><span class="line">           --user-data-dir=<span class="string">&quot;C:/Users/xxx/AppData/Local/Google/Chrome/User Data&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>问题</strong>：Chrome 不允许默认 user-data-dir 开启远程调试。</p>
+<p><strong>解决</strong>：用独立配置文件 + 复制 Cookie：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制 Cookie 到调试配置文件</span></span><br><span class="line"><span class="built_in">cp</span> <span class="string">&quot;Chrome/User Data/Default/Network/Cookies&quot;</span> <span class="string">&quot;chrome-debug-profile/Default/Network/Cookies&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用调试配置文件启动</span></span><br><span class="line">chrome.exe --remote-debugging-port=9222 --user-data-dir=<span class="string">&quot;chrome-debug-profile&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-Playwright-新实例（需重新登录）"><a href="#5-2-Playwright-新实例（需重新登录）" class="headerlink" title="5.2 Playwright 新实例（需重新登录）"></a>5.2 Playwright 新实例（需重新登录）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> browser = <span class="keyword">await</span> chromium.<span class="title function_">launch</span>(&#123;</span><br><span class="line">  <span class="attr">headless</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">channel</span>: <span class="string">&#x27;chrome&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 首次需要手动登录，后续可保存状态</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-验证-CDP-连接"><a href="#5-3-验证-CDP-连接" class="headerlink" title="5.3 验证 CDP 连接"></a>5.3 验证 CDP 连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:9222/json/version</span><br><span class="line"><span class="comment"># 返回 Browser、WebSocket URL 等信息即表示连接成功</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="六、X-发布的注意事项"><a href="#六、X-发布的注意事项" class="headerlink" title="六、X 发布的注意事项"></a>六、X 发布的注意事项</h2><h3 id="6-1-推文格式"><a href="#6-1-推文格式" class="headerlink" title="6.1 推文格式"></a>6.1 推文格式</h3><ul>
+<li><strong>短推文</strong>：≤280 字符（中文约 140 字）</li>
+<li><strong>Thread</strong>：多条串联，每条独立 280 字符限制</li>
+<li><strong>X Article</strong>：长文，需要 X Premium</li>
+</ul>
+<h3 id="6-2-常见问题"><a href="#6-2-常见问题" class="headerlink" title="6.2 常见问题"></a>6.2 常见问题</h3><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>点击发帖无反应</td>
+<td>有弹窗遮挡</td>
+<td><code>page.keyboard.press(&#39;Escape&#39;)</code> 关闭弹窗</td>
+</tr>
+<tr>
+<td>编辑器找不到</td>
+<td>X 页面结构变化</td>
+<td>用 <code>force: true</code> 绕过</td>
+</tr>
+<tr>
+<td>发布后看不到</td>
+<td>X 缓存</td>
+<td>刷新个人主页</td>
+</tr>
+<tr>
+<td>Chrome CDP 连不上</td>
+<td>端口冲突</td>
+<td>换端口或杀掉旧进程</td>
+</tr>
+</tbody></table>
+<h3 id="6-3-安全建议"><a href="#6-3-安全建议" class="headerlink" title="6.3 安全建议"></a>6.3 安全建议</h3><ul>
+<li><strong>不要在推文中暴露 API Key、密码等敏感信息</strong></li>
+<li>使用 <code>force: true</code> 时确认内容正确再点击发布</li>
+<li>建议先用草稿箱预览，确认无误后再发布</li>
+<li>定期检查 X 账号的登录状态</li>
+</ul>
+<h2 id="七、自动化日报工作流"><a href="#七、自动化日报工作流" class="headerlink" title="七、自动化日报工作流"></a>七、自动化日报工作流</h2><p>如果你想定期发布 AI 日报，可以设置以下工作流：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">每天早上：</span><br><span class="line">1. /x-collect &quot;AI news today&quot;  → 收集今日 AI 资讯</span><br><span class="line">2. Claude 整理成推文格式       → 结构化内容</span><br><span class="line">3. Playwright 自动发布          → 一键发出</span><br></pre></td></tr></table></figure>
+
+<p><strong>推文模板</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;日期&#125; AI 日报 🔥</span><br><span class="line"></span><br><span class="line">📌 重点一：&#123;新闻1&#125;</span><br><span class="line">📌 重点二：&#123;新闻2&#125;</span><br><span class="line">📌 重点三：&#123;新闻3&#125;</span><br><span class="line"></span><br><span class="line">#AI #科技</span><br></pre></td></tr></table></figure>
+
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><table>
+<thead>
+<tr>
+<th>需求</th>
+<th>推荐方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>偶尔发推</td>
+<td>Claude Code 直接发布（方式一）</td>
+</tr>
+<tr>
+<td>定期内容创作</td>
+<td>x-skills 全流程（方式二）</td>
+</tr>
+<tr>
+<td>X Article 长文</td>
+<td>Obsidian + x-article-in-obsidian（方式三）</td>
+</tr>
+<tr>
+<td>AI 日报自动化</td>
+<td>x-collect + Claude 整理 + Playwright 发布</td>
+</tr>
+</tbody></table>
+<p>核心要点：</p>
+<ul>
+<li><strong>Chrome CDP</strong> 是连接 Claude Code 和 X 的桥梁</li>
+<li><strong>x-skills</strong> 负责内容质量（A&#x2F;B 变体 + Critic 自检）</li>
+<li><strong>Playwright</strong> 负责浏览器自动化</li>
+<li><strong>用户画像</strong> 决定推文风格和调性</li>
+</ul>
+<hr>
+<blockquote>
+<p><strong>相关工具</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/kangarooking/x-skills">x-skills</a> — X 内容创作自动化</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/punk2898/x-article-publisher">x-article-publisher</a> — X Article 发布</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Icy-Cat/x-article-in-obsidian">x-article-in-obsidian</a> — Obsidian X Article 预览</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/anthropics/anthropic-quickstarts/tree/main/anthropic-tools">Playwright MCP</a> — 浏览器自动化</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/tags/Twitter/" rel="tag"># Twitter</a>
+              <a href="/tags/X/" rel="tag"># X</a>
+              <a href="/tags/Playwright/" rel="tag"># Playwright</a>
+              <a href="/tags/AI%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag"># AI自动化</a>
+              <a href="/tags/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93/" rel="tag"># 社交媒体</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/06/01/Claude-Code-Permission-Modes-Guide-2026/" rel="prev" title="Claude Code 权限模式完全指南（2026 最新版）：6 种模式与配置详解">
+                  <i class="fa fa-angle-left"></i> Claude Code 权限模式完全指南（2026 最新版）：6 种模式与配置详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
