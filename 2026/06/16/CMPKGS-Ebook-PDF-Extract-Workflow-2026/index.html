@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、前言机械工业出版社的电子书平台（CMPKGS&#x2F;DCD）采用分片加密的 PDF 格式，每一页都是独立的加密文件，在线阅读器通过 Vue.js 前端解密渲染。如果你想离线阅读已购买的电子书，需要提取密钥、下载分片、解密合并。 本文详细介绍整个技术流程，附完整脚本。  ⚠️ 法律声明：本流程仅用于已购买或合法授权阅读的电子书。请遵守版权法规，不得用于未授权的传播或商业用途。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机械工业出版社电子书 PDF 提取全流程详解">
+<meta property="og:url" content="http://ncepuee.github.io/2026/06/16/CMPKGS-Ebook-PDF-Extract-Workflow-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、前言机械工业出版社的电子书平台（CMPKGS&#x2F;DCD）采用分片加密的 PDF 格式，每一页都是独立的加密文件，在线阅读器通过 Vue.js 前端解密渲染。如果你想离线阅读已购买的电子书，需要提取密钥、下载分片、解密合并。 本文详细介绍整个技术流程，附完整脚本。  ⚠️ 法律声明：本流程仅用于已购买或合法授权阅读的电子书。请遵守版权法规，不得用于未授权的传播或商业用途。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-16T05:15:43.022Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="自动化">
+<meta property="article:tag" content="PDF提取">
+<meta property="article:tag" content="电子书">
+<meta property="article:tag" content="逆向工程">
+<meta property="article:tag" content="密码学">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/06/16/CMPKGS-Ebook-PDF-Extract-Workflow-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/06/16/CMPKGS-Ebook-PDF-Extract-Workflow-2026/","path":"2026/06/16/CMPKGS-Ebook-PDF-Extract-Workflow-2026/","title":"机械工业出版社电子书 PDF 提取全流程详解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>机械工业出版社电子书 PDF 提取全流程详解 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">二、技术架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E4%BD%93%E7%B3%BB"><span class="nav-number">2.1.</span> <span class="nav-text">加密体系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">三、环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%8F%90%E5%8F%96%E5%AF%86%E9%92%A5"><span class="nav-number">4.</span> <span class="nav-text">四、提取密钥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%8E%A2%E6%9F%A5-API-%E5%85%A5%E5%8F%A3"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 探查 API 入口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-API-%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 API 版本适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%8F%90%E5%8F%96%E5%AF%86%E9%92%A5"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 提取密钥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%8F%90%E5%8F%96%E5%88%86%E7%89%87-URL-%E5%88%97%E8%A1%A8"><span class="nav-number">5.</span> <span class="nav-text">五、提取分片 URL 列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5a-%E6%B3%A8%E5%85%A5-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">5.1.</span> <span class="nav-text">5a: 注入 URL 到页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5b-%E5%88%86%E5%9D%97%E8%AF%BB%E5%8F%96"><span class="nav-number">5.2.</span> <span class="nav-text">5b: 分块读取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E4%B8%8B%E8%BD%BD%E5%8A%A0%E5%AF%86%E5%88%86%E7%89%87"><span class="nav-number">6.</span> <span class="nav-text">六、下载加密分片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%A7%A3%E5%AF%86%E5%90%88%E5%B9%B6%EF%BC%88%E6%A0%B8%E5%BF%83%E8%84%9A%E6%9C%AC%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">七、解密合并（核心脚本）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E8%A7%A3%E5%AF%86%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">8.</span> <span class="nav-text">八、解密流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5"><span class="nav-number">9.</span> <span class="nav-text">九、故障排查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">十、总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">112</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/06/16/CMPKGS-Ebook-PDF-Extract-Workflow-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="机械工业出版社电子书 PDF 提取全流程详解 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机械工业出版社电子书 PDF 提取全流程详解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-06-16 10:00:00 / 修改时间：13:15:43" itemprop="dateCreated datePublished" datetime="2026-06-16T10:00:00+08:00">2026-06-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E6%88%98/" itemprop="url" rel="index"><span itemprop="name">技术实战</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>机械工业出版社的电子书平台（CMPKGS&#x2F;DCD）采用分片加密的 PDF 格式，每一页都是独立的加密文件，在线阅读器通过 Vue.js 前端解密渲染。如果你想离线阅读已购买的电子书，需要提取密钥、下载分片、解密合并。</p>
+<p>本文详细介绍整个技术流程，附完整脚本。</p>
+<blockquote>
+<p>⚠️ <strong>法律声明</strong>：本流程仅用于已购买或合法授权阅读的电子书。请遵守版权法规，不得用于未授权的传播或商业用途。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="二、技术架构"><a href="#二、技术架构" class="headerlink" title="二、技术架构"></a>二、技术架构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电子书阅读器页面 (Vue.js)</span><br><span class="line">    │</span><br><span class="line">    ├── RSA 私钥 (客户端明文存储)</span><br><span class="line">    ├── AES 密钥 (RSA 加密后的 base64)</span><br><span class="line">    └── PDF 分片列表 (_dataArr)</span><br><span class="line">         ├── page_1.pdf (AES-128-ECB 加密)</span><br><span class="line">         ├── page_2.pdf</span><br><span class="line">         └── ... page_N.pdf</span><br><span class="line"></span><br><span class="line">提取流程：</span><br><span class="line">    提取密钥 → 下载分片 → RSA 解密 AES 密钥 → AES 解密每页 → 合并 PDF</span><br></pre></td></tr></table></figure>
+
+<h3 id="加密体系"><a href="#加密体系" class="headerlink" title="加密体系"></a>加密体系</h3><table>
+<thead>
+<tr>
+<th>层</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AES 密钥加密</td>
+<td>RSA-2048 PKCS1v15</td>
+<td>解密 344 字符 base64 得到 16 字节 AES 密钥</td>
+</tr>
+<tr>
+<td>分片加密</td>
+<td>AES-128-ECB</td>
+<td>每页独立加密</td>
+</tr>
+<tr>
+<td>填充</td>
+<td>PKCS7</td>
+<td>解密后去填充恢复原始 PDF</td>
+</tr>
+</tbody></table>
+<p>关键点：<strong>密钥在客户端明文存储</strong>，无需服务端交互即可解密。</p>
+<h2 id="三、环境准备"><a href="#三、环境准备" class="headerlink" title="三、环境准备"></a>三、环境准备</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install cryptography PyPDF2</span><br></pre></td></tr></table></figure>
+
+<p>需要 xbrowser skill 已安装并初始化（用于浏览器自动化）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xb init</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、提取密钥"><a href="#四、提取密钥" class="headerlink" title="四、提取密钥"></a>四、提取密钥</h2><h3 id="4-1-探查-API-入口"><a href="#4-1-探查-API-入口" class="headerlink" title="4.1 探查 API 入口"></a>4.1 探查 API 入口</h3><p>平台 API 可能随版本变化，先探查再提取：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vue = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;app&#x27;</span>).<span class="property">__vue__</span>;</span><br><span class="line"><span class="keyword">var</span> reader = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">findVM</span>(<span class="params">vm, d</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (d &gt; <span class="number">10</span> || !vm) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="title class_">Object</span>.<span class="title function_">keys</span>(vm).<span class="title function_">includes</span>(<span class="string">&#x27;readerInit&#x27;</span>)) &#123; reader = vm; <span class="keyword">return</span>; &#125;</span><br><span class="line">  <span class="keyword">if</span> (vm[<span class="string">&#x27;$children&#x27;</span>]) vm[<span class="string">&#x27;$children&#x27;</span>].<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">c</span>) &#123; <span class="title function_">findVM</span>(c, d + <span class="number">1</span>); &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">findVM</span>(vue, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 探查可用的 API</span></span><br><span class="line"><span class="string">&#x27;API:&#x27;</span> + <span class="title class_">Object</span>.<span class="title function_">keys</span>(reader.<span class="property">readerApi</span>).<span class="title function_">join</span>(<span class="string">&#x27;,&#x27;</span>) +</span><br><span class="line">  <span class="string">&#x27;|PAGES:&#x27;</span> + reader.<span class="property">pdfReader</span>.<span class="property">_pdf</span>.<span class="property">_dataArr</span>.<span class="property">length</span> +</span><br><span class="line">  <span class="string">&#x27;|AUTH_KEYS:&#x27;</span> + <span class="title class_">Object</span>.<span class="title function_">keys</span>(reader.<span class="property">readerApi</span>.<span class="property">authorizeData</span>).<span class="title function_">join</span>(<span class="string">&#x27;,&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-API-版本适配"><a href="#4-2-API-版本适配" class="headerlink" title="4.2 API 版本适配"></a>4.2 API 版本适配</h3><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>v1 方法（已废弃）</th>
+<th>v2 方法（当前）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RSA 私钥</td>
+<td><code>readerApi.writeRSAKey()</code></td>
+<td><code>readerApi.rsaKey.privateKey</code></td>
+</tr>
+<tr>
+<td>AES 密钥</td>
+<td><code>readerApi.authorizeData.Key</code></td>
+<td><code>readerApi.authorizeData.Key</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>原则</strong>：先 <code>Object.keys()</code> 探查，不要假设 API 方法名不变。</p>
+</blockquote>
+<h3 id="4-3-提取密钥"><a href="#4-3-提取密钥" class="headerlink" title="4.3 提取密钥"></a>4.3 提取密钥</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> privKey = reader.<span class="property">readerApi</span>.<span class="property">rsaKey</span>.<span class="property">privateKey</span>;    <span class="comment">// PEM 格式，~1700 字符</span></span><br><span class="line"><span class="keyword">var</span> encKey = reader.<span class="property">readerApi</span>.<span class="property">authorizeData</span>.<span class="property">Key</span>;      <span class="comment">// 344 字符 base64</span></span><br></pre></td></tr></table></figure>
+
+<p>分别保存为 <code>private_key.pem</code> 和 <code>key_b64.txt</code>。</p>
+<h2 id="五、提取分片-URL-列表"><a href="#五、提取分片-URL-列表" class="headerlink" title="五、提取分片 URL 列表"></a>五、提取分片 URL 列表</h2><p>eval 返回有长度限制（~30KB 截断），不能一次性返回全部 URL。采用<strong>二阶段法</strong>：</p>
+<h3 id="5a-注入-URL-到页面"><a href="#5a-注入-URL-到页面" class="headerlink" title="5a: 注入 URL 到页面"></a>5a: 注入 URL 到页面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> urls = reader.<span class="property">pdfReader</span>.<span class="property">_pdf</span>.<span class="property">_dataArr</span>.<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">item, i</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (i + <span class="number">1</span>) + <span class="string">&#x27;|&#x27;</span> + item.<span class="property">Url</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> ta = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;textarea&#x27;</span>);</span><br><span class="line">ta.<span class="property">id</span> = <span class="string">&#x27;__url_dump__&#x27;</span>;</span><br><span class="line">ta.<span class="property">value</span> = <span class="string">&#x27;PAGES:&#x27;</span> + urls.<span class="property">length</span> + <span class="string">&#x27;\n&#x27;</span> + urls.<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(ta);</span><br><span class="line"><span class="string">&#x27;PAGES:&#x27;</span> + urls.<span class="property">length</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5b-分块读取"><a href="#5b-分块读取" class="headerlink" title="5b: 分块读取"></a>5b: 分块读取</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每批 60 行逐步取回</span></span><br><span class="line"><span class="keyword">for</span> (<span class="variable">$offset</span> = <span class="number">0</span>; <span class="variable">$offset</span> <span class="operator">-lt</span> <span class="variable">$TotalPages</span>; <span class="variable">$offset</span> += <span class="variable">$ChunkSize</span>) &#123;</span><br><span class="line">    <span class="variable">$startLine</span> = <span class="variable">$offset</span> + <span class="number">1</span></span><br><span class="line">    <span class="variable">$endLine</span> = [<span class="type">Math</span>]::Min(<span class="variable">$offset</span> + <span class="variable">$ChunkSize</span>, <span class="variable">$TotalPages</span>)</span><br><span class="line">    <span class="variable">$js</span> = <span class="string">&quot;var lines = document.getElementById(&#x27;__url_dump__&#x27;).value.split(&#x27;\n&#x27;); lines.slice(<span class="variable">$startLine</span>, <span class="variable">$endLine</span> + 1).join(&#x27;\n&#x27;)&quot;</span></span><br><span class="line">    <span class="comment"># 读取并保存到 page_urls.txt</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、下载加密分片"><a href="#六、下载加密分片" class="headerlink" title="六、下载加密分片"></a>六、下载加密分片</h2><p>并行下载到 <code>pages/</code> 目录，命名 <code>1.pdf</code> ~ <code>N.pdf</code>：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 Runspace 池实现真正并行（10 并发）</span></span><br><span class="line"><span class="variable">$runspacePool</span> = [<span class="type">RunspaceFactory</span>]::CreateRunspacePool(<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line"><span class="comment"># 每个页面一个下载任务，支持重试</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Linux&#x2F;Mac 备选</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> page_urls.txt | xargs -P 10 -I &#123;&#125; curl -L -o <span class="string">&quot;pages/&#123;&#125;.pdf&quot;</span> <span class="string">&quot;&#123;&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="七、解密合并（核心脚本）"><a href="#七、解密合并（核心脚本）" class="headerlink" title="七、解密合并（核心脚本）"></a>七、解密合并（核心脚本）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Decrypt CMPKGS/DCD encrypted PDF pages and merge into a complete PDF.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Encryption: RSA-2048 (PKCS1v15) wraps AES-128-ECB key.</span></span><br><span class="line"><span class="string">Each page is separately encrypted with the same AES key.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> sys, os, base64, glob</span><br><span class="line"><span class="keyword">from</span> cryptography.hazmat.primitives <span class="keyword">import</span> serialization</span><br><span class="line"><span class="keyword">from</span> cryptography.hazmat.primitives.asymmetric <span class="keyword">import</span> padding</span><br><span class="line"><span class="keyword">from</span> cryptography.hazmat.primitives.ciphers <span class="keyword">import</span> Cipher, algorithms, modes</span><br><span class="line"><span class="keyword">from</span> cryptography.hazmat.backends <span class="keyword">import</span> default_backend</span><br><span class="line"><span class="keyword">from</span> PyPDF2 <span class="keyword">import</span> PdfMerger</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rsa_decrypt_key</span>(<span class="params">private_key_pem, encrypted_key_b64</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;RSA PKCS1v15 decrypt → 16-byte AES key&quot;&quot;&quot;</span></span><br><span class="line">    private_key = serialization.load_pem_private_key(</span><br><span class="line">        private_key_pem.encode(), password=<span class="literal">None</span>, backend=default_backend()</span><br><span class="line">    )</span><br><span class="line">    enc_data = base64.b64decode(encrypted_key_b64)</span><br><span class="line">    aes_key = private_key.decrypt(enc_data, padding.PKCS1v15())</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">len</span>(aes_key) == <span class="number">16</span>, <span class="string">f&quot;Expected 16-byte AES key, got <span class="subst">&#123;<span class="built_in">len</span>(aes_key)&#125;</span>&quot;</span></span><br><span class="line">    <span class="keyword">return</span> aes_key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt_page</span>(<span class="params">filepath, aes_key</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Decrypt AES-128-ECB encrypted page (PKCS7 padding)&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filepath, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        enc_data = f.read()</span><br><span class="line">    cipher = Cipher(algorithms.AES(aes_key), modes.ECB(), backend=default_backend())</span><br><span class="line">    decryptor = cipher.decryptor()</span><br><span class="line">    plaintext = decryptor.update(enc_data) + decryptor.finalize()</span><br><span class="line">    pad_len = plaintext[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="number">1</span> &lt;= pad_len &lt;= <span class="number">16</span>:</span><br><span class="line">        plaintext = plaintext[:-pad_len]</span><br><span class="line">    <span class="keyword">assert</span> plaintext[:<span class="number">4</span>] == <span class="string">b&#x27;%PDF&#x27;</span>, <span class="string">f&quot;Not a valid PDF: <span class="subst">&#123;filepath&#125;</span>&quot;</span></span><br><span class="line">    <span class="keyword">return</span> plaintext</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge_pdfs</span>(<span class="params">page_files, output_path</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Merge decrypted pages into one PDF&quot;&quot;&quot;</span></span><br><span class="line">    merger = PdfMerger()</span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> page_files:</span><br><span class="line">        merger.append(f)</span><br><span class="line">    merger.write(output_path)</span><br><span class="line">    merger.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行</span></span><br><span class="line">aes_key = rsa_decrypt_key(<span class="built_in">open</span>(<span class="string">&#x27;private_key.pem&#x27;</span>).read(), <span class="built_in">open</span>(<span class="string">&#x27;key_b64.txt&#x27;</span>).read())</span><br><span class="line">encrypted_files = <span class="built_in">sorted</span>(glob.glob(<span class="string">&#x27;pages/*.pdf&#x27;</span>), key=<span class="keyword">lambda</span> x: <span class="built_in">int</span>(os.path.basename(x).split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tempfile, shutil</span><br><span class="line">tmpdir = tempfile.mkdtemp()</span><br><span class="line">decrypted = []</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> encrypted_files:</span><br><span class="line">    out = os.path.join(tmpdir, os.path.basename(f))</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(out, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> fout:</span><br><span class="line">        fout.write(decrypt_page(f, aes_key))</span><br><span class="line">    decrypted.append(out)</span><br><span class="line"></span><br><span class="line">merge_pdfs(decrypted, <span class="string">&#x27;output.pdf&#x27;</span>)</span><br><span class="line">shutil.rmtree(tmpdir)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;Done: output.pdf (<span class="subst">&#123;os.path.getsize(<span class="string">&quot;output.pdf&quot;</span>)/<span class="number">1024</span>/<span class="number">1024</span>:<span class="number">.1</span>f&#125;</span> MB)&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python decrypt_and_merge.py pages private_key.pem <span class="string">&quot;<span class="subst">$(cat key_b64.txt)</span>&quot;</span> output.pdf</span><br></pre></td></tr></table></figure>
+
+<h2 id="八、解密流程图"><a href="#八、解密流程图" class="headerlink" title="八、解密流程图"></a>八、解密流程图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private_key.pem (RSA-2048)</span><br><span class="line">        +</span><br><span class="line">key_b64.txt (344字符 base64)</span><br><span class="line">        │</span><br><span class="line">        ▼ RSA PKCS1v15 解密</span><br><span class="line">    AES-128 密钥 (16字节)</span><br><span class="line">        │</span><br><span class="line">        ├── page_1.pdf ──→ AES-128-ECB 解密 ──→ 原始 PDF 页</span><br><span class="line">        ├── page_2.pdf ──→ AES-128-ECB 解密 ──→ 原始 PDF 页</span><br><span class="line">        └── page_N.pdf ──→ AES-128-ECB 解密 ──→ 原始 PDF 页</span><br><span class="line">                                                │</span><br><span class="line">                                                ▼ PyPDF2 合并</span><br><span class="line">                                           output.pdf</span><br></pre></td></tr></table></figure>
+
+<h2 id="九、故障排查"><a href="#九、故障排查" class="headerlink" title="九、故障排查"></a>九、故障排查</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>可能原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>writeRSAKey is not a function</code></td>
+<td>API 版本升级</td>
+<td>先执行探查脚本确认 API</td>
+</tr>
+<tr>
+<td><code>rsaKey.privateKey is undefined</code></td>
+<td>rsaKey 结构变化</td>
+<td><code>Object.keys(reader.readerApi.rsaKey)</code> 查看</td>
+</tr>
+<tr>
+<td>下载失败</td>
+<td>URL 签名过期</td>
+<td>检查 <code>Expires</code> 参数，重新获取</td>
+</tr>
+<tr>
+<td>解密后页面空白</td>
+<td>AES 密钥错误</td>
+<td>验证 <code>key_b64.txt</code> 完整 344 字符</td>
+</tr>
+<tr>
+<td>eval 返回截断</td>
+<td>长度限制</td>
+<td>减少分块大小至 50 行</td>
+</tr>
+<tr>
+<td><code>No module named &#39;cryptography&#39;</code></td>
+<td>缺少依赖</td>
+<td><code>pip install cryptography PyPDF2</code></td>
+</tr>
+</tbody></table>
+<h2 id="十、总结"><a href="#十、总结" class="headerlink" title="十、总结"></a>十、总结</h2><p>整个流程的关键步骤：</p>
+<ol>
+<li><strong>探查 API</strong> — 用 <code>Object.keys()</code> 确认接口，不假设版本</li>
+<li><strong>提取密钥</strong> — RSA 私钥 + AES 加密密钥，客户端明文存储</li>
+<li><strong>分块获取 URL</strong> — 避免 eval 截断</li>
+<li><strong>并行下载</strong> — 10 并发 + 重试机制</li>
+<li><strong>RSA 解密 AES 密钥 → AES 逐页解密 → PyPDF2 合并</strong></li>
+</ol>
+<p>加密方案的核心弱点是<strong>密钥在客户端明文存储</strong>——RSA 私钥和 AES 加密密钥都直接暴露在浏览器内存中，提取后即可离线解密。</p>
+<hr>
+<blockquote>
+<p><strong>工具依赖</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://pypi.org/project/cryptography/">cryptography</a> — RSA&#x2F;AES 加解密</li>
+<li><a target="_blank" rel="noopener" href="https://pypi.org/project/PyPDF2/">PyPDF2</a> — PDF 合并</li>
+<li>xbrowser — 浏览器自动化（Vue 实例提取）</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag"># 自动化</a>
+              <a href="/tags/PDF%E6%8F%90%E5%8F%96/" rel="tag"># PDF提取</a>
+              <a href="/tags/%E7%94%B5%E5%AD%90%E4%B9%A6/" rel="tag"># 电子书</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/" rel="tag"># 逆向工程</a>
+              <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" rel="tag"># 密码学</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/06/12/X-Twitter-Auto-Publish-Workflow-2026/" rel="prev" title="用 Claude Code 自动发推文：X (Twitter) 发布工作流完全指南（实战版）">
+                  <i class="fa fa-angle-left"></i> 用 Claude Code 自动发推文：X (Twitter) 发布工作流完全指南（实战版）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
