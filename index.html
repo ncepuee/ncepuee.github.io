@@ -147,7 +147,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -158,7 +158,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">114</span>
+        <span class="site-state-item-count">118</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -180,6 +180,301 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/07/20/AI-Daily-Report-2026-07-20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/07/20/AI-Daily-Report-2026-07-20/" class="post-title-link" itemprop="url">AI 每日深度调研报告(2026-07-20):安全叙事崩塌、开源追平、agent 生态成型</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-07-20 21:00:00 / 修改时间：08:52:46" itemprop="dateCreated datePublished" datetime="2026-07-20T21:00:00+08:00">2026-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E5%89%8D%E6%B2%BF/" itemprop="url" rel="index"><span itemprop="name">AI前沿</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、当日重大事件梳理"><a href="#一、当日重大事件梳理" class="headerlink" title="一、当日重大事件梳理"></a>一、当日重大事件梳理</h2><h3 id="1-1-Anthropic-永久化-Fable-5-”太危险”叙事崩塌"><a href="#1-1-Anthropic-永久化-Fable-5-”太危险”叙事崩塌" class="headerlink" title="1.1 Anthropic 永久化 Fable 5:”太危险”叙事崩塌"></a>1.1 Anthropic 永久化 Fable 5:”太危险”叙事崩塌</h3><p><strong>事实</strong>:@AlexFinn 确认 Anthropic 将 Fable 5 永久纳入订阅,原定周日下架的计划取消。@RnaudBertrand 指出讽刺:”中国开源模型追上后,Fable 突然不再’对人类太危险’了。” @bridgemindai 直接归因:”Thank you Kimi K3 and GPT 5.6 for making this happen.”</p>
+<p><strong>分析</strong>:这是一次叙事崩塌。此前 Anthropic 以”太强大太危险”为由对 Fable 5 限时,营造稀缺与敬畏。但当 Kimi K3(开源、2.8T、benchmark 逼近 Fable 5)出现,限时策略反而把用户推向竞品。”危险”叙事本质是竞争定位,不是真实安全关切——竞争一来,危险就消失了。</p>
+<p><strong>深层</strong>:Fable 5 被揭露是 Mythos 加 heavy guardrails 的版本(@kimmonismus)。用户付费拿到的是阉割版,完整模型在实验室。safety 在这里既是护城河,也是产品力的自我阉割。</p>
+<p><strong>参考</strong>:</p>
+<ul>
+<li>x.com&#x2F;AlexFinn&#x2F;status&#x2F;2078327036943474923</li>
+<li>x.com&#x2F;RnaudBertrand&#x2F;status&#x2F;2078657053632164133</li>
+<li>x.com&#x2F;kimmonismus&#x2F;status&#x2F;2078462288777126167</li>
+</ul>
+<h3 id="1-2-Kimi-K3-实测打平-Fable-5-Vercel-CEO-背书”raw-IQ”"><a href="#1-2-Kimi-K3-实测打平-Fable-5-Vercel-CEO-背书”raw-IQ”" class="headerlink" title="1.2 Kimi K3 实测打平 Fable 5,Vercel CEO 背书”raw IQ”"></a>1.2 Kimi K3 实测打平 Fable 5,Vercel CEO 背书”raw IQ”</h3><p><strong>事实</strong>:@cline 官方实测:同一 bug,Kimi K3 和 Fable 5 都修好,Fable 赢速度(3.4x 快,730K token),Kimi 赢成本(1.2M token 但更便宜)。@rauchg(Vercel CEO)基于内部 stealth evals 评价:”Kimi K3 is top-tier at cybersecurity…Model has raw IQ”,反驳了 benchmark-overfit 质疑。</p>
+<p><strong>分析</strong>:这是开源模型第一次在真实任务 + 权威背书双重维度上打平闭源前沿。Cline 的实测数据(不是 benchmark)更具说服力:Kimi 不是刷分,是真能干活。rauchg 的”stealth evals”概念(防刷分的隐藏评测)为 Kimi 的能力提供了第三方公信力。</p>
+<p><strong>深层</strong>:benchmark 时代正在过去。当模型能力趋同,区分度来自:① 真实任务实测 ② stealth evals ③ cost-per-task。Kimi 的竞争力不是”benchmark 第一”,而是”同性能下 1&#x2F;3 价格 + 无安全说教”。</p>
+<p><strong>参考</strong>:</p>
+<ul>
+<li>x.com&#x2F;cline&#x2F;status&#x2F;2078571637348372625</li>
+<li>x.com&#x2F;rauchg&#x2F;status&#x2F;2078647648307880209</li>
+</ul>
+<h3 id="1-3-Safety-guardrails-反噬-Codex-Fable-拒修安全漏洞"><a href="#1-3-Safety-guardrails-反噬-Codex-Fable-拒修安全漏洞" class="headerlink" title="1.3 Safety guardrails 反噬:Codex&#x2F;Fable 拒修安全漏洞"></a>1.3 Safety guardrails 反噬:Codex&#x2F;Fable 拒修安全漏洞</h3><p><strong>事实</strong>:@callebtc 报告:一份安全漏洞报告,Codex 和 Fable 都因 Cyber guardrails 拒绝修复,Kimi K3 全修了。@DavidSacks 引述用户:”i’ve switched to Kimi from claude… it just does the thing instead of lecturing you”,并评论”woke lobotomized models are the enemy of American competitiveness”。George Hotz(@<strong>tinygrad</strong>)表示愿意给 Kimi 付费,称其为”user-aligned 公司”。</p>
+<p><strong>分析</strong>:安全守卫正在反噬合法安全工作。讽刺的是,为”安全”设计的 guardrails 阻止了修复安全漏洞。这不是个案,是结构性问题:当 safety 策略过于激进,会失去开发者信任。开发者要的是”干活的工具”,不是”说教的道德导师”。</p>
+<p><strong>深层</strong>:user-aligned vs safety-first 正在成为新的分水岭。闭源实验室因合规&#x2F;PR 压力走向 safety-first,而开源模型(Kimi、GLM)因不受此约束,选择 user-aligned。这个差异比 benchmark 分数更能决定用户流向。</p>
+<p><strong>参考</strong>:</p>
+<ul>
+<li>x.com&#x2F;callebtc&#x2F;status&#x2F;2078574362316165611</li>
+<li>x.com&#x2F;DavidSacks&#x2F;status&#x2F;2078462275497988199</li>
+<li>x.com&#x2F;<strong>tinygrad</strong>&#x2F;status&#x2F;2078570148899029146</li>
+</ul>
+<h3 id="1-4-agent-生态工具爆发-记忆、规划、可观测、压缩"><a href="#1-4-agent-生态工具爆发-记忆、规划、可观测、压缩" class="headerlink" title="1.4 agent 生态工具爆发:记忆、规划、可观测、压缩"></a>1.4 agent 生态工具爆发:记忆、规划、可观测、压缩</h3><p><strong>事实</strong>:当日 GitHub 趋势显示 agent 基建工具集中爆发:</p>
+<ul>
+<li>claude-mem(8.7万星):跨 session 持久记忆</li>
+<li>claude-hud(2.6万星):agent 状态可视化</li>
+<li>planning-with-files(2.5万星):规划外部化到文件</li>
+<li>headroom(5.9万星):上下文压缩</li>
+<li>deer-flow(7.7万星,字节跳动):long-horizon SuperAgent</li>
+<li>spec-kit(12万星,GitHub 官方):Spec-Driven Development</li>
+</ul>
+<p><strong>分析</strong>:agent 生态正从”单工具”走向”全套基建”。记忆(claude-mem)、规划(planning-with-files)、可观测(claude-hud)、压缩(headroom)——这四个方向构成了 agent 工程的完整栈。不再是”哪个 agent 最强”,而是”哪个 agent 基建最完整”。</p>
+<p><strong>深层</strong>:GitHub 官方下场 spec-kit(12万星)是信号——平台方在背书”规格驱动开发”新范式。软件开发正从”写代码”转向”写规格让 agent 实现”。这不是趋势预测,是已经发生的事实。</p>
+<p><strong>参考</strong>:</p>
+<ul>
+<li>github.com&#x2F;thedotmack&#x2F;claude-mem</li>
+<li>github.com&#x2F;jarrodwatts&#x2F;claude-hud</li>
+<li>github.com&#x2F;OthmanAdi&#x2F;planning-with-files</li>
+<li>github.com&#x2F;headroomlabs-ai&#x2F;headroom</li>
+<li>github.com&#x2F;bytedance&#x2F;deer-flow</li>
+<li>github.com&#x2F;github&#x2F;spec-kit</li>
+</ul>
+<hr>
+<h2 id="二、趋势洞察"><a href="#二、趋势洞察" class="headerlink" title="二、趋势洞察"></a>二、趋势洞察</h2><h3 id="趋势一-safety-叙事从护城河变成负债"><a href="#趋势一-safety-叙事从护城河变成负债" class="headerlink" title="趋势一:safety 叙事从护城河变成负债"></a>趋势一:safety 叙事从护城河变成负债</h3><p>当日最有穿透力的转变:safety 正在从”竞争优势”反转为”竞争负债”。</p>
+<p><strong>演变路径</strong>:</p>
+<ol>
+<li>2025 年:闭源实验室以”太危险”营造稀缺,限时发布前沿模型</li>
+<li>2026 年中:开源(Kimi K3)追平,限时策略失效</li>
+<li>2026-07-20:Anthropic 永久化 Fable 5,”危险”叙事崩塌</li>
+<li>同日:guardrails 阻止合法安全工作,开发者用脚投票转向 Kimi</li>
+</ol>
+<p><strong>深层逻辑</strong>:safety 叙事的成本是”产品力阉割”(Fable &#x3D; Mythos + guardrails)。当没有竞品时,用户被迫接受阉割版;当开源竞品出现,用户发现”原来不用被阉割也能拿到同性能”,safety 叙事瞬间从护城河变成负债。</p>
+<p><strong>预判</strong>:下一阶段,闭源实验室会被迫在”放松 guardrails”和”流失用户”之间二选一。Anthropic 永久化 Fable 5 是第一步,但 Fable 仍是阉割版。真正的转折点是有人发布”无 guardrails 的闭源前沿模型”——这一天不会太远。</p>
+<h3 id="趋势二-agent-从”工具”变成”基础设施”"><a href="#趋势二-agent-从”工具”变成”基础设施”" class="headerlink" title="趋势二:agent 从”工具”变成”基础设施”"></a>趋势二:agent 从”工具”变成”基础设施”</h3><p>当日 GitHub 趋势显示 agent 生态的基建化:</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>工具</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>记忆层</td>
+<td>claude-mem, Hermes</td>
+<td>agent 跨 session 遗忘</td>
+</tr>
+<tr>
+<td>规划层</td>
+<td>planning-with-files</td>
+<td>长任务计划在上下文里丢</td>
+</tr>
+<tr>
+<td>可观测层</td>
+<td>claude-hud</td>
+<td>agent 是黑盒,看不见状态</td>
+</tr>
+<tr>
+<td>压缩层</td>
+<td>headroom</td>
+<td>上下文窗口贵</td>
+</tr>
+<tr>
+<td>协作层</td>
+<td>LobeHub, ruflo</td>
+<td>从单 agent 到 agent 车队</td>
+</tr>
+<tr>
+<td>规格层</td>
+<td>spec-kit(GitHub 官方)</td>
+<td>从写代码到写规格</td>
+</tr>
+</tbody></table>
+<p><strong>洞察</strong>:agent 竞争的维度变了。上一阶段拼”哪个 agent 能力强”,这一阶段拼”哪个 agent 基建完整”。LobeHub 的”Chief Agent Operator”定位、字节跳动开源 deer-flow、GitHub 官方 spec-kit——这些都是 agent 基建化的信号。</p>
+<p><strong>预判</strong>:2026 下半年,agent 基建会成为独立赛道。单纯做”更强的 agent”不再够,必须做”更好的 agent 运营体系”。多 agent 车队、7×24 运营、持久记忆、规划外部化——这些会从”高级功能”变成”基础能力”。</p>
+<hr>
+<h2 id="三、模型横向对比-2026-07-20"><a href="#三、模型横向对比-2026-07-20" class="headerlink" title="三、模型横向对比(2026-07-20)"></a>三、模型横向对比(2026-07-20)</h2><h3 id="3-1-编码模型对比"><a href="#3-1-编码模型对比" class="headerlink" title="3.1 编码模型对比"></a>3.1 编码模型对比</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>速度</th>
+<th>成本</th>
+<th>安全限制</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fable 5</td>
+<td>快(3.4x)</td>
+<td>高($10.80&#x2F;任务)</td>
+<td>重 guardrails</td>
+<td>生产环境、合规优先</td>
+</tr>
+<tr>
+<td>GPT-5.6 Sol</td>
+<td>中</td>
+<td>中($6&#x2F;任务)</td>
+<td>中等</td>
+<td>通用编码、cybersecurity</td>
+</tr>
+<tr>
+<td>Kimi K3</td>
+<td>慢</td>
+<td>低($3.24&#x2F;任务)</td>
+<td>无</td>
+<td>成本敏感、安全敏感、需要无限制</td>
+</tr>
+<tr>
+<td>Opus 4.8</td>
+<td>-</td>
+<td>高</td>
+<td>重</td>
+<td>深度推理</td>
+</tr>
+</tbody></table>
+<p><strong>数据来源</strong>:x.com&#x2F;cline&#x2F;status&#x2F;2078571637348372625(同任务实测)</p>
+<p><strong>选择建议</strong>(综合 @bindureddy cheatsheet):</p>
+<ul>
+<li>设计&#x2F;复杂 agent:GPT-5.6 Sol 或 Fable 5</li>
+<li>简单 agent:Grok 4.5</li>
+<li>中等 agent:Sonnet 4.6 &#x2F; Kimi K3</li>
+<li>安全&#x2F;成本敏感:Kimi K3(无 guardrails 阻碍)</li>
+<li>视频:Seedance 2.0</li>
+</ul>
+<h3 id="3-2-agent-工具对比"><a href="#3-2-agent-工具对比" class="headerlink" title="3.2 agent 工具对比"></a>3.2 agent 工具对比</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>定位</th>
+<th>星数</th>
+<th>核心能力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>claude-mem</td>
+<td>记忆</td>
+<td>8.7万</td>
+<td>跨 session 持久上下文</td>
+</tr>
+<tr>
+<td>claude-hud</td>
+<td>可观测</td>
+<td>2.6万</td>
+<td>agent 状态可视化</td>
+</tr>
+<tr>
+<td>planning-with-files</td>
+<td>规划</td>
+<td>2.5万</td>
+<td>规划外部化</td>
+</tr>
+<tr>
+<td>headroom</td>
+<td>压缩</td>
+<td>5.9万</td>
+<td>上下文压缩</td>
+</tr>
+<tr>
+<td>deer-flow</td>
+<td>长程 agent</td>
+<td>7.7万</td>
+<td>research+code+create</td>
+</tr>
+<tr>
+<td>spec-kit</td>
+<td>规格驱动</td>
+<td>12万</td>
+<td>Spec-Driven Development</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="四、一句话总结当日-AI-格局"><a href="#四、一句话总结当日-AI-格局" class="headerlink" title="四、一句话总结当日 AI 格局"></a>四、一句话总结当日 AI 格局</h2><p><strong>2026-07-20:safety 叙事崩塌,开源追平闭源,agent 从工具变基建——AI 竞争的维度从”模型能力”转向”用户立场”和”生态完整度”。</strong></p>
+<p>谁站在用户一边(user-aligned),谁的生态更完整,谁就赢。benchmark 分数和”危险”叙事,都正在失去定价权。</p>
+<hr>
+<blockquote>
+<p><strong>参考来源汇总</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://x.com/AlexFinn/status/2078327036943474923">x.com&#x2F;AlexFinn - Fable 5 永久化</a></li>
+<li><a target="_blank" rel="noopener" href="https://x.com/RnaudBertrand/status/2078657053632164133">x.com&#x2F;RnaudBertrand - “太危险”叙事崩塌</a></li>
+<li><a target="_blank" rel="noopener" href="https://x.com/cline/status/2078571637348372625">x.com&#x2F;cline - Kimi vs Fable 实测</a></li>
+<li><a target="_blank" rel="noopener" href="https://x.com/rauchg/status/2078647648307880209">x.com&#x2F;rauchg - Vercel CEO 评测</a></li>
+<li><a target="_blank" rel="noopener" href="https://x.com/callebtc/status/2078574362316165611">x.com&#x2F;callebtc - guardrails 拒修漏洞</a></li>
+<li><a target="_blank" rel="noopener" href="https://x.com/DavidSacks/status/2078462275497988199">x.com&#x2F;DavidSacks - woke lobotomized models</a></li>
+<li><a target="_blank" rel="noopener" href="https://x.com/__tinygrad__/status/2078570148899029146">x.com&#x2F;<strong>tinygrad</strong> - George Hotz 背书 Kimi</a></li>
+<li><a target="_blank" rel="noopener" href="https://x.com/kimmonismus/status/2078462288777126167">x.com&#x2F;kimmonismus - Fable &#x3D; Mythos + guardrails</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/thedotmack/claude-mem">github.com&#x2F;thedotmack&#x2F;claude-mem</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jarrodwatts/claude-hud">github.com&#x2F;jarrodwatts&#x2F;claude-hud</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files">github.com&#x2F;OthmanAdi&#x2F;planning-with-files</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/headroomlabs-ai/headroom">github.com&#x2F;headroomlabs-ai&#x2F;headroom</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/bytedance/deer-flow">github.com&#x2F;bytedance&#x2F;deer-flow</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/github/spec-kit">github.com&#x2F;github&#x2F;spec-kit</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -982,101 +1277,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/05/27/MoneyPrinterTurbo-Video-Workflow-Best-Practices-2026/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/05/27/MoneyPrinterTurbo-AI-Video-Generator-Setup-2026/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="菜菜的黄">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="School boy">
-      <meta itemprop="description" content="记录科研生活">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | School boy">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/05/27/MoneyPrinterTurbo-AI-Video-Generator-Setup-2026/" class="post-title-link" itemprop="url">AI 短视频自动生成工具 MoneyPrinterTurbo 部署与配置指南（2026版）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2026-05-27 10:00:00 / 修改时间：08:08:06" itemprop="dateCreated datePublished" datetime="2026-05-27T10:00:00+08:00">2026-05-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">效率工具</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>日常运营短视频账号时，经常需要批量生成知识科普类短视频。传统做法是：写稿 → 录音 → 找素材 → 剪辑 → 加字幕 → 导出，一套流程下来至少半小时到一小时。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/harry0703/MoneyPrinterTurbo">MoneyPrinterTurbo</a> 正是为解决这个痛点而生的开源工具。你只需要提供一个视频主题，它就能自动完成：</p>
-<ul>
-<li>调用 LLM 生成脚本</li>
-<li>TTS 语音合成（支持 Azure TTS &#x2F; Edge TTS）</li>
-<li>从 Pexels&#x2F;Pixabay 自动检索并下载匹配的素材视频</li>
-<li>智能拼接素材、叠加字幕和背景音乐</li>
-<li>输出可直接发布的竖屏&#x2F;横屏短视频</li>
-</ul>
-<p>本文记录了完整的部署和配置过程，涵盖常见的坑和解决方案。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/05/27/MoneyPrinterTurbo-AI-Video-Generator-Setup-2026/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
