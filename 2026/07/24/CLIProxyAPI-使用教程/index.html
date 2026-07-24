@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="如果你同时买了 ChatGPT Plus&#x2F;Pro、Claude Pro、Grok、Kimi 等多个 AI 订阅，会发现每个 CLI 工具只能绑定自家模型：Claude Code 默认走 Anthropic，Codex 默认走 OpenAI。换个工具就得换个入口，账号和配额各管各，非常割裂。 CLIProxyAPI 做的就是把这些订阅统一收敛到一个本地 API 网关。启动后，你可以用同一套">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CLIProxyAPI 快速上手指南：把 Claude Code &#x2F; Codex &#x2F; Grok 统一成一个本地 API">
+<meta property="og:url" content="http://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="如果你同时买了 ChatGPT Plus&#x2F;Pro、Claude Pro、Grok、Kimi 等多个 AI 订阅，会发现每个 CLI 工具只能绑定自家模型：Claude Code 默认走 Anthropic，Codex 默认走 OpenAI。换个工具就得换个入口，账号和配额各管各，非常割裂。 CLIProxyAPI 做的就是把这些订阅统一收敛到一个本地 API 网关。启动后，你可以用同一套">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-24T14:30:00.000Z">
+<meta property="article:modified_time" content="2026-07-24T14:34:04.837Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="Codex">
+<meta property="article:tag" content="Fable 5">
+<meta property="article:tag" content="CLIProxyAPI">
+<meta property="article:tag" content="GPT-5">
+<meta property="article:tag" content="Grok">
+<meta property="article:tag" content="API代理">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/","path":"2026/07/24/CLIProxyAPI-使用教程/","title":"CLIProxyAPI 快速上手指南：把 Claude Code / Codex / Grok 统一成一个本地 API"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CLIProxyAPI 快速上手指南：把 Claude Code / Codex / Grok 统一成一个本地 API | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81CLIProxyAPI-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">一、CLIProxyAPI 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">二、下载与安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%8E-GitHub-Releases-%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">1. 从 GitHub Releases 下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 其他系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%9C%80%E5%B0%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">三、最小配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81OAuth-%E7%99%BB%E5%BD%95%E5%90%84%E5%B9%B3%E5%8F%B0"><span class="nav-number">4.</span> <span class="nav-text">四、OAuth 登录各平台</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Codex%EF%BC%88ChatGPT-%E8%AE%A2%E9%98%85%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">Codex（ChatGPT 订阅）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Claude-Code%EF%BC%88Anthropic-%E8%AE%A2%E9%98%85%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">Claude Code（Anthropic 订阅）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grok%EF%BC%88xAI-%E8%AE%A2%E9%98%85%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">Grok（xAI 订阅）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kimi"><span class="nav-number">4.4.</span> <span class="nav-text">Kimi</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">5.</span> <span class="nav-text">五、启动服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E9%AA%8C%E8%AF%81%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">六、验证服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9F%A5%E7%9C%8B%E5%8F%AF%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.1.</span> <span class="nav-text">1. 查看可用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8F%91%E4%B8%80%E6%9D%A1%E6%B5%8B%E8%AF%95%E6%B6%88%E6%81%AF"><span class="nav-number">6.2.</span> <span class="nav-text">2. 发一条测试消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%8E%A5%E5%85%A5%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">7.</span> <span class="nav-text">七、接入客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Claude-Code"><span class="nav-number">7.1.</span> <span class="nav-text">Claude Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Codex"><span class="nav-number">7.2.</span> <span class="nav-text">Codex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenClaw-%E5%85%B6%E4%BB%96-OpenAI-%E5%85%BC%E5%AE%B9%E5%B7%A5%E5%85%B7"><span class="nav-number">7.3.</span> <span class="nav-text">OpenClaw &#x2F; 其他 OpenAI 兼容工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E9%AB%98%E7%BA%A7%EF%BC%9A%E5%A4%9A%E8%B4%A6%E5%8F%B7%E4%B8%8E%E6%A8%A1%E5%9E%8B%E5%88%AB%E5%90%8D"><span class="nav-number">8.</span> <span class="nav-text">八、高级：多账号与模型别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">9.</span> <span class="nav-text">九、常见问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">十、一句话总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CLIProxyAPI 快速上手指南：把 Claude Code &#x2F; Codex &#x2F; Grok 统一成一个本地 API | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CLIProxyAPI 快速上手指南：把 Claude Code / Codex / Grok 统一成一个本地 API
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-07-24 22:30:00 / 修改时间：22:34:04" itemprop="dateCreated datePublished" datetime="2026-07-24T22:30:00+08:00">2026-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">AI工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>如果你同时买了 ChatGPT Plus&#x2F;Pro、Claude Pro、Grok、Kimi 等多个 AI 订阅，会发现每个 CLI 工具只能绑定自家模型：Claude Code 默认走 Anthropic，Codex 默认走 OpenAI。换个工具就得换个入口，账号和配额各管各，非常割裂。</p>
+<p><strong>CLIProxyAPI</strong> 做的就是把这些订阅统一收敛到一个本地 API 网关。启动后，你可以用同一套 endpoint 和 API Key，在 Claude Code、Codex、OpenClaw 或其他兼容客户端里自由切换模型。</p>
+<span id="more"></span>
+
+<h2 id="一、CLIProxyAPI-是什么"><a href="#一、CLIProxyAPI-是什么" class="headerlink" title="一、CLIProxyAPI 是什么"></a>一、CLIProxyAPI 是什么</h2><p>CLIProxyAPI（<a target="_blank" rel="noopener" href="https://github.com/router-for-me/CLIProxyAPI">github.com&#x2F;router-for-me&#x2F;CLIProxyAPI</a>）是一个基于 Go 编写的开源代理服务，主要能力：</p>
+<ul>
+<li>把 <strong>Codex &#x2F; Claude Code &#x2F; Grok &#x2F; Kimi &#x2F; Gemini</strong> 等订阅转成兼容 OpenAI、Anthropic、Gemini、Codex 协议的本地 API</li>
+<li>支持 <strong>OAuth 登录</strong>，不需要额外购买各平台 API Key</li>
+<li>支持 <strong>多账号轮询</strong>，一个订阅触顶自动切到下一个</li>
+<li>支持 <strong>负载均衡</strong>（round-robin &#x2F; fill-first）和 <strong>会话亲和</strong></li>
+<li>支持代理、热重载、WebUI 管理</li>
+</ul>
+<p>简单说：它让你花一份订阅钱，让所有 AI 编程工具都能调用所有模型。</p>
+<h2 id="二、下载与安装"><a href="#二、下载与安装" class="headerlink" title="二、下载与安装"></a>二、下载与安装</h2><h3 id="1-从-GitHub-Releases-下载"><a href="#1-从-GitHub-Releases-下载" class="headerlink" title="1. 从 GitHub Releases 下载"></a>1. 从 GitHub Releases 下载</h3><p>打开 <a target="_blank" rel="noopener" href="https://github.com/router-for-me/CLIProxyAPI/releases">Releases 页面</a>，下载对应系统压缩包。以 Windows 64 位为例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用 PowerShell 下载（也可直接浏览器下载）</span></span><br><span class="line"><span class="built_in">Invoke-WebRequest</span> `</span><br><span class="line">  <span class="literal">-Uri</span> <span class="string">&quot;https://github.com/router-for-me/CLIProxyAPI/releases/download/v7.2.97/CLIProxyAPI_7.2.97_windows_amd64.zip&quot;</span> `</span><br><span class="line">  <span class="literal">-OutFile</span> <span class="string">&quot;CLIProxyAPI.zip&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Expand-Archive</span> <span class="literal">-Path</span> <span class="string">&quot;CLIProxyAPI.zip&quot;</span> <span class="literal">-DestinationPath</span> <span class="string">&quot;CLIProxyAPI&quot;</span></span><br><span class="line"><span class="built_in">cd</span> CLIProxyAPI</span><br></pre></td></tr></table></figure>
+
+<p>解压后目录结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CLIProxyAPI/</span><br><span class="line">├── cli-proxy-api.exe</span><br><span class="line">├── config.example.yaml</span><br><span class="line">├── README.md</span><br><span class="line">└── README_CN.md</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-其他系统"><a href="#2-其他系统" class="headerlink" title="2. 其他系统"></a>2. 其他系统</h3><table>
+<thead>
+<tr>
+<th>系统</th>
+<th>压缩包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows ARM64</td>
+<td><code>CLIProxyAPI_7.2.97_windows_aarch64.zip</code></td>
+</tr>
+<tr>
+<td>macOS Intel</td>
+<td><code>CLIProxyAPI_7.2.97_darwin_amd64.tar.gz</code></td>
+</tr>
+<tr>
+<td>macOS Apple Silicon</td>
+<td><code>CLIProxyAPI_7.2.97_darwin_aarch64.tar.gz</code></td>
+</tr>
+<tr>
+<td>Linux AMD64</td>
+<td><code>CLIProxyAPI_7.2.97_linux_amd64.tar.gz</code></td>
+</tr>
+<tr>
+<td>Linux ARM64</td>
+<td><code>CLIProxyAPI_7.2.97_linux_aarch64.tar.gz</code></td>
+</tr>
+</tbody></table>
+<p>Linux&#x2F;macOS 解压后建议把二进制放到 <code>~/.local/bin</code> 或 <code>/usr/local/bin</code>，方便全局调用。</p>
+<h2 id="三、最小配置文件"><a href="#三、最小配置文件" class="headerlink" title="三、最小配置文件"></a>三、最小配置文件</h2><p>复制示例配置并修改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> config.example.yaml config.yaml</span><br></pre></td></tr></table></figure>
+
+<p>下面是一个<strong>本地最小可用配置</strong>，你只需要改三处：端口、代理、API Key。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># config.yaml</span></span><br><span class="line"><span class="attr">host:</span> <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line"><span class="attr">port:</span> <span class="number">8317</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果你在中国大陆，需要代理才能访问 OpenAI/Claude/Grok</span></span><br><span class="line"><span class="attr">proxy-url:</span> <span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 认证文件存放目录，OAuth 登录后会自动生成</span></span><br><span class="line"><span class="attr">auth-dir:</span> <span class="string">&quot;~/.cli-proxy-api&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端访问 CLIProxyAPI 时使用的 API Key</span></span><br><span class="line"><span class="comment"># 相当于你自己给本地网关设的密码</span></span><br><span class="line"><span class="attr">api-keys:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;sk-cliproxy-local&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 多账号轮询：某个账号触发限额后自动切换</span></span><br><span class="line"><span class="attr">quota-exceeded:</span></span><br><span class="line">  <span class="attr">switch-project:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">switch-preview-model:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">antigravity-credits:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路由策略：round-robin 为轮询，fill-first 为优先填满</span></span><br><span class="line"><span class="attr">routing:</span></span><br><span class="line">  <span class="attr">strategy:</span> <span class="string">&quot;round-robin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志与调试</span></span><br><span class="line"><span class="attr">debug:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">logging-to-file:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">usage-statistics-enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">request-retry:</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示：配置文件支持<strong>热重载</strong>，修改后无需重启程序即可生效。</p>
+</blockquote>
+<h2 id="四、OAuth-登录各平台"><a href="#四、OAuth-登录各平台" class="headerlink" title="四、OAuth 登录各平台"></a>四、OAuth 登录各平台</h2><p>CLIProxyAPI 的核心优势是走 OAuth，用你现有的订阅账号登录，不需要再买 API Key。</p>
+<h3 id="Codex（ChatGPT-订阅）"><a href="#Codex（ChatGPT-订阅）" class="headerlink" title="Codex（ChatGPT 订阅）"></a>Codex（ChatGPT 订阅）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cli-proxy-api.exe -config config.yaml -codex-login -no-browser</span><br></pre></td></tr></table></figure>
+
+<p>运行后会输出一个 <code>https://auth.openai.com/...</code> 链接。把链接贴到浏览器，登录你的 ChatGPT 账号并授权。授权成功后，CLIProxyAPI 会自动把凭证存到 <code>~/.cli-proxy-api/</code>。</p>
+<h3 id="Claude-Code（Anthropic-订阅）"><a href="#Claude-Code（Anthropic-订阅）" class="headerlink" title="Claude Code（Anthropic 订阅）"></a>Claude Code（Anthropic 订阅）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cli-proxy-api.exe -config config.yaml -claude-login -no-browser</span><br></pre></td></tr></table></figure>
+
+<p>同样在浏览器完成 Claude 账号授权。</p>
+<h3 id="Grok（xAI-订阅）"><a href="#Grok（xAI-订阅）" class="headerlink" title="Grok（xAI 订阅）"></a>Grok（xAI 订阅）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cli-proxy-api.exe -config config.yaml -xai-login -no-browser</span><br></pre></td></tr></table></figure>
+
+<h3 id="Kimi"><a href="#Kimi" class="headerlink" title="Kimi"></a>Kimi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cli-proxy-api.exe -config config.yaml -kimi-login -no-browser</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、启动服务"><a href="#五、启动服务" class="headerlink" title="五、启动服务"></a>五、启动服务</h2><p>登录完成后，启动代理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cli-proxy-api.exe -config config.yaml</span><br></pre></td></tr></table></figure>
+
+<p>看到类似 <code>CLIProxyAPI Version: 7.2.97</code> 的日志即表示启动成功。服务监听在 <code>http://127.0.0.1:8317</code>。</p>
+<h2 id="六、验证服务"><a href="#六、验证服务" class="headerlink" title="六、验证服务"></a>六、验证服务</h2><h3 id="1-查看可用模型"><a href="#1-查看可用模型" class="headerlink" title="1. 查看可用模型"></a>1. 查看可用模型</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:8317/v1/models \</span><br><span class="line">  -H <span class="string">&quot;Authorization: Bearer sk-cliproxy-local&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果返回了 <code>gpt-5.6-sol</code>、<code>claude-opus-4-1-20250805</code> 等模型列表，说明配置正确。</p>
+<h3 id="2-发一条测试消息"><a href="#2-发一条测试消息" class="headerlink" title="2. 发一条测试消息"></a>2. 发一条测试消息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://127.0.0.1:8317/v1/chat/completions \</span><br><span class="line">  -H <span class="string">&quot;Authorization: Bearer sk-cliproxy-local&quot;</span> \</span><br><span class="line">  -H <span class="string">&quot;Content-Type: application/json&quot;</span> \</span><br><span class="line">  -d <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    &quot;model&quot;: &quot;gpt-5.6-sol&quot;,</span></span><br><span class="line"><span class="string">    &quot;messages&quot;: [&#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;hello&quot;&#125;],</span></span><br><span class="line"><span class="string">    &quot;max_tokens&quot;: 20</span></span><br><span class="line"><span class="string">  &#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>返回 JSON 且 <code>choices</code> 里有内容，即表示整条链路打通。</p>
+<h2 id="七、接入客户端"><a href="#七、接入客户端" class="headerlink" title="七、接入客户端"></a>七、接入客户端</h2><h3 id="Claude-Code"><a href="#Claude-Code" class="headerlink" title="Claude Code"></a>Claude Code</h3><p>在启动 Claude Code 前设置环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Windows PowerShell</span></span><br><span class="line"><span class="variable">$env</span>:ANTHROPIC_BASE_URL=<span class="string">&quot;http://127.0.0.1:8317&quot;</span></span><br><span class="line"><span class="variable">$env</span>:ANTHROPIC_AUTH_TOKEN=<span class="string">&quot;sk-cliproxy-local&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据 Claude Code 版本选择</span></span><br><span class="line"><span class="comment"># 2.x 版本</span></span><br><span class="line"><span class="variable">$env</span>:ANTHROPIC_DEFAULT_OPUS_MODEL=<span class="string">&quot;gpt-5.6-sol&quot;</span></span><br><span class="line"><span class="variable">$env</span>:ANTHROPIC_DEFAULT_SONNET_MODEL=<span class="string">&quot;claude-sonnet-4-5-20250929&quot;</span></span><br><span class="line"><span class="variable">$env</span>:ANTHROPIC_DEFAULT_HAIKU_MODEL=<span class="string">&quot;gemini-2.5-flash&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.x 版本</span></span><br><span class="line"><span class="comment"># $env:ANTHROPIC_MODEL=&quot;claude-sonnet-4-20250514&quot;</span></span><br><span class="line"><span class="comment"># $env:ANTHROPIC_SMALL_FAST_MODEL=&quot;gemini-2.5-flash&quot;</span></span><br><span class="line"></span><br><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<p>这样 Claude Code 的 API 请求会先打到本地 CLIProxyAPI，再由它路由到 Codex、Claude 或 Gemini。</p>
+<h3 id="Codex"><a href="#Codex" class="headerlink" title="Codex"></a>Codex</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Windows PowerShell</span></span><br><span class="line"><span class="variable">$env</span>:OPENAI_BASE_URL=<span class="string">&quot;http://127.0.0.1:8317&quot;</span></span><br><span class="line"><span class="variable">$env</span>:OPENAI_API_KEY=<span class="string">&quot;sk-cliproxy-local&quot;</span></span><br><span class="line"></span><br><span class="line">codex</span><br></pre></td></tr></table></figure>
+
+<h3 id="OpenClaw-其他-OpenAI-兼容工具"><a href="#OpenClaw-其他-OpenAI-兼容工具" class="headerlink" title="OpenClaw &#x2F; 其他 OpenAI 兼容工具"></a>OpenClaw &#x2F; 其他 OpenAI 兼容工具</h3><p>把 base URL 和 API Key 改成：</p>
+<ul>
+<li>Base URL: <code>http://127.0.0.1:8317</code></li>
+<li>API Key: <code>sk-cliproxy-local</code>（即你在 <code>config.yaml</code> 里设的 <code>api-keys</code>）</li>
+</ul>
+<h2 id="八、高级：多账号与模型别名"><a href="#八、高级：多账号与模型别名" class="headerlink" title="八、高级：多账号与模型别名"></a>八、高级：多账号与模型别名</h2><p>如果你有多组 ChatGPT &#x2F; Claude &#x2F; Grok 账号，可以在 <code>config.yaml</code> 里配置多 key：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">codex-api-key:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">api-key:</span> <span class="string">&quot;sk-your-codex-key-1&quot;</span></span><br><span class="line">    <span class="attr">base-url:</span> <span class="string">&quot;https://your-codex-relay.example.com&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">api-key:</span> <span class="string">&quot;sk-your-codex-key-2&quot;</span></span><br><span class="line">    <span class="attr">base-url:</span> <span class="string">&quot;https://another-relay.example.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以给模型起别名，方便客户端切换：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">codex-api-key:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">api-key:</span> <span class="string">&quot;sk-xxx&quot;</span></span><br><span class="line">    <span class="attr">models:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">&quot;gpt-5.6-sol&quot;</span></span><br><span class="line">        <span class="attr">alias:</span> <span class="string">&quot;sol&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>客户端请求 <code>model: &quot;sol&quot;</code> 时，CLIProxyAPI 会自动映射到 <code>gpt-5.6-sol</code>。</p>
+<h2 id="九、常见问题"><a href="#九、常见问题" class="headerlink" title="九、常见问题"></a>九、常见问题</h2><p><strong>Q: 浏览器授权后 CLIProxyAPI 没反应？</strong><br>A: 确保 OAuth 回调地址 <code>localhost:1455</code>（或程序提示的端口）没被其他程序占用。如果授权页在远程浏览器打开，需要本地做 SSH 端口转发。</p>
+<p><strong>Q: 模型列表里没有 Claude &#x2F; Grok？</strong><br>A: 需要先完成对应平台的 OAuth 登录。模型列表只显示已成功认证的提供商。</p>
+<p><strong>Q: 请求报错 401？</strong><br>A: 检查客户端填写的 API Key 是否和 <code>config.yaml</code> 里 <code>api-keys</code> 的某一项完全一致。</p>
+<p><strong>Q: 在中国大陆需要代理吗？</strong><br>A: 需要。在 <code>config.yaml</code> 的 <code>proxy-url</code> 填入你的本地代理，例如 <code>http://127.0.0.1:7890</code>。</p>
+<h2 id="十、一句话总结"><a href="#十、一句话总结" class="headerlink" title="十、一句话总结"></a>十、一句话总结</h2><p>CLIProxyAPI &#x3D; 一个本地网关 + 一次 OAuth 登录 + 一套 API Key，让你的 Claude Code、Codex、OpenClaw 都能调用所有订阅模型。不用重复买 API，不再被单一平台锁定。</p>
+<hr>
+<blockquote>
+<p><strong>参考来源</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/router-for-me/CLIProxyAPI">CLIProxyAPI GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://help.router-for.me/cn/">CLIProxyAPI 官方文档</a></li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+              <a href="/tags/Codex/" rel="tag"># Codex</a>
+              <a href="/tags/Fable-5/" rel="tag"># Fable 5</a>
+              <a href="/tags/CLIProxyAPI/" rel="tag"># CLIProxyAPI</a>
+              <a href="/tags/GPT-5/" rel="tag"># GPT-5</a>
+              <a href="/tags/Grok/" rel="tag"># Grok</a>
+              <a href="/tags/API%E4%BB%A3%E7%90%86/" rel="tag"># API代理</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/07/23/AI-Daily-Report-2026-07-23/" rel="prev" title="AI 每日深度调研报告(2026-07-23):Opus 5 半价回应、Codex 预热&quot;codexy&quot;、模型价格战开打">
+                  <i class="fa fa-angle-left"></i> AI 每日深度调研报告(2026-07-23):Opus 5 半价回应、Codex 预热"codexy"、模型价格战开打
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
