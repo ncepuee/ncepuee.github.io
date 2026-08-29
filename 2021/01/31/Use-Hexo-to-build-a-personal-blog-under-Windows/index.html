@@ -23,7 +23,7 @@
     <meta name="description" content="一、前言 ⚠️ 2026 年更新说明：本文写于 2021 年，使用的环境是 Hexo 5.3.0 + Node.js 14.x + NexT 8.2.1，目前版本均已严重过时。如果你是新搭建博客，建议直接使用 Hexo 7.x + Node.js 24.x + NexT 8.27 的最新环境。完整的升级&#x2F;搭建流程请参考 2026 年新版教程：Hexo博客升级指南：从Hexo 5到7、Ne">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows下基于Github和Hexo搭建个人博客">
-<meta property="og:url" content="http://ncepuee.github.io/2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/index.html">
+<meta property="og:url" content="https://ncepuee.github.io/2021/01/31/Use-Hexo-to-build-a-personal-blog-under-Windows/index.html">
 <meta property="og:site_name" content="School boy">
 <meta property="og:description" content="一、前言 ⚠️ 2026 年更新说明：本文写于 2021 年，使用的环境是 Hexo 5.3.0 + Node.js 14.x + NexT 8.2.1，目前版本均已严重过时。如果你是新搭建博客，建议直接使用 Hexo 7.x + Node.js 24.x + NexT 8.27 的最新环境。完整的升级&#x2F;搭建流程请参考 2026 年新版教程：Hexo博客升级指南：从Hexo 5到7、Ne">
 <meta property="og:locale" content="zh_CN">
@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://tvax2.sinaimg.cn/large/0084Tjdogy1gni746xg8wj30lz0bwdfx.jpg">
 <meta property="og:image" content="https://tva2.sinaimg.cn/large/0084Tjdogy1gni8d86y4tj30n00ao74g.jpg">
 <meta property="article:published_time" content="2021-01-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-15T17:48:36.627Z">
+<meta property="article:modified_time" content="2026-08-29T17:09:44.446Z">
 <meta property="article:author" content="菜菜的黄">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="github">
@@ -54,10 +54,10 @@
 <meta name="twitter:image" content="https://tvax3.sinaimg.cn/large/0084Tjdogy1gnf7gareq1j30kc0gtdge.jpg">
 
 
-<link rel="canonical" href="http://ncepuee.github.io/2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/">
+<link rel="canonical" href="https://ncepuee.github.io/2021/01/31/Use-Hexo-to-build-a-personal-blog-under-Windows/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/","path":"2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/","title":"Windows下基于Github和Hexo搭建个人博客"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ncepuee.github.io/2021/01/31/Use-Hexo-to-build-a-personal-blog-under-Windows/","path":"2021/01/31/Use-Hexo-to-build-a-personal-blog-under-Windows/","title":"Windows下基于Github和Hexo搭建个人博客"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Windows下基于Github和Hexo搭建个人博客 | School boy</title>
@@ -214,7 +214,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2021/02/01/Use-Hexo-to-build-a-personal-blog-under-Windows/">
+    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2021/01/31/Use-Hexo-to-build-a-personal-blog-under-Windows/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -250,7 +250,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-07-16 01:48:36" itemprop="dateModified" datetime="2026-07-16T01:48:36+08:00">2026-07-16</time>
+      <time title="修改时间：2026-08-30 01:09:44" itemprop="dateModified" datetime="2026-08-30T01:09:44+08:00">2026-08-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -280,7 +280,7 @@
 <p>我搭建博客的环境如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">hexo: 5.3.0</span><br><span class="line">hexo-cli: 4.2.0</span><br><span class="line">os: Windows_NT 10.0.19041 win32 x64</span><br><span class="line">node: 14.15.4</span><br><span class="line">v8: 8.4.371.19-node.17</span><br><span class="line">uv: 1.40.0</span><br><span class="line">zlib: 1.2.11</span><br><span class="line">brotli: 1.0.9</span><br><span class="line">ares: 1.16.1</span><br><span class="line">modules: 83</span><br><span class="line">nghttp2: 1.41.0</span><br><span class="line">napi: 7</span><br><span class="line">llhttp: 2.1.3</span><br><span class="line">openssl: 1.1.1i</span><br><span class="line">cldr: 37.0</span><br><span class="line">icu: 67.1</span><br><span class="line">tz: 2020a</span><br><span class="line">unicode: 13.0</span><br></pre></td></tr></table></figure>
 
-<p>本人看到网上很多大佬使用的都是NexT主题，于是为了能够方便解决自己搭建博客过程中遇到的问题，于是自己选的也是NexT主题，NexT主题的版本为 <code>NexT version 8.2.1</code> </p>
+<p>本人看到网上很多大佬使用的都是NexT主题，于是为了能够方便解决自己搭建博客过程中遇到的问题，于是自己选的也是NexT主题，NexT主题的版本为 <code>NexT version 8.2.1</code></p>
 <!-- more -->
 
 <h2 id="二、介绍Github-Pages和Hexo"><a href="#二、介绍Github-Pages和Hexo" class="headerlink" title="二、介绍Github Pages和Hexo"></a>二、介绍Github Pages和Hexo</h2><blockquote>
@@ -355,7 +355,7 @@
 <p>如果您是想在本地管理和切换多个 Github 账号，可以查看这个教程：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903831000596488">点我查看教程</a><br>但是本人为了图方便（事实证明这样也可行的），可以在 <code>.ssh</code> 文件夹中新建两个文件夹，分别命名为两个名字用以区分，直接把之前账号的 <code>id_rsa.pub</code> 密钥放在新建的其中一个文件夹①中，经过实践，发现这样密钥也可以成功连接到新的Github账户。如果要切换回另一个Github账户，则把 <code>.ssh</code> 文件夹的文件再放到 <code>.ssh</code> 下的新建的另一个文件夹②中，再把文件夹①中的文件全部取出放回 <code>.ssh</code> 文件夹中。这样就能轻易实现两个账号的博客进行切换。但是这里注意，因为切换了文件，一定要重新GIt Bash 连接到对应的相应的Github账户。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;git config --global user.name <span class="string">&quot;另一个GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;另一个GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
 </blockquote>
-<h3 id="3-5安装软件"><a href="#3-5安装软件" class="headerlink" title="3.5安装软件"></a>3.5安装软件</h3><h4 id="3-5-1安装Node-js"><a href="#3-5-1安装Node-js" class="headerlink" title="3.5.1安装Node.js"></a>3.5.1安装Node.js</h4><p>由于Hexo静态博客是基于Node.js，Node.js下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/">点我下载</a> </p>
+<h3 id="3-5安装软件"><a href="#3-5安装软件" class="headerlink" title="3.5安装软件"></a>3.5安装软件</h3><h4 id="3-5-1安装Node-js"><a href="#3-5-1安装Node-js" class="headerlink" title="3.5.1安装Node.js"></a>3.5.1安装Node.js</h4><p>由于Hexo静态博客是基于Node.js，Node.js下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/">点我下载</a></p>
 <p><img src="https://tvax2.sinaimg.cn/large/0084Tjdogy1gnfbgqru22j30r10lnmyp.jpg" alt="img9"></p>
 <p>👆如图所示，Node.js有两种版本，<code>LTS</code> 和 <code>Current</code> ，LTS是长期稳定版，Current是最新版，保险起见选择长期稳定版！然后进行安装即可。可以安装在非系统盘（如果您觉得你系统C盘空间很大无所谓…）</p>
 <p>注意安装Node.js会包含<strong>环境变量</strong>及npm的安装，安装后，检测Node.js是否安装成功，在命令行中输入 <code>node -v</code>、<code>npm -v</code>，测试两个是否都安装成功了：</p>
@@ -405,7 +405,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
 <p><a id="bug">🏀npm更新模块并同步到package.json中有Bug</a></p>
 <h2 id="四、安装Hexo"><a href="#四、安装Hexo" class="headerlink" title="四、安装Hexo"></a>四、安装Hexo</h2><h3 id="4-1Hexo下载安装"><a href="#4-1Hexo下载安装" class="headerlink" title="4.1Hexo下载安装"></a>4.1Hexo下载安装</h3><p>使用npm命令安装Hexo，输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
 <p>这个安装时间较长耐心等待，安装完成后，初始化我们的博客。</p>
 <h3 id="4-2-部署Hexo"><a href="#4-2-部署Hexo" class="headerlink" title="4.2 部署Hexo"></a>4.2 部署Hexo</h3><p>Hexo 的部署可采用如下方法，输入命令：</p>
@@ -429,10 +429,10 @@
 </ul>
 </blockquote>
 <p>下一步将我们的博客与GitHub关联起来，打开站点配置文件<code>_config.yml</code>，翻到最后进行修改：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repository: 填写你的仓库所在的连接地址</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: 填写你的仓库所在的连接地址</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
 
 <p>示例（for example）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/username/username.github.io</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/username/username.github.io</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
 
 <p>保存站点配置文件。其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库的main分支里（main分支是Github Pages默认识别的文件夹的意思）。</p>
 <p>最后安装Git部署插件，在<strong>博客根目录下</strong>启动<code>Git bash here</code>输入命令：</p>
@@ -608,7 +608,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
 
 <p>输入命令后，在博客根目录的<code>source</code>文件夹下会新生成一个新的文件夹<code>about</code>，在该文件夹下会有一个<code>index.md</code>文件，修改<code>about/index.md</code>这个文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: about</span><br><span class="line">date: </span><br><span class="line">---</span><br><span class="line">## 介绍下自己</span><br><span class="line"></span><br><span class="line">我就是我，颜色不一样的烟火🎇</span><br><span class="line">你可以在这里阅读我的生活=&gt;[My life](https://username.github.io)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: about</span><br><span class="line">date:</span><br><span class="line">---</span><br><span class="line">## 介绍下自己</span><br><span class="line"></span><br><span class="line">我就是我，颜色不一样的烟火🎇</span><br><span class="line">你可以在这里阅读我的生活=&gt;[My life](https://username.github.io)</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://tvax3.sinaimg.cn/large/0084Tjdogy1gnhhkoie5cj30u70dfmxc.jpg" alt="img15"></p>
 <p>👆<code>about</code>关于页面的效果</p>
@@ -623,7 +623,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021/2/9 00:00:00</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 
 <p>当要为某一篇文章添加标签，只需在<code>root/source/_post</code>目录下的具体文章的tags中添加标签即可，如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于Hexo和Github搭建博客</span><br><span class="line">date: </span><br><span class="line">tags: [npm, hexo, github]</span><br><span class="line">categories: 搭建博客</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于Hexo和Github搭建博客</span><br><span class="line">date:</span><br><span class="line">tags: [npm, hexo, github]</span><br><span class="line">categories: 搭建博客</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://tvax2.sinaimg.cn/large/0084Tjdogy1gni746xg8wj30lz0bwdfx.jpg" alt="img16"></p>
 <p>👆<code>tags</code>标签页面的效果</p>
@@ -682,7 +682,7 @@
 
 <h4 id="6-8-5显示文章标签图标"><a href="#6-8-5显示文章标签图标" class="headerlink" title="6.8.5显示文章标签图标"></a>6.8.5显示文章标签图标</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># Use icon instead of the symbol # to indicate the tag at the bottom of the post</span></span><br><span class="line">tag_icon: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="6-8-6文章赞赏设置"><a href="#6-8-6文章赞赏设置" class="headerlink" title="6.8.6文章赞赏设置"></a>6.8.6文章赞赏设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Donate (Sponsor) settings</span></span><br><span class="line"><span class="comment">#Front-matter variable (unsupport animation).</span></span><br><span class="line">reward_settings:</span><br><span class="line">  <span class="comment">#If true, a donate button will be displayed in every article by default.</span></span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span> <span class="comment">#是否显示赞赏图标</span></span><br><span class="line">  animation: <span class="literal">false</span></span><br><span class="line">  <span class="comment">#comment: Buy me a coffee</span></span><br><span class="line">  </span><br><span class="line">reward: <span class="comment">#赞赏图片设置</span></span><br><span class="line">  wechatpay: /images/wechatpay.png</span><br><span class="line">  <span class="comment">#alipay: /images/alipay.png</span></span><br><span class="line">  <span class="comment">#paypal: /images/paypal.png</span></span><br><span class="line">  <span class="comment">#bitcoin: /images/bitcoin.png</span></span><br></pre></td></tr></table></figure>
+<h4 id="6-8-6文章赞赏设置"><a href="#6-8-6文章赞赏设置" class="headerlink" title="6.8.6文章赞赏设置"></a>6.8.6文章赞赏设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Donate (Sponsor) settings</span></span><br><span class="line"><span class="comment">#Front-matter variable (unsupport animation).</span></span><br><span class="line">reward_settings:</span><br><span class="line">  <span class="comment">#If true, a donate button will be displayed in every article by default.</span></span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span> <span class="comment">#是否显示赞赏图标</span></span><br><span class="line">  animation: <span class="literal">false</span></span><br><span class="line">  <span class="comment">#comment: Buy me a coffee</span></span><br><span class="line"></span><br><span class="line">reward: <span class="comment">#赞赏图片设置</span></span><br><span class="line">  wechatpay: /images/wechatpay.png</span><br><span class="line">  <span class="comment">#alipay: /images/alipay.png</span></span><br><span class="line">  <span class="comment">#paypal: /images/paypal.png</span></span><br><span class="line">  <span class="comment">#bitcoin: /images/bitcoin.png</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="6-8-7文章末尾关注设置"><a href="#6-8-7文章末尾关注设置" class="headerlink" title="6.8.7文章末尾关注设置"></a>6.8.7文章末尾关注设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Subscribe through Telegram Channel, Twitter, etc.</span></span><br><span class="line"><span class="comment">#Usage: `Key: permalink || icon` (Font Awesome)</span></span><br><span class="line">follow_me:</span><br><span class="line">  <span class="comment">#Twitter: https://twitter.com/username || fab fa-twitter</span></span><br><span class="line">  <span class="comment">#Telegram: https://t.me/channel_name || fab fa-telegram</span></span><br><span class="line">  <span class="comment">#WeChat: /images/wechat_channel.jpg || fab fa-weixin</span></span><br><span class="line">  <span class="comment">#RSS: /atom.xml || fa fa-rss</span></span><br></pre></td></tr></table></figure>
 

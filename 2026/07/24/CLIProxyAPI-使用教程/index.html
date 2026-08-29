@@ -23,28 +23,28 @@
     <meta name="description" content="如果你同时买了 ChatGPT Plus&#x2F;Pro、Claude Pro、Grok、Kimi 等多个 AI 订阅，会发现每个 CLI 工具只能绑定自家模型：Claude Code 默认走 Anthropic，Codex 默认走 OpenAI。换个工具就得换个入口，账号和配额各管各，非常割裂。 CLIProxyAPI 做的就是把这些订阅统一收敛到一个本地 API 网关。启动后，你可以用同一套">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CLIProxyAPI 快速上手指南：把 Claude Code &#x2F; Codex &#x2F; Grok 统一成一个本地 API">
-<meta property="og:url" content="http://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:url" content="https://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
 <meta property="og:site_name" content="School boy">
 <meta property="og:description" content="如果你同时买了 ChatGPT Plus&#x2F;Pro、Claude Pro、Grok、Kimi 等多个 AI 订阅，会发现每个 CLI 工具只能绑定自家模型：Claude Code 默认走 Anthropic，Codex 默认走 OpenAI。换个工具就得换个入口，账号和配额各管各，非常割裂。 CLIProxyAPI 做的就是把这些订阅统一收敛到一个本地 API 网关。启动后，你可以用同一套">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-07-24T14:30:00.000Z">
-<meta property="article:modified_time" content="2026-07-24T14:34:04.837Z">
+<meta property="article:modified_time" content="2026-08-29T17:09:44.444Z">
 <meta property="article:author" content="菜菜的黄">
-<meta property="article:tag" content="Claude Code">
-<meta property="article:tag" content="教程">
-<meta property="article:tag" content="Codex">
 <meta property="article:tag" content="Fable 5">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="Codex">
 <meta property="article:tag" content="CLIProxyAPI">
 <meta property="article:tag" content="GPT-5">
 <meta property="article:tag" content="Grok">
 <meta property="article:tag" content="API代理">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+<link rel="canonical" href="https://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/","path":"2026/07/24/CLIProxyAPI-使用教程/","title":"CLIProxyAPI 快速上手指南：把 Claude Code / Codex / Grok 统一成一个本地 API"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/","path":"2026/07/24/CLIProxyAPI-使用教程/","title":"CLIProxyAPI 快速上手指南：把 Claude Code / Codex / Grok 统一成一个本地 API"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>CLIProxyAPI 快速上手指南：把 Claude Code / Codex / Grok 统一成一个本地 API | School boy</title>
@@ -201,7 +201,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -229,9 +229,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-07-24 22:30:00 / 修改时间：22:34:04" itemprop="dateCreated datePublished" datetime="2026-07-24T22:30:00+08:00">2026-07-24</time>
+      <time title="创建时间：2026-07-24 22:30:00" itemprop="dateCreated datePublished" datetime="2026-07-24T22:30:00+08:00">2026-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-08-30 01:09:44" itemprop="dateModified" datetime="2026-08-30T01:09:44+08:00">2026-08-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -370,14 +376,14 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
-              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
-              <a href="/tags/Codex/" rel="tag"># Codex</a>
               <a href="/tags/Fable-5/" rel="tag"># Fable 5</a>
+              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/tags/Codex/" rel="tag"># Codex</a>
               <a href="/tags/CLIProxyAPI/" rel="tag"># CLIProxyAPI</a>
               <a href="/tags/GPT-5/" rel="tag"># GPT-5</a>
               <a href="/tags/Grok/" rel="tag"># Grok</a>
               <a href="/tags/API%E4%BB%A3%E7%90%86/" rel="tag"># API代理</a>
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
           </div>
 
         
