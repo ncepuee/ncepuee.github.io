@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、前言Google 借 Gemini 3 的东风推出了 agentic IDE「Antigravity」（社区戏称「反重力」），上手体验确实惊艳，但对国内用户来说有两道门槛：  网络门槛：登录和模型调用需要代理； 界面门槛：客户端目前只有英文界面，且默认字体对中文显示不友好。  第一道门槛网上教程很多（比如 X 上@alice_showmore 的《小白从 0—1 上手 Antigravity》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Antigravity 汉化与美化实战：chuanban 主题补丁安装全记录（Windows 篇）">
+<meta property="og:url" content="https://ncepuee.github.io/2026/11/21/antigravity-chinese-theme-patch-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、前言Google 借 Gemini 3 的东风推出了 agentic IDE「Antigravity」（社区戏称「反重力」），上手体验确实惊艳，但对国内用户来说有两道门槛：  网络门槛：登录和模型调用需要代理； 界面门槛：客户端目前只有英文界面，且默认字体对中文显示不友好。  第一道门槛网上教程很多（比如 X 上@alice_showmore 的《小白从 0—1 上手 Antigravity》">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-21T10:13:00.000Z">
+<meta property="article:modified_time" content="2026-11-21T10:21:13.112Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="效率工具">
+<meta property="article:tag" content="CDP">
+<meta property="article:tag" content="Antigravity">
+<meta property="article:tag" content="Gemini">
+<meta property="article:tag" content="汉化">
+<meta property="article:tag" content="主题美化">
+<meta property="article:tag" content="Windows">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://ncepuee.github.io/2026/11/21/antigravity-chinese-theme-patch-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ncepuee.github.io/2026/11/21/antigravity-chinese-theme-patch-2026/","path":"2026/11/21/antigravity-chinese-theme-patch-2026/","title":"Google Antigravity 汉化与美化实战：chuanban 主题补丁安装全记录（Windows 篇）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Google Antigravity 汉化与美化实战：chuanban 主题补丁安装全记录（Windows 篇） | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%BF%99%E4%B8%AA%E8%A1%A5%E4%B8%81%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%A2%B0%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">二、这个补丁的原理：为什么不碰安装目录？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85%E5%89%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">三、安装前置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Step-1%EF%BC%9A%E5%85%8B%E9%9A%86%E4%BB%93%E5%BA%93%E5%B9%B6%E4%BD%93%E6%A3%80"><span class="nav-number">4.</span> <span class="nav-text">四、Step 1：克隆仓库并体检</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81Step-2%EF%BC%9A%E4%B8%8B%E8%BD%BD%E5%AD%97%E4%BD%93%EF%BC%88%E8%B8%A9%E5%9D%91%E9%87%8D%E7%81%BE%E5%8C%BA%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">五、Step 2：下载字体（踩坑重灾区）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%91-1%EF%BC%9APython-requests-%E7%9A%84-TLS-%E4%BC%9A%E8%A2%AB%E4%BB%A3%E7%90%86%E6%8E%90%E6%96%AD"><span class="nav-number">5.1.</span> <span class="nav-text">坑 1：Python requests 的 TLS 会被代理掐断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%91-2%EF%BC%9ADrive-%E6%96%87%E4%BB%B6-ID-%E8%A6%81%E8%87%AA%E5%B7%B1%E8%A7%A3%E6%9E%90"><span class="nav-number">5.2.</span> <span class="nav-text">坑 2：Drive 文件 ID 要自己解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%91-3%EF%BC%9A%E5%A4%A7%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%A6%81%E7%94%A8-usercontent-%E5%9F%9F-confirm-%E5%8F%82%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">坑 3：大文件下载要用 usercontent 域 + confirm 参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81Step-3%EF%BC%9A%E6%B3%A8%E5%86%8C%E5%AD%97%E4%BD%93"><span class="nav-number">6.</span> <span class="nav-text">六、Step 3：注册字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81Step-4%EF%BC%9A%E5%AE%89%E8%A3%85%E5%86%85%E6%A0%B8%E4%B8%8E%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="nav-number">7.</span> <span class="nav-text">七、Step 4：安装内核与守护进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81Step-5%EF%BC%9A%E5%90%AF%E5%8A%A8%E4%B8%8E%E9%AA%8C%E6%94%B6"><span class="nav-number">8.</span> <span class="nav-text">八、Step 5：启动与验收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%91-4%EF%BC%9Arelaunch-%E6%98%AF%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%AD%E9%80%94%E5%88%AB%E6%9D%80"><span class="nav-number">8.1.</span> <span class="nav-text">坑 4：relaunch 是两阶段操作，中途别杀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E9%AA%8C%E6%94%B6"><span class="nav-number">8.2.</span> <span class="nav-text">官方验收</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E4%B8%AA%E6%80%A7%E5%8C%96%E5%AE%9A%E5%88%B6"><span class="nav-number">9.</span> <span class="nav-text">九、安装后的个性化定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4%E9%80%9F%E6%9F%A5"><span class="nav-number">10.</span> <span class="nav-text">十、日常维护速查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E9%99%84%EF%BC%9A%E4%BB%A3%E7%90%86%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC"><span class="nav-number">11.</span> <span class="nav-text">十一、附：代理启动脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E7%BB%93%E8%AF%AD"><span class="nav-number">12.</span> <span class="nav-text">十二、结语</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">130</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2026/11/21/antigravity-chinese-theme-patch-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Google Antigravity 汉化与美化实战：chuanban 主题补丁安装全记录（Windows 篇） | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Google Antigravity 汉化与美化实战：chuanban 主题补丁安装全记录（Windows 篇）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-21 18:13:00 / 修改时间：18:21:13" itemprop="dateCreated datePublished" datetime="2026-11-21T18:13:00+08:00">2026-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">效率工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>Google 借 Gemini 3 的东风推出了 agentic IDE「Antigravity」（社区戏称「反重力」），上手体验确实惊艳，但对国内用户来说有两道门槛：</p>
+<ol>
+<li><strong>网络门槛</strong>：登录和模型调用需要代理；</li>
+<li><strong>界面门槛</strong>：客户端目前只有英文界面，且默认字体对中文显示不友好。</li>
+</ol>
+<p>第一道门槛网上教程很多（比如 X 上@alice_showmore 的《小白从 0—1 上手 Antigravity》，我就是照着这个入的门）。本文解决第二道门槛：用社区的 <strong>chuanban-antigravity-theme-patch</strong> 补丁，把 Antigravity 变成全中文界面 + 暖纸&#x2F;深夜双主题 + 四层中西文字体排版 + Token 实时指标胶囊，并且<strong>全程不改客户端文件、可一键回滚卸载</strong>。</p>
+<p>以下全部步骤在 Windows 10 + Antigravity 2.34.0 + 补丁 v5.5.3 上实测通过，踩的坑一并记录。</p>
+<span id="more"></span>
+
+<h2 id="二、这个补丁的原理：为什么不碰安装目录？"><a href="#二、这个补丁的原理：为什么不碰安装目录？" class="headerlink" title="二、这个补丁的原理：为什么不碰安装目录？"></a>二、这个补丁的原理：为什么不碰安装目录？</h2><p>先说清楚它为什么安全。chuanban 补丁走的是 <strong>CDP（Chrome DevTools Protocol）运行时注入</strong>路线：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">安装补丁</span><br><span class="line">  ├─ 把 ~/.gemini/antigravity/theme-patch/ 作为运行态目录</span><br><span class="line">  │    ├─ core/  只读内核（daemon.mjs / runtime.js / theme.css / i18n.json，SHA-256 校验保护）</span><br><span class="line">  │    └─ user/  个人定制层（config.json / custom.css / i18n.override.json，永不覆盖、2.5s 热重载）</span><br><span class="line">  ├─ 改写桌面/开始菜单快捷方式：追加 --remote-debugging-port=0（让客户端开放 CDP 调试端口）</span><br><span class="line">  └─ 注册计划任务 AntigravityThemeDaemon：node 守护进程常驻，通过 CDP 把 CSS/词典/字体引擎注入进窗口</span><br></pre></td></tr></table></figure>
+
+<p>它<strong>不修改</strong> <code>app.asar</code>、不破坏签名、零第三方 npm 依赖。样式、1,940 条汉化词条、指标胶囊全部是运行时叠加的——关掉守护进程，客户端立刻还原官方原貌。这也是它支持 <code>rollback</code> &#x2F; <code>uninstall</code> &#x2F; <code>--safe-mode</code> 排障的底气。</p>
+<blockquote>
+<p>注意：快捷方式被追加 <code>--remote-debugging-port=0</code> 参数是补丁的<strong>正常机制</strong>，不要手贱把参数删了，否则守护进程无法注入。</p>
+</blockquote>
+<h2 id="三、安装前置"><a href="#三、安装前置" class="headerlink" title="三、安装前置"></a>三、安装前置</h2><table>
+<thead>
+<tr>
+<th>依赖</th>
+<th>要求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Antigravity 客户端</td>
+<td>2.34.0+（2.33.0+ 亦可）</td>
+<td>官网下载安装即可</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>≥ 22.13.0（推荐）</td>
+<td>本机 v24 实测，功能全量启用</td>
+</tr>
+<tr>
+<td>网络</td>
+<td>能访问 GitHub + Google Drive</td>
+<td>字体资源在 Drive 上</td>
+</tr>
+<tr>
+<td>磁盘</td>
+<td>~200 MB</td>
+<td>字体包 170 MB + 运行态若干</td>
+</tr>
+</tbody></table>
+<h2 id="四、Step-1：克隆仓库并体检"><a href="#四、Step-1：克隆仓库并体检" class="headerlink" title="四、Step 1：克隆仓库并体检"></a>四、Step 1：克隆仓库并体检</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要代理时给 git 临时挂上（端口按自己的代理改，Clash 默认 7890）</span></span><br><span class="line">git -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 \</span><br><span class="line">  <span class="built_in">clone</span> --depth 1 https://github.com/Anarcadia/chuanban-antigravity-theme-patch.git</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> chuanban-antigravity-theme-patch</span><br><span class="line">node install.mjs doctor</span><br></pre></td></tr></table></figure>
+
+<p><code>doctor</code> 会输出一份 JSON 体检报告，重点看这几项：</p>
+<figure class="highlight jsonc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;node&quot;</span><span class="punctuation">:</span>   <span class="punctuation">&#123;</span> <span class="attr">&quot;tier&quot;</span><span class="punctuation">:</span> <span class="string">&quot;FULL (&gt;= 22.13, ...)&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span>        <span class="comment">// 运行时分级，FULL = 全量功能</span></span><br><span class="line">  <span class="attr">&quot;fonts&quot;</span><span class="punctuation">:</span>  <span class="punctuation">&#123;</span> <span class="attr">&quot;allRequiredInstalled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span>           <span class="comment">// ← 字体还没装，是正常的初始状态</span></span><br><span class="line">              <span class="attr">&quot;missing&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span> <span class="string">&quot;Anthropic Serif ...&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Sarasa Gothic ...&quot;</span> <span class="punctuation">]</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;antigravity&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;appExists&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;cdpStatus&quot;</span><span class="punctuation">:</span> <span class="string">&quot;app_not_running&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;coreIntegrity&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;clean&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span> <span class="punctuation">&#125;</span>                    <span class="comment">// 内核 SHA-256 校验通过</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>字体缺失不用慌，下一步就是解决它。</p>
+<h2 id="五、Step-2：下载字体（踩坑重灾区）"><a href="#五、Step-2：下载字体（踩坑重灾区）" class="headerlink" title="五、Step 2：下载字体（踩坑重灾区）"></a>五、Step 2：下载字体（踩坑重灾区）</h2><p>补丁需要的字体：<code>AnthropicSerif-Regular/Bold.ttf</code>、<code>AnthropicMono-Regular.ttf</code>，以及更纱黑体中文包。<strong>Windows 强烈推荐用作者打包好的拆分版 zip</strong>（170 MB，含 14 个 SC 字重 TTF），千万别下 791 MB 的 <code>Sarasa-SuperTTC.ttc</code> 整包——DirectWrite&#x2F;Chromium 加载超大 TTC 会卡顿数秒（仓库 issue #19 有详细分析）。</p>
+<h3 id="坑-1：Python-requests-的-TLS-会被代理掐断"><a href="#坑-1：Python-requests-的-TLS-会被代理掐断" class="headerlink" title="坑 1：Python requests 的 TLS 会被代理掐断"></a>坑 1：Python requests 的 TLS 会被代理掐断</h3><p>我最先想用 <code>gdown</code> 下载 Drive 资源，结果报 <code>SSLZeroReturnError</code>——<strong>Clash 对不同客户端的 TLS 指纹处理不一致</strong>，curl 能通的代理，python requests 握手直接被 EOF。结论：<strong>代理环境下下载一律用 curl</strong>，别折腾 python 下载器。</p>
+<h3 id="坑-2：Drive-文件-ID-要自己解析"><a href="#坑-2：Drive-文件-ID-要自己解析" class="headerlink" title="坑 2：Drive 文件 ID 要自己解析"></a>坑 2：Drive 文件 ID 要自己解析</h3><p>资源包是个<a target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/1NX92SgVUqtSjWg6bt6sIJXy-cn7J_boC">公开文件夹</a>，先抓目录页把文件名和文件 ID 配对：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -sL -x http://127.0.0.1:7890 \</span><br><span class="line">  <span class="string">&quot;https://drive.google.com/drive/folders/&lt;文件夹ID&gt;&quot;</span> -o folder.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 页面里文件项长这样：data-id=&quot;xxxx&quot;，配合文件名一起解析</span></span><br><span class="line">grep -o <span class="string">&#x27;data-id=&quot;[^&quot;]*&quot;&#x27;</span> folder.html</span><br></pre></td></tr></table></figure>
+
+<p>需要的四个文件与 ID（2026-11 实测，v1.0.43 拆分包）：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>Google Drive ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AnthropicSerif-Regular.ttf</td>
+<td><code>1RZ1rMYYFlr5B-slSSZV-DCJtv5AfTMUV</code></td>
+</tr>
+<tr>
+<td>AnthropicSerif-Bold.ttf</td>
+<td><code>1-LJfTa1wasIqkoCCHI4mfVyh8tzreiAO</code></td>
+</tr>
+<tr>
+<td>AnthropicMono-Regular.ttf</td>
+<td><code>1NK_1Q2MBl5yHw94pC_kbzybDgqEFCZVk</code></td>
+</tr>
+<tr>
+<td>Windows-Sarasa-Split-SC-TTF-v1.0.43.zip</td>
+<td><code>1iVVvZXtwUcDiHy42tJ25X6N-JlOf3l7A</code></td>
+</tr>
+</tbody></table>
+<h3 id="坑-3：大文件下载要用-usercontent-域-confirm-参数"><a href="#坑-3：大文件下载要用-usercontent-域-confirm-参数" class="headerlink" title="坑 3：大文件下载要用 usercontent 域 + confirm 参数"></a>坑 3：大文件下载要用 usercontent 域 + confirm 参数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -L -x http://127.0.0.1:7890 \</span><br><span class="line">  <span class="string">&quot;https://drive.usercontent.google.com/download?id=&lt;文件ID&gt;&amp;export=download&amp;confirm=t&quot;</span> \</span><br><span class="line">  -o &lt;文件名&gt;</span><br></pre></td></tr></table></figure>
+
+<p>用这个端点加 <code>confirm=t</code> 可以跳过病毒扫描提示页，170 MB 的 zip 两分钟就能拉完。下载完建议校验一下 TTF 文件头是 <code>00 01 00 00</code>（TrueType 签名），防止下到 HTML 错误页。</p>
+<h2 id="六、Step-3：注册字体"><a href="#六、Step-3：注册字体" class="headerlink" title="六、Step 3：注册字体"></a>六、Step 3：注册字体</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Git Bash 自带的 GNU tar 解不了 zip，要用 Windows 自带的 bsdtar：</span></span><br><span class="line">/c/Windows/System32/tar.exe -xf Windows-Sarasa-Split-SC-TTF-v1.0.43.zip -C sarasa-extracted</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把 3 个 Anthropic TTF 也放进解压目录，一次性注册全部 17 个字体</span></span><br><span class="line"><span class="built_in">cp</span> Anthropic*.ttf sarasa-extracted/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 官方安装器：写 HKCU 注册表 + 广播 WM_FONTCHANGE（手动复制文件到字体目录是没用的！）</span></span><br><span class="line">node install.mjs install-fonts --from <span class="string">&quot;&lt;解压目录&gt;&quot;</span> --retire-super-ttc</span><br></pre></td></tr></table></figure>
+
+<p>再跑一次 <code>doctor</code>，看到 <code>&quot;allRequiredInstalled&quot;: true</code> 即通过。</p>
+<blockquote>
+<p><strong>关键细节</strong>：Windows 下单纯把 TTF 拖进字体文件夹<strong>不会写注册表</strong>，Chromium 的 <code>local()</code> 找不到字体。必须走 <code>install-fonts</code> 写入 <code>HKCU\...\Fonts</code> 并广播消息，这是仓库 README 反复强调的点。</p>
+</blockquote>
+<h2 id="七、Step-4：安装内核与守护进程"><a href="#七、Step-4：安装内核与守护进程" class="headerlink" title="七、Step 4：安装内核与守护进程"></a>七、Step 4：安装内核与守护进程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node install.mjs install</span><br></pre></td></tr></table></figure>
+
+<p>这一步会：部署 <code>theme-patch/</code> 运行态目录 → 注册 <code>AntigravityThemeDaemon</code> 计划任务（开机自启）→ 幂等地给桌面&#x2F;开始菜单等 5 处快捷方式追加 CDP 参数。输出里 <code>serviceInfo.runningNow: true</code> 表示守护进程已在工作。</p>
+<blockquote>
+<p><strong>安全软件提示</strong>：计划任务注册涉及 <code>schtasks</code> &#x2F; <code>wscript.exe</code>，火绒、360 等可能弹窗拦截。选择放行即可；被拦了也可以按仓库 README 的 PowerShell 备选命令手动注册。</p>
+</blockquote>
+<h2 id="八、Step-5：启动与验收"><a href="#八、Step-5：启动与验收" class="headerlink" title="八、Step 5：启动与验收"></a>八、Step 5：启动与验收</h2><h3 id="坑-4：relaunch-是两阶段操作，中途别杀"><a href="#坑-4：relaunch-是两阶段操作，中途别杀" class="headerlink" title="坑 4：relaunch 是两阶段操作，中途别杀"></a>坑 4：relaunch 是两阶段操作，中途别杀</h3><p>让带调试参数的客户端跑起来的标准姿势：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node install.mjs relaunch</span><br></pre></td></tr></table></figure>
+
+<p>它会<strong>先平滑关闭当前实例，再重新拉起</strong>（对 Antigravity 2.33.0+ 的冷启动做端口接力）。我就是在这里踩坑：relaunch 跑了三分多钟没输出，我以为卡死了把它杀掉——结果正好死在「旧实例已关、新实例未起」的中间态，留下一个诡异的残状态：<code>DevToolsActivePort</code> 文件在、但进程没了、CDP 端口无响应。</p>
+<p><strong>正确处理</strong>：要么让 relaunch 自己跑完（第一次冷启动最多等 12 秒接力）；要么中断后直接双击打过补丁的快捷方式启动，效果一样。</p>
+<p>启动后先用 curl 探一下 CDP 是否真活了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 端口号从 %APPDATA%\Antigravity\DevToolsActivePort 文件第一行读</span></span><br><span class="line">curl -s http://127.0.0.1:&lt;端口&gt;/json/version</span><br><span class="line"><span class="comment"># 返回 &quot;Browser&quot;: &quot;Chrome/152...&quot; 即说明调试端口就绪</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="官方验收"><a href="#官方验收" class="headerlink" title="官方验收"></a>官方验收</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node install.mjs verify</span><br></pre></td></tr></table></figure>
+
+<p>我本机的验收结果（节选）：</p>
+<figure class="highlight jsonc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;ok&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;themeStyle&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;live&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;reachable&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;state&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;bodyReady&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;hasStyle&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;preset&quot;</span><span class="punctuation">:</span> <span class="string">&quot;high-contrast&quot;</span><span class="punctuation">,</span>      <span class="comment">// 白天预设</span></span><br><span class="line">      <span class="attr">&quot;darkPreset&quot;</span><span class="punctuation">:</span> <span class="string">&quot;onyx&quot;</span><span class="punctuation">,</span>           <span class="comment">// 黑夜预设</span></span><br><span class="line">      <span class="attr">&quot;waxSeal&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span>                <span class="comment">// 输入框蜡封边框</span></span><br><span class="line">      <span class="attr">&quot;dictCount&quot;</span><span class="punctuation">:</span> <span class="number">1940</span><span class="punctuation">,</span>              <span class="comment">// 汉化词条全量加载</span></span><br><span class="line">      <span class="attr">&quot;pillMounted&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span>             <span class="comment">// Token 指标胶囊已挂载</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>肉眼验真三特征</strong>（防止被 2.33.0 原生字体的视觉假象骗到）：</p>
+<ol>
+<li>对话正文是 <strong>Anthropic Serif 衬线体</strong>（未注入时是无衬线）；</li>
+<li>主输入框是打字机粗衬线 + <strong>1.5px 暗红蜡封外框</strong>；</li>
+<li>输入框底栏有<strong>实时指标胶囊</strong>，全界面中文。</li>
+</ol>
+<h2 id="九、安装后的个性化定制"><a href="#九、安装后的个性化定制" class="headerlink" title="九、安装后的个性化定制"></a>九、安装后的个性化定制</h2><p>所有定制只在 <code>user/</code> 层改，保存后 2.5 秒热重载，不碰 core&#x2F;：</p>
+<p><strong><code>user/config.json</code></strong> — 预设与模块开关：</p>
+<figure class="highlight jsonc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;enabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;preset&quot;</span><span class="punctuation">:</span> <span class="string">&quot;high-contrast&quot;</span><span class="punctuation">,</span>        <span class="comment">// 白天：high-contrast / claude-desktop-purewhite / vintage-deep</span></span><br><span class="line">  <span class="attr">&quot;darkPreset&quot;</span><span class="punctuation">:</span> <span class="string">&quot;onyx&quot;</span><span class="punctuation">,</span>             <span class="comment">// 黑夜：onyx(官方冷碳黑) / claude-warm(暖纸深夜)</span></span><br><span class="line">  <span class="attr">&quot;modules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;i18n&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;metrics&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;tokenAnalytics&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;composerWaxSeal&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;deadlockHealer&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;themeVars&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;--ag-chat-font-size&quot;</span><span class="punctuation">:</span> <span class="string">&quot;16px&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>user/i18n.override.json</code></strong> — 覆盖&#x2F;新增词条：<code>&#123;&quot;英文原词&quot;: &quot;你的中文&quot;&#125;</code>，即时生效。<br><strong><code>user/custom.css</code> &#x2F; <code>custom.js</code></strong> — 自定义样式与前端钩子。</p>
+<p>把 <code>enabled</code> 设为 <code>false</code> 可在 2.5 秒内无损卸载全部注入，还原英文原貌。</p>
+<h2 id="十、日常维护速查"><a href="#十、日常维护速查" class="headerlink" title="十、日常维护速查"></a>十、日常维护速查</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node install.mjs doctor              <span class="comment"># 环境/字体/进程/内核完整性体检</span></span><br><span class="line">node install.mjs verify              <span class="comment"># 实机注入验收</span></span><br><span class="line">node install.mjs verify --safe-mode  <span class="comment"># 绕过 user/ 层，排查是不是自己配置搞的鬼</span></span><br><span class="line">node install.mjs rollback            <span class="comment"># 回滚到上一个自动备份快照</span></span><br><span class="line">node install.mjs uninstall           <span class="comment"># 卸载：停守护 + 还原窗口原貌（保留 user/ 配置）</span></span><br></pre></td></tr></table></figure>
+
+<p>客户端热更新之后如果汉化失效，先跑 <code>doctor</code> 看 <code>cdpStatus</code>——大多数情况是快捷方式参数被更新程序重置了，补丁内置的「Windows 快捷方式自愈」会自动处理，等一次重启就好。</p>
+<h2 id="十一、附：代理启动脚本"><a href="#十一、附：代理启动脚本" class="headerlink" title="十一、附：代理启动脚本"></a>十一、附：代理启动脚本</h2><p>网络门槛这一步，可以做一个启动脚本（保存为 <code>Start-Antigravity-Proxy.cmd</code>，双击即用），把代理环境变量和 Chromium 代理参数一起给到客户端：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">setlocal</span></span><br><span class="line"><span class="built_in">set</span> &quot;HTTP_PROXY=http://<span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">7890</span>&quot;</span><br><span class="line"><span class="built_in">set</span> &quot;HTTPS_PROXY=http://<span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">7890</span>&quot;</span><br><span class="line"><span class="built_in">set</span> &quot;NO_PROXY=localhost,<span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>,::<span class="number">1</span>&quot;</span><br><span class="line"><span class="built_in">set</span> &quot;AG_EXE=<span class="variable">%LOCALAPPDATA%</span>\Programs\Antigravity\Antigravity.exe&quot;</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> &quot;<span class="variable">%AG_EXE%</span>&quot; (</span><br><span class="line">  <span class="built_in">echo</span> Antigravity.exe <span class="keyword">not</span> found</span><br><span class="line">  <span class="built_in">pause</span> &amp; <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">start</span> &quot;&quot; &quot;<span class="variable">%AG_EXE%</span>&quot; --proxy-server=http://<span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">7890</span> --remote-debugging-port=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>最后的 <code>--remote-debugging-port=0</code> 是给补丁守护进程的，加上它就不必等守护进程 12 秒接力补参。</p>
+<h2 id="十二、结语"><a href="#十二、结语" class="headerlink" title="十二、结语"></a>十二、结语</h2><p>整个流程走下来，最深的感受是这套补丁的<strong>工程素养</strong>：SHA-256 内核校验、core&#x2F;user 分层、热重载、safe-mode 定界、一键回滚——把「魔改客户端」做成了可审计、可回退的标准软件分发。对想上手 Antigravity 又被英文界面劝退的朋友，照着本文 Step 1 → Step 5 走一遍，半小时内可以搞定。</p>
+<p><strong>参考资源</strong>：</p>
+<ul>
+<li>补丁仓库：<a target="_blank" rel="noopener" href="https://github.com/Anarcadia/chuanban-antigravity-theme-patch">https://github.com/Anarcadia/chuanban-antigravity-theme-patch</a></li>
+<li>上手教程（X 文章）：《小白从 0—1 上手 Antigravity》 by @alice_showmore</li>
+<li>更纱黑体：<a target="_blank" rel="noopener" href="https://github.com/be5invis/Sarasa-Gothic">https://github.com/be5invis/Sarasa-Gothic</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" rel="tag"># 效率工具</a>
+              <a href="/tags/CDP/" rel="tag"># CDP</a>
+              <a href="/tags/Antigravity/" rel="tag"># Antigravity</a>
+              <a href="/tags/Gemini/" rel="tag"># Gemini</a>
+              <a href="/tags/%E6%B1%89%E5%8C%96/" rel="tag"># 汉化</a>
+              <a href="/tags/%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/" rel="tag"># 主题美化</a>
+              <a href="/tags/Windows/" rel="tag"># Windows</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/07/24/CLIProxyAPI-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="prev" title="CLIProxyAPI 快速上手指南：把 Claude Code &#x2F; Codex &#x2F; Grok 统一成一个本地 API">
+                  <i class="fa fa-angle-left"></i> CLIProxyAPI 快速上手指南：把 Claude Code / Codex / Grok 统一成一个本地 API
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
