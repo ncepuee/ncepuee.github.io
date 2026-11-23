@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、Omarchy 与 Try Omarchy 是什么Omarchy 是 DHH(Ruby on Rails 作者)在 2025 年推出的 Arch Linux 发行版:Arch + Hyprland 平铺桌面 + 精心调好的 Quickshell 外壳,2026 年的 4.0 版本更是主打 AI 编程工作站——预置 Claude Code、Codex 等 agent,顶栏直接显示用量,口号是 “">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Apple Silicon Mac 上无痛试装 Omarchy:Try Omarchy 从黑屏抢救到远程访问全记录">
+<meta property="og:url" content="https://ncepuee.github.io/2026/11/23/try-omarchy-on-mac-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="一、Omarchy 与 Try Omarchy 是什么Omarchy 是 DHH(Ruby on Rails 作者)在 2025 年推出的 Arch Linux 发行版:Arch + Hyprland 平铺桌面 + 精心调好的 Quickshell 外壳,2026 年的 4.0 版本更是主打 AI 编程工作站——预置 Claude Code、Codex 等 agent,顶栏直接显示用量,口号是 “">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-23T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-23T06:35:35.680Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="Omarchy">
+<meta property="article:tag" content="Tailscale">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Apple Silicon">
+<meta property="article:tag" content="Arch">
+<meta property="article:tag" content="VirGL">
+<meta property="article:tag" content="wayvnc">
+<meta property="article:tag" content="踩坑">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://ncepuee.github.io/2026/11/23/try-omarchy-on-mac-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ncepuee.github.io/2026/11/23/try-omarchy-on-mac-2026/","path":"2026/11/23/try-omarchy-on-mac-2026/","title":"在 Apple Silicon Mac 上无痛试装 Omarchy:Try Omarchy 从黑屏抢救到远程访问全记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在 Apple Silicon Mac 上无痛试装 Omarchy:Try Omarchy 从黑屏抢救到远程访问全记录 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81Omarchy-%E4%B8%8E-Try-Omarchy-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">一、Omarchy 与 Try Omarchy 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85-Try-Omarchy-%E9%A1%BA%E5%88%A9-5-%E5%88%86%E9%92%9F"><span class="nav-number">2.</span> <span class="nav-text">二、安装 Try Omarchy(顺利,5 分钟)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%9D%91%E4%B8%80-%E5%86%85%E7%BD%AE%E4%B8%8B%E8%BD%BD%E5%99%A8%E8%A2%AB%E7%BD%91%E7%BB%9C%E5%8D%A1%E6%AD%BB-13-MB-3-2-GB"><span class="nav-number">3.</span> <span class="nav-text">三、坑一:内置下载器被网络卡死(13 MB &#x2F; 3.2 GB)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%BA%90%E7%A0%81%E9%87%8C%E8%97%8F%E7%9D%80%E4%B8%89%E4%B8%AA%E5%85%B3%E9%94%AE%E4%BA%8B%E5%AE%9E"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 源码里藏着三个关键事实</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-aria2-%E5%A4%9A%E8%BF%9E%E6%8E%A5%E4%B8%8B%E8%BD%BD-%E5%8D%95%E8%BF%9E%E6%8E%A5%E5%8F%AA%E6%9C%89-200-KB-s-%E5%B9%B6%E8%A1%8C%E6%8B%89%E5%88%B0-MB-s-%E7%BA%A7"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 aria2 多连接下载(单连接只有 200 KB&#x2F;s,并行拉到 MB&#x2F;s 级)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%9D%91%E4%BA%8C-%E8%BF%9B%E6%A1%8C%E9%9D%A2%E5%85%A8%E9%BB%91%E2%80%94%E2%80%94mesa-26-3-1-%E7%9A%84-VirGL-bug"><span class="nav-number">4.</span> <span class="nav-text">四、坑二:进桌面全黑——mesa 26.3.1 的 VirGL bug</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%88%86%E5%B1%82%E8%AF%8A%E6%96%AD%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 分层诊断法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%BA%BF%E4%B8%89%E9%80%89%E4%B8%80"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 修复路线三选一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E5%9D%91%E4%B8%89-%E6%88%AA%E5%9B%BE%E6%9C%89%E5%86%85%E5%AE%B9-%E5%B1%8F%E5%B9%95%E8%BF%98%E6%98%AF%E9%BB%91%E7%9A%84"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 坑三:截图有内容,屏幕还是黑的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%9B%BA%E5%8C%96-%E5%88%AB%E8%AE%A9%E5%9D%91%E5%86%8D%E6%9D%A5%E4%B8%80%E6%AC%A1"><span class="nav-number">5.</span> <span class="nav-text">五、固化:别让坑再来一次</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E9%94%81%E6%AD%BB-mesa-%E7%89%88%E6%9C%AC"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 锁死 mesa 版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E8%AE%A9%E5%AE%A2%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%B5%B0-Mac-%E7%9A%84-Clash"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 让客机网络走 Mac 的 Clash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-pacman-%E5%B9%B6%E8%A1%8C%E4%B8%8B%E8%BD%BD"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 pacman 并行下载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE-wayvnc-socat-Tailscale"><span class="nav-number">6.</span> <span class="nav-text">六、远程访问:wayvnc + socat + Tailscale</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E5%AE%A2%E6%9C%BA%E5%86%85-wayvnc-%E8%BD%BB%E9%87%8F-VNC-%E6%9C%8D%E5%8A%A1-Hyprland-%E5%8E%9F%E7%94%9F%E5%85%BC%E5%AE%B9"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 客机内:wayvnc(轻量 VNC 服务,Hyprland 原生兼容)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91-%E6%94%B9-settings-json-%E4%B8%8D%E7%94%A8%E7%82%B9-UI"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 端口转发:改 settings.json(不用点 UI)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-Mac-%E4%B8%8A-socat-%E4%B8%AD%E7%BB%A7-LaunchAgent-%E5%B8%B8%E9%A9%BB"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 Mac 上:socat 中继 + LaunchAgent 常驻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-%E5%9D%91%E5%9B%9B-ufw-%E9%9D%99%E9%BB%98%E4%B8%A2%E5%8C%85"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 坑四:ufw 静默丢包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-Tailscale-%E8%B7%A8%E7%BD%91%E7%BB%9C%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E5%9D%97%E6%8B%BC%E5%9B%BE"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 Tailscale:跨网络的最后一块拼图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%9C%80%E7%BB%88%E7%8A%B6%E6%80%81%E4%B8%8E%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">七、最终状态与经验总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2026/11/23/try-omarchy-on-mac-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在 Apple Silicon Mac 上无痛试装 Omarchy:Try Omarchy 从黑屏抢救到远程访问全记录 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在 Apple Silicon Mac 上无痛试装 Omarchy:Try Omarchy 从黑屏抢救到远程访问全记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-23 09:00:00 / 修改时间：14:35:35" itemprop="dateCreated datePublished" datetime="2026-11-23T09:00:00+08:00">2026-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、Omarchy-与-Try-Omarchy-是什么"><a href="#一、Omarchy-与-Try-Omarchy-是什么" class="headerlink" title="一、Omarchy 与 Try Omarchy 是什么"></a>一、Omarchy 与 Try Omarchy 是什么</h2><p><a target="_blank" rel="noopener" href="https://omarchy.org/">Omarchy</a> 是 DHH(Ruby on Rails 作者)在 2025 年推出的 Arch Linux 发行版:Arch + Hyprland 平铺桌面 + 精心调好的 Quickshell 外壳,2026 年的 4.0 版本更是主打 <strong>AI 编程工作站</strong>——预置 Claude Code、Codex 等 agent,顶栏直接显示用量,口号是 “agentic Linux”。</p>
+<p>它对 Mac 用户有个特殊优待:从 4.5(Omarchy M)开始,<strong>原生支持 Apple Silicon</strong>(M1&#x2F;M2 首发完善,M3 可用)。体验方式有两种:</p>
+<ol>
+<li><strong>正式安装</strong>:双启动,动磁盘;</li>
+<li><strong>Try Omarchy</strong>:一个原生 macOS App,以硬件加速虚拟机的方式把完整 Omarchy 桌面跑在窗口里,<strong>不分区、不动磁盘</strong>,还带摄像头&#x2F;音频&#x2F;剪贴板&#x2F;共享文件夹透传。</li>
+</ol>
+<p>本文走第二条路——「先试再买」。以下是 Apple Silicon(M1)+ macOS 26 + 国内网络环境下的完整踩坑实录,全部命令实测。</p>
+<span id="more"></span>
+
+<h2 id="二、安装-Try-Omarchy-顺利-5-分钟"><a href="#二、安装-Try-Omarchy-顺利-5-分钟" class="headerlink" title="二、安装 Try Omarchy(顺利,5 分钟)"></a>二、安装 Try Omarchy(顺利,5 分钟)</h2><p>App 从 GitHub Releases 下载(v1.4.1,DMG 约 14 MB):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># release-assets.githubusercontent.com 直连会被重置,走本地 Clash 代理</span></span><br><span class="line">curl -sSL -x http://127.0.0.1:7890 -o TryOmarchy.dmg \</span><br><span class="line">  https://github.com/omacom/try-omarchy/releases/download/v1.4.1/TryOmarchy.dmg</span><br><span class="line">shasum -a 256 -c TryOmarchy.dmg.sha256   <span class="comment"># 官方校验,必须过</span></span><br></pre></td></tr></table></figure>
+
+<p>挂载 DMG,把 <code>Try Omarchy.app</code> 拖进「应用程序」即可。App 是 Developer ID 签名 + 公证的,Gatekeeper 直接放行。数据放在:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/Library/Application Support/Try Omarchy/VM/v1/</span><br><span class="line">├── settings.json          # 全屏偏好 + 端口转发规则</span><br><span class="line">├── shell/                 # 客机数据盘与运行状态(可重置)</span><br><span class="line">└── shell-factory/         # 出厂镜像缓存(后面会救命)</span><br></pre></td></tr></table></figure>
+
+<p>打开 App,点 <strong>Launch Omarchy</strong>,它会自动从 GitHub 下载约 3 GB 的系统镜像——<strong>第一坑来了</strong>。</p>
+<h2 id="三、坑一-内置下载器被网络卡死-13-MB-3-2-GB"><a href="#三、坑一-内置下载器被网络卡死-13-MB-3-2-GB" class="headerlink" title="三、坑一:内置下载器被网络卡死(13 MB &#x2F; 3.2 GB)"></a>三、坑一:内置下载器被网络卡死(13 MB &#x2F; 3.2 GB)</h2><p>App 内置下载器走的是 GitHub 的 release-assets CDN,国内直连会 SSL 重置;它似乎也不吃系统代理,进度条在 13 MB 处纹丝不动。等待无意义,直接读它的源码(开源在 <a target="_blank" rel="noopener" href="https://github.com/omacom/try-omarchy">omacom&#x2F;try-omarchy</a>)找手动注入的路。</p>
+<h3 id="3-1-源码里藏着三个关键事实"><a href="#3-1-源码里藏着三个关键事实" class="headerlink" title="3.1 源码里藏着三个关键事实"></a>3.1 源码里藏着三个关键事实</h3><p><code>macos/Sources/OmarchyVMHelper/FactoryImageDownload.swift</code> 写得很清楚:</p>
+<ol>
+<li><strong>清单内置在 App 里</strong>:<code>Resources/guest/download.json</code> 描述了完整镜像(约 3.23 GB,sha256 <code>a8673906…</code>)被切成 4 个字节段(3×1 GiB + 12 MB),每段有独立 URL 和 sha256;</li>
+<li><strong>落盘位置</strong>:<code>shell-factory/&lt;identity&gt;.img.zst</code>,<code>&lt;identity&gt;</code> 就是镜像内容摘要(<code>8085b183…</code>);</li>
+<li><strong>最重要的</strong>:下载器启动时<strong>先检查已存在的文件</strong>——如果 <code>&lt;identity&gt;.img.zst</code> 已存在且整体 sha256 匹配,<strong>直接跳过下载</strong>;即使只有半成品 <code>.download</code> 文件,也会逐段校验后续传。</li>
+</ol>
+<p>也就是说:<strong>只要我手动把这 3.2 GB 拼好、校验好、放到它期望的位置,App 会自己接管</strong>。</p>
+<h3 id="3-2-aria2-多连接下载-单连接只有-200-KB-s-并行拉到-MB-s-级"><a href="#3-2-aria2-多连接下载-单连接只有-200-KB-s-并行拉到-MB-s-级" class="headerlink" title="3.2 aria2 多连接下载(单连接只有 200 KB&#x2F;s,并行拉到 MB&#x2F;s 级)"></a>3.2 aria2 多连接下载(单连接只有 200 KB&#x2F;s,并行拉到 MB&#x2F;s 级)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; aria2-input.txt &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">https://github.com/omacom/try-omarchy/releases/download/v1.4.1/omarchy-aarch64-edge.img.zst.001</span><br><span class="line">  out=001.zst</span><br><span class="line">https://github.com/omacom/try-omarchy/releases/download/v1.4.1/omarchy-aarch64-edge.img.zst.002</span><br><span class="line">  out=002.zst</span><br><span class="line">...</span><br><span class="line">EOF</span><br><span class="line">aria2c -Z -i aria2-input.txt -x8 -s8 -k1M -j4 \</span><br><span class="line">  --all-proxy=http://127.0.0.1:7890 --max-tries=0 --retry-wait=5</span><br></pre></td></tr></table></figure>
+
+<p>下载完成后按清单逐段校验,再拼接、整体校验、放到目标位置:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shasum -a 256 parts/*            <span class="comment"># 4 段哈希逐一对上 download.json</span></span><br><span class="line"><span class="built_in">cat</span> parts/omarchy-aarch64-edge.img.zst.00&#123;1,2,3,4&#125; &gt; \</span><br><span class="line">  <span class="string">&quot;<span class="variable">$HOME</span>/Library/Application Support/Try Omarchy/VM/v1/shell-factory/8085b183….img.zst&quot;</span></span><br><span class="line">shasum -a 256 …                  <span class="comment"># 整体 sha256 = a8673906…,分毫不差</span></span><br></pre></td></tr></table></figure>
+
+<p>重新点 <strong>Launch Omarchy</strong>:App 校验已注入的镜像(约半分钟)→ 解压 → 启动,<strong>直接跳过下载</strong>。</p>
+<blockquote>
+<p>经验:与其和下载器死磕,不如读懂它的校验逻辑,「帮它把活干完」。它自己会感谢你。</p>
+</blockquote>
+<h2 id="四、坑二-进桌面全黑——mesa-26-3-1-的-VirGL-bug"><a href="#四、坑二-进桌面全黑——mesa-26-3-1-的-VirGL-bug" class="headerlink" title="四、坑二:进桌面全黑——mesa 26.3.1 的 VirGL bug"></a>四、坑二:进桌面全黑——mesa 26.3.1 的 VirGL bug</h2><p>镜像注入成功,VM 启动,首次设置(建账号)也走完了——然后桌面黑屏。</p>
+<h3 id="4-1-分层诊断法"><a href="#4-1-分层诊断法" class="headerlink" title="4.1 分层诊断法"></a>4.1 分层诊断法</h3><p>黑屏是最难排查的故障,因为「哪一层挂了」有很多可能。我的路径:</p>
+<ol>
+<li><strong>看串口日志</strong> <code>shell/console.log</code>:内核 7.3.0-75-omarchy 正常启动,到了 <code>hzb login:</code> 提示符 → <strong>Linux 本体活着</strong>;</li>
+<li><strong>看崩溃报告</strong> <code>~/Library/Logs/DiagnosticReports/*.ips</code>:App 在切换桌面空间时段错误于 <code>qemu_console_listener_set_refresh</code>——黑屏的<strong>后果</strong>而非原因;</li>
+<li><strong>客机内截屏</strong>(grim):QQ 那种「画面到底渲染了没」的问题,一张截图胜过十次猜:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 2222 hzb@127.0.0.1 grim /tmp/desktop.png   <span class="comment"># 拉回本地查看</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>搜官方仓库</strong>:<a target="_blank" rel="noopener" href="https://github.com/omacom/try-omarchy/issues/470">Issue #470</a> 症状完全吻合——Arch Linux ARM 的 <code>mesa</code> 升到 26.3.1 后,Qt Quick 的 GL 路径在 VirGL 上渲染全黑:<strong>Hyprland 和系统都活着,只有桌面外壳(Quickshell)画不出来</strong>。</li>
+</ol>
+<p>复盘根因链:出厂镜像带的是好版本 mesa 26.2.7 → 进系统后跑了 <code>omarchy update</code> → 内核 7.3-72 升到 7.3-75 的同时 mesa 被拉到坏的 26.3.1 → 黑屏。<strong>更新本身就是坑的来源</strong>。</p>
+<h3 id="4-2-修复路线三选一"><a href="#4-2-修复路线三选一" class="headerlink" title="4.2 修复路线三选一"></a>4.2 修复路线三选一</h3><table>
+<thead>
+<tr>
+<th>路线</th>
+<th>可行性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>① pacman 缓存降级 26.2.7</td>
+<td>❌ 缓存里只有新版本</td>
+</tr>
+<tr>
+<td>② 升级到上游修复版</td>
+<td>❌ Omarchy 自建镜像源里只有 26.3.1-2,修复版未发布</td>
+</tr>
+<tr>
+<td>③ 外壳强制软件渲染(官方 issue 验证过)</td>
+<td>✅ 选它</td>
+</tr>
+</tbody></table>
+<p>关键证据来自 #470 评论区:<code>LIBGL_ALWAYS_SOFTWARE=1 quickshell</code> 能让壁纸和顶栏正常出现,且 <strong>Hyprland 本身不受影响</strong>。于是给外壳的启动器打补丁——找到 <code>/usr/bin/omarchy-launch-shell</code> 的 <code>run_shell()</code> 函数,在环境变量列表里插一行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OMARCHY_STARTUP_BACKGROUND=<span class="string">&quot;…&quot;</span> \</span><br><span class="line">  LIBGL_ALWAYS_SOFTWARE=1 \                      <span class="comment"># ← 插入这行</span></span><br><span class="line">  QS_DISABLE_FILE_WATCHER=1 QS_NO_RELOAD_POPUP=1 …</span><br></pre></td></tr></table></figure>
+
+<p>再用官方的 <code>omarchy-restart-shell</code> 重启外壳(它从 Hyprland 拉起新进程,保证环境干净)。验证方式很硬核:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tr</span> <span class="string">&#x27;\0&#x27;</span> <span class="string">&#x27;\n&#x27;</span> &lt; /proc/&lt;新PID&gt;/environ | grep LIBGL   <span class="comment"># 确认变量进了新进程</span></span><br><span class="line">journalctl -t omarchy-shell                          <span class="comment"># 确认没有崩溃循环</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-坑三-截图有内容-屏幕还是黑的"><a href="#4-3-坑三-截图有内容-屏幕还是黑的" class="headerlink" title="4.3 坑三:截图有内容,屏幕还是黑的"></a>4.3 坑三:截图有内容,屏幕还是黑的</h3><p>补丁后客机内 <code>grim</code> 截图显示<strong>顶栏已经渲染</strong>(工作区、时钟、图标都在),但 Mac 窗口仍然全黑——这就是另一层的问题:<strong>VirGL 上下文丢失导致 scanout(扫描输出)死亡</strong>,App 自述文档里明写这是开放问题(“Lost GPU context leaves a permanent black desktop”)。</p>
+<p><strong>最优雅的解法:重置数据盘</strong>。删掉 <code>shell/</code> 目录(64 GB 稀疏盘 + 状态),保留 <code>shell-factory/</code> 里 20 GB 的解压出厂镜像,重新点 Launch——App 检测到没有数据盘,<strong>直接从出厂镜像克隆一个全新系统</strong>,几十秒完成,不用重新下载 3.2 GB。全新客机 &#x3D; 好的 mesa 26.2.7 &#x3D; 桌面正常显示。✅</p>
+<blockquote>
+<p>经验:出厂镜像缓存就是你的「Time Machine」。动数据盘之前,先想清楚哪些是状态、哪些是资产。</p>
+</blockquote>
+<h2 id="五、固化-别让坑再来一次"><a href="#五、固化-别让坑再来一次" class="headerlink" title="五、固化:别让坑再来一次"></a>五、固化:别让坑再来一次</h2><p>进入新桌面后,第一件事不是体验,而是「打疫苗」:</p>
+<h3 id="5-1-锁死-mesa-版本"><a href="#5-1-锁死-mesa-版本" class="headerlink" title="5.1 锁死 mesa 版本"></a>5.1 锁死 mesa 版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s/^\[options\]/[options]\nIgnorePkg = mesa/&#x27;</span> /etc/pacman.conf</span><br></pre></td></tr></table></figure>
+
+<p>之后 <code>omarchy update</code> 照常更新其他包,mesa 永远停在 26.2.7。等官方 Issue #470 关闭后再解锁。</p>
+<h3 id="5-2-让客机网络走-Mac-的-Clash"><a href="#5-2-让客机网络走-Mac-的-Clash" class="headerlink" title="5.2 让客机网络走 Mac 的 Clash"></a>5.2 让客机网络走 Mac 的 Clash</h3><p>Try Omarchy 的网络是 slirp NAT,客机的流量<strong>从 Mac 裸奔出去</strong>,不经过 Clash——国内站满速,国外站废掉。救星是 slirp 的特性:<strong>网关 10.0.2.2 就是宿主机的 loopback</strong>,也就是说客机可以直接用 Mac 上的 Clash:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 写入三处,覆盖桌面会话与所有 shell</span></span><br><span class="line">~/.config/environment.d/99-proxy.conf     <span class="comment"># systemd 用户环境(KEY=value)</span></span><br><span class="line">~/.config/uwsm/env.d/99-proxy.sh          <span class="comment"># uwsm 会话环境(export 格式)</span></span><br><span class="line">~/.zshrc 与 ~/.bashrc                     <span class="comment"># 终端兜底</span></span><br></pre></td></tr></table></figure>
+
+<p>内容都是 <code>http_proxy=http://10.0.2.2:7890</code> 一套 + <code>no_proxy</code> 豁免本地。重新登录会话后,<strong>Chrome 等 GUI 应用自动走代理</strong>。再给 Chrome 上双保险:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ~/.config/chrome-flags.conf(Omarchy 的包装器会读取)</span></span><br><span class="line">--proxy-server=http://10.0.2.2:7890</span><br><span class="line">--proxy-bypass-list=&lt;<span class="built_in">local</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>实测数据:国内直连 12.6 MB&#x2F;s、走代理 1~2.4 MB&#x2F;s(上限即 Clash 节点带宽)、DNS 0.07s。<strong>虚拟网络本身没有瓶颈,国外速度的天花板在节点</strong>。</p>
+<h3 id="5-3-pacman-并行下载"><a href="#5-3-pacman-并行下载" class="headerlink" title="5.3 pacman 并行下载"></a>5.3 pacman 并行下载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s/^#ParallelDownloads.*/ParallelDownloads = 5/&#x27;</span> /etc/pacman.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、远程访问-wayvnc-socat-Tailscale"><a href="#六、远程访问-wayvnc-socat-Tailscale" class="headerlink" title="六、远程访问:wayvnc + socat + Tailscale"></a>六、远程访问:wayvnc + socat + Tailscale</h2><p>需求:在学校用 Windows 控制家里的 Omarchy。方案分三层:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">学校 Windows ──(Tailscale 虚拟局域网)──&gt; 家里 Mac ──(socat 中继)──&gt; QEMU 端口转发 ──&gt; 客机服务</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-客机内-wayvnc-轻量-VNC-服务-Hyprland-原生兼容"><a href="#6-1-客机内-wayvnc-轻量-VNC-服务-Hyprland-原生兼容" class="headerlink" title="6.1 客机内:wayvnc(轻量 VNC 服务,Hyprland 原生兼容)"></a>6.1 客机内:wayvnc(轻量 VNC 服务,Hyprland 原生兼容)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S --needed wayvnc</span><br><span class="line">systemctl --user <span class="built_in">enable</span> --now wayvnc   <span class="comment"># 监听 0.0.0.0:5900,常驻</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-端口转发-改-settings-json-不用点-UI"><a href="#6-2-端口转发-改-settings-json-不用点-UI" class="headerlink" title="6.2 端口转发:改 settings.json(不用点 UI)"></a>6.2 端口转发:改 settings.json(不用点 UI)</h3><p>在 <code>VM/v1/settings.json</code> 的 <code>portForwardingPreferences.mappings</code> 里追加 <code>&#123;&quot;guestPort&quot;: 5900, &quot;hostPort&quot;: 5901, &quot;protocol&quot;: &quot;tcp&quot;&#125;</code>,重启 App 后 qemu 参数里就会出现 <code>hostfwd=tcp:127.0.0.1:5901-:5900</code>。</p>
+<h3 id="6-3-Mac-上-socat-中继-LaunchAgent-常驻"><a href="#6-3-Mac-上-socat-中继-LaunchAgent-常驻" class="headerlink" title="6.3 Mac 上:socat 中继 + LaunchAgent 常驻"></a>6.3 Mac 上:socat 中继 + LaunchAgent 常驻</h3><p>App 的转发只绑定 <code>127.0.0.1</code>,局域网&#x2F;远端设备够不着,用 socat 把它暴露出去:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- ~/Library/LaunchAgents/local.omarchy-vnc-relay.plist --&gt;</span></span><br><span class="line">TCP-LISTEN:5900,bind=0.0.0.0,fork,reuseaddr → TCP:127.0.0.1:5901</span><br></pre></td></tr></table></figure>
+
+<p>同理再放一条 <code>2223 → 2222</code> 给 SSH 用。</p>
+<h3 id="6-4-坑四-ufw-静默丢包"><a href="#6-4-坑四-ufw-静默丢包" class="headerlink" title="6.4 坑四:ufw 静默丢包"></a>6.4 坑四:ufw 静默丢包</h3><p>链路最后一段怎么都不通,排查半天发现:try-omarchy 的 SSH 开关<strong>只自动放行了 22 端口</strong>,客机的 ufw 默认拒绝把 5900 丢了(slirp 的连接来源是 10.0.2.2,被拒)。补一条即可:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow from 10.0.2.2 to any port 5900 proto tcp comment <span class="string">&#x27;try-omarchy-vnc&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-5-Tailscale-跨网络的最后一块拼图"><a href="#6-5-Tailscale-跨网络的最后一块拼图" class="headerlink" title="6.5 Tailscale:跨网络的最后一块拼图"></a>6.5 Tailscale:跨网络的最后一块拼图</h3><p>App Store 安装 Tailscale → 应用内登录 → 允许 VPN 配置(注意:只连上 VPN 不够,<strong>必须在应用里完成浏览器授权</strong>,否则 CLI 会报 <code>Logged out</code>)。Mac 拿到一个 <code>100.x.x.x</code> 的 tailnet IP。</p>
+<p>Windows 端:安装 <a target="_blank" rel="noopener" href="https://tailscale.com/download">Tailscale</a>(同一账号)+ <a target="_blank" rel="noopener" href="https://tigervnc.org/">TigerVNC Viewer</a>,然后:</p>
+<ul>
+<li><strong>远程桌面</strong>:VNC 地址填 <code>100.x.x.x:5900</code>(Mac 的 tailnet IP)</li>
+<li><strong>远程终端</strong>:<code>ssh -p 2223 hzb@100.x.x.x</code></li>
+</ul>
+<p>从 Mac 本机对两个端口做握手自测,分别收到 <code>RFB 003.008</code> 和 <code>SSH-2.0-OpenSSH_10.6</code>——全链路打通 ✅。</p>
+<h2 id="七、最终状态与经验总结"><a href="#七、最终状态与经验总结" class="headerlink" title="七、最终状态与经验总结"></a>七、最终状态与经验总结</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>桌面显示</td>
+<td>✅ 出厂 mesa 26.2.7,正常渲染</td>
+</tr>
+<tr>
+<td>mesa 防护</td>
+<td>✅ <code>IgnorePkg</code>,坏版本进不来</td>
+</tr>
+<tr>
+<td>客机网络</td>
+<td>✅ 国内 12.6 MB&#x2F;s,国外自动走 Mac 的 Clash</td>
+</tr>
+<tr>
+<td>远程桌面&#x2F;终端</td>
+<td>✅ wayvnc :5900 + SSH :2223,经 Tailscale 跨网可达</td>
+</tr>
+</tbody></table>
+<p>几条可复用的经验:</p>
+<ol>
+<li><strong>下载器卡死 ≠ 只能干等</strong>:开源 App 的校验逻辑就是你的注入说明书——「帮它把活干完」比绕过它更稳;</li>
+<li><strong>黑屏要分层归因</strong>:串口日志看内核、<code>.ips</code> 看宿主崩溃、客机内 <code>grim</code> 看渲染、<code>ufw status</code> 看丢包——每层都有对应的证据,别猜;</li>
+<li><strong>先搜官方 issue 再造轮子</strong>:黑屏、下载卡死两个大坑都在官方仓库有记录,评论区的实测方案比自己发明靠谱;</li>
+<li><strong>重置数据盘是虚拟机的超能力</strong>:出厂镜像缓存 + 64 GB 稀疏盘的设计,让「重新安装」的成本从 3.2 GB 下载变成一次目录删除;</li>
+<li><strong>固化必须当场做</strong>:锁版本、写代理配置、注册常驻服务,都是在为下一次「看起来莫名其妙的故障」买保险。</li>
+</ol>
+<p>现在这台 Mac 上躺着一个可远程访问的完整 Omarchy 桌面——Super+K 看快捷键,Super+Space 开启动器,AI agent 已就位。玩起来吧。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Omarchy/" rel="tag"># Omarchy</a>
+              <a href="/tags/Tailscale/" rel="tag"># Tailscale</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/Apple-Silicon/" rel="tag"># Apple Silicon</a>
+              <a href="/tags/Arch/" rel="tag"># Arch</a>
+              <a href="/tags/VirGL/" rel="tag"># VirGL</a>
+              <a href="/tags/wayvnc/" rel="tag"># wayvnc</a>
+              <a href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag"># 踩坑</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/11/21/antigravity-chinese-theme-patch-2026/" rel="prev" title="Google Antigravity 汉化与美化实战：chuanban 主题补丁安装全记录（Windows 篇）">
+                  <i class="fa fa-angle-left"></i> Google Antigravity 汉化与美化实战：chuanban 主题补丁安装全记录（Windows 篇）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/" rel="next" title="Omarchy 接入 Tailscale:从一键安装到 Windows&#x2F;Mac 互通的远程开发全记录">
+                  Omarchy 接入 Tailscale:从一键安装到 Windows/Mac 互通的远程开发全记录 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

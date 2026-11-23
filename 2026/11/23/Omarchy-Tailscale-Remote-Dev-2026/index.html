@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/liudalogometal.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/liudalogometal.png">
+  <link rel="mask-icon" href="/images/liudalogometal.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ncepuee.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前情提要:在 Apple Silicon Mac 上无痛试装 Omarchy 里,Omarchy 跑在 Try Omarchy 虚拟机中,远程访问走的是「Windows → Tailscale → Mac → socat 中继 → QEMU 端口转发 → 客机」这条长链路。能用,但每加一个服务就要多配一段转发。  这次的思路很简单:把 Tailscale 直接装进 Omarchy,让虚拟机自己成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Omarchy 接入 Tailscale:从一键安装到 Windows&#x2F;Mac 互通的远程开发全记录">
+<meta property="og:url" content="https://ncepuee.github.io/2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/index.html">
+<meta property="og:site_name" content="School boy">
+<meta property="og:description" content="前情提要:在 Apple Silicon Mac 上无痛试装 Omarchy 里,Omarchy 跑在 Try Omarchy 虚拟机中,远程访问走的是「Windows → Tailscale → Mac → socat 中继 → QEMU 端口转发 → 客机」这条长链路。能用,但每加一个服务就要多配一段转发。  这次的思路很简单:把 Tailscale 直接装进 Omarchy,让虚拟机自己成">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-23T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-23T06:35:35.679Z">
+<meta property="article:author" content="菜菜的黄">
+<meta property="article:tag" content="Omarchy">
+<meta property="article:tag" content="Tailscale">
+<meta property="article:tag" content="SSH">
+<meta property="article:tag" content="VS Code">
+<meta property="article:tag" content="Remote-SSH">
+<meta property="article:tag" content="ufw">
+<meta property="article:tag" content="PuTTY">
+<meta property="article:tag" content="远程开发">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://ncepuee.github.io/2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ncepuee.github.io/2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/","path":"2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/","title":"Omarchy 接入 Tailscale:从一键安装到 Windows/Mac 互通的远程开发全记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Omarchy 接入 Tailscale:从一键安装到 Windows/Mac 互通的远程开发全记录 | School boy</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">School boy</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不妄动，不滥言，不苟求，不虚行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%88%E8%AF%B4%E7%BB%93%E8%AE%BA-%E6%9C%80%E7%BB%88%E7%8A%B6%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">一、先说结论:最终状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85-%E5%88%AB%E7%94%A8-curl-sh-Omarchy-%E8%87%AA%E5%B8%A6%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">二、安装:别用 curl | sh,Omarchy 自带一键命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%99%BB%E5%BD%95%E6%8E%88%E6%9D%83"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 登录授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%9D%91%E4%B8%80-sudo-%E8%B6%85%E6%97%B6-%E5%AE%89%E8%A3%85%E5%8F%AA%E5%AE%8C%E6%88%90%E4%B8%80%E5%8D%8A"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 坑一:sudo 超时,安装只完成一半</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86-%E6%94%B9%E5%90%8D-%E5%85%B3%E9%97%AD%E5%AF%86%E9%92%A5%E8%BF%87%E6%9C%9F"><span class="nav-number">3.</span> <span class="nav-text">三、设备管理:改名 + 关闭密钥过期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%9D%91%E4%BA%8C-%E8%AE%BE%E5%A4%87%E5%90%8D%E8%87%AA%E5%8A%A8%E5%8F%98%E6%88%90-xxx-1"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 坑二:设备名自动变成 xxx-1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%85%B3%E9%97%AD%E5%AF%86%E9%92%A5%E8%BF%87%E6%9C%9F-%E5%B8%B8%E9%A9%BB%E8%AE%BE%E5%A4%87%E5%BF%85%E5%81%9A"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 关闭密钥过期(常驻设备必做)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%98%B2%E7%81%AB%E5%A2%99-ufw-%E5%8F%AA%E5%AF%B9-tailscale0-%E6%94%BE%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">四、防火墙:ufw 只对 tailscale0 放行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%9D%91%E4%B8%89-Tailscale-%E9%80%9A%E4%BA%86-SSH-%E5%8D%B4%E8%BF%9E%E4%B8%8D%E4%B8%8A"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 坑三:Tailscale 通了,SSH 却连不上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%8F%AA%E7%BB%99-tailscale0-%E5%BC%80%E5%8F%A3%E5%AD%90"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 只给 tailscale0 开口子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E5%85%B3%E4%BA%8E-VNC-5900-%E7%9A%84%E6%8F%90%E9%86%92"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 关于 VNC(5900)的提醒</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81Windows-%E8%BF%9E%E6%8E%A5-Omarchy"><span class="nav-number">5.</span> <span class="nav-text">五、Windows 连接 Omarchy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-PowerShell-%E6%9C%80%E5%BF%AB%E7%9A%84%E9%AA%8C%E8%AF%81%E6%96%B9%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 PowerShell:最快的验证方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-SSH-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 SSH 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 免密登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-VS-Code-Remote-SSH-%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%94%9F%E4%BA%A7%E5%8A%9B"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 VS Code Remote-SSH:真正的生产力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-PuTTY-%E5%8F%AF%E9%80%89"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 PuTTY(可选)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%8F%8D%E5%90%91-Omarchy-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95-Mac"><span class="nav-number">6.</span> <span class="nav-text">六、反向:Omarchy 免密登录 Mac</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81DERP-%E4%B8%AD%E7%BB%A7-vs-%E7%9B%B4%E8%BF%9E-%E5%BB%B6%E8%BF%9F%E5%AE%9E%E6%B5%8B"><span class="nav-number">7.</span> <span class="nav-text">七、DERP 中继 vs 直连:延迟实测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81Tailscale-%E6%97%A5%E5%B8%B8%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5"><span class="nav-number">8.</span> <span class="nav-text">八、Tailscale 日常用法速查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E9%99%84-Omarchy-%E5%85%B3%E7%AA%97%E5%8F%A3"><span class="nav-number">9.</span> <span class="nav-text">九、附:Omarchy 关窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">十、经验总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜菜的黄"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">菜菜的黄</p>
+  <div class="site-description" itemprop="description">记录科研生活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ncepuee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ncepuee" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Omarchy 接入 Tailscale:从一键安装到 Windows&#x2F;Mac 互通的远程开发全记录 | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Omarchy 接入 Tailscale:从一键安装到 Windows/Mac 互通的远程开发全记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-23 20:00:00 / 修改时间：14:35:35" itemprop="dateCreated datePublished" datetime="2026-11-23T20:00:00+08:00">2026-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>前情提要:<a href="/2026/11/23/try-omarchy-on-mac-2026/">在 Apple Silicon Mac 上无痛试装 Omarchy</a> 里,Omarchy 跑在 Try Omarchy 虚拟机中,远程访问走的是「Windows → Tailscale → Mac → socat 中继 → QEMU 端口转发 → 客机」这条长链路。能用,但每加一个服务就要多配一段转发。</p>
+</blockquote>
+<p>这次的思路很简单:<strong>把 Tailscale 直接装进 Omarchy</strong>,让虚拟机自己成为 tailnet 里的一台设备。链路变成:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Windows / iPhone / Mac ──(Tailscale)──&gt; Omarchy 虚拟机</span><br></pre></td></tr></table></figure>
+
+<p>不需要 socat,不需要端口转发,任何端口只要防火墙放行就能直接访问。</p>
+<span id="more"></span>
+
+<h2 id="一、先说结论-最终状态"><a href="#一、先说结论-最终状态" class="headerlink" title="一、先说结论:最终状态"></a>一、先说结论:最终状态</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Omarchy 加入 tailnet</td>
+<td>✅ 独立设备,拿到自己的 <code>100.x.x.x</code></td>
+</tr>
+<tr>
+<td>设备名</td>
+<td>✅ 从自动生成的 <code>xxx-1</code> 改为好记的名字</td>
+</tr>
+<tr>
+<td>密钥过期</td>
+<td>✅ 已关闭,不会 180 天后掉线</td>
+</tr>
+<tr>
+<td>防火墙</td>
+<td>✅ ufw 只对 <code>tailscale0</code> 网卡放行 SSH(22)</td>
+</tr>
+<tr>
+<td>Windows → Omarchy</td>
+<td>✅ VS Code Remote-SSH &#x2F; PowerShell &#x2F; PuTTY 免密登录,直连约 13 ms</td>
+</tr>
+<tr>
+<td>Omarchy → Mac</td>
+<td>✅ 免密 SSH,局域网直连约 5~16 ms</td>
+</tr>
+<tr>
+<td>Taildrop 收文件</td>
+<td>✅ 自动存到 <code>~/Downloads</code></td>
+</tr>
+</tbody></table>
+<p>文中设备名统一用占位符:</p>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>omarchy-vm</code></td>
+<td>Omarchy 虚拟机(Linux,aarch64)</td>
+</tr>
+<tr>
+<td><code>my-win</code></td>
+<td>学校的 Windows 电脑</td>
+</tr>
+<tr>
+<td><code>my-mac</code></td>
+<td>跑虚拟机的 MacBook Air</td>
+</tr>
+<tr>
+<td><code>&lt;user&gt;</code> &#x2F; <code>&lt;mac-user&gt;</code></td>
+<td>Omarchy &#x2F; Mac 的登录用户名</td>
+</tr>
+<tr>
+<td><code>100.a.b.c</code> 等</td>
+<td>各设备的 tailnet IP</td>
+</tr>
+<tr>
+<td><code>tailXXXX.ts.net</code></td>
+<td>tailnet 的 MagicDNS 域名后缀</td>
+</tr>
+</tbody></table>
+<h2 id="二、安装-别用-curl-sh-Omarchy-自带一键命令"><a href="#二、安装-别用-curl-sh-Omarchy-自带一键命令" class="headerlink" title="二、安装:别用 curl | sh,Omarchy 自带一键命令"></a>二、安装:别用 curl | sh,Omarchy 自带一键命令</h2><p>Tailscale 官网的 Linux 安装方式是:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://tailscale.com/install.sh | sh</span><br></pre></td></tr></table></figure>
+
+<p>在 Omarchy 上<strong>没必要</strong>。Omarchy 已经内置了安装脚本,而且做的事比官方脚本多:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">omarchy-install-service-tailscale</span><br></pre></td></tr></table></figure>
+
+<p>读一下它的源码(<code>/usr/share/omarchy/bin/omarchy-install-service-tailscale</code>),一共六步:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">omarchy-pkg-add tailscale                           <span class="comment"># 1. pacman 装官方仓库的 tailscale</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now tailscaled.service      <span class="comment"># 2. 开机自启 + 立即启动</span></span><br><span class="line"><span class="built_in">sudo</span> tailscale up --accept-routes                   <span class="comment"># 3. 登录,并接受其他节点广播的子网路由</span></span><br><span class="line"><span class="built_in">sudo</span> tailscale <span class="built_in">set</span> --operator=<span class="string">&quot;<span class="variable">$USER</span>&quot;</span>               <span class="comment"># 4. 当前用户可免 sudo 管理 tailscale</span></span><br><span class="line">systemctl --user <span class="built_in">enable</span> --now omarchy-tailscale-receive.service   <span class="comment"># 5. Taildrop 文件自动收到 ~/Downloads</span></span><br><span class="line">omarchy-plugin-enable omarchy.tailscale             <span class="comment"># 6. 顶栏加 Tailscale 图标(+ 管理后台 Web App)</span></span><br></pre></td></tr></table></figure>
+
+<p>Arch 官方源里就有 tailscale(本次装的是 1.104.x,aarch64),官方脚本在 Arch 上本来也是调 pacman,所以直接用 Omarchy 的命令更省事。</p>
+<h3 id="2-1-登录授权"><a href="#2-1-登录授权" class="headerlink" title="2.1 登录授权"></a>2.1 登录授权</h3><p>执行到第 3 步时,终端会打印一个登录链接:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">To authenticate, visit:</span><br><span class="line"></span><br><span class="line">	https://login.tailscale.com/a/xxxxxxxxxxxx</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器里打开、登录 Tailscale 账号、授权设备加入即可。<strong>在授权之前</strong>,<code>tailscale status</code> 会一直显示:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Logged out.</span><br><span class="line">Log in at: https://login.tailscale.com/a/xxxxxxxxxxxx</span><br></pre></td></tr></table></figure>
+
+<p>授权后终端打印 <code>Success.</code>,脚本继续往下走。</p>
+<h3 id="2-2-坑一-sudo-超时-安装只完成一半"><a href="#2-2-坑一-sudo-超时-安装只完成一半" class="headerlink" title="2.2 坑一:sudo 超时,安装只完成一半"></a>2.2 坑一:sudo 超时,安装只完成一半</h3><p>我在浏览器里登录花了几分钟,回来一看脚本卡在第 4 步:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Allowing &lt;user&gt; to manage Tailscale...</span><br><span class="line">sudo: 读密码超时</span><br><span class="line">sudo: 需要密码</span><br></pre></td></tr></table></figure>
+
+<p>原因:脚本开头输过一次 sudo 密码,但 sudo 的凭据缓存默认只有 5 分钟,等登录的那几分钟里过期了,第 4 步又要密码,没人输就超时了。<strong>脚本没有 <code>set -e</code>,所以后面的第 5、6 步照常执行成功</strong>,只有 operator 这一步漏掉了。</p>
+<p>后果是:普通用户运行 <code>tailscale set ...</code> 会被拒绝:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access denied: checkprefs access denied</span><br><span class="line"></span><br><span class="line">Use &#x27;sudo tailscale set --accept-routes&#x27;.</span><br><span class="line">To not require root, use &#x27;sudo tailscale set --operator=$USER&#x27; once.</span><br></pre></td></tr></table></figure>
+
+<p>补一条命令即可:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> tailscale <span class="built_in">set</span> --operator=<span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+
+<p>之后 <code>tailscale set</code>、<code>tailscale up</code>、<code>tailscale file cp</code> 等命令都不用再加 sudo。</p>
+<blockquote>
+<p>经验:跑需要中途交互(浏览器登录)的安装脚本时,<strong>登录完立刻回终端看一眼</strong>,别让 sudo 缓存过期。</p>
+</blockquote>
+<h2 id="三、设备管理-改名-关闭密钥过期"><a href="#三、设备管理-改名-关闭密钥过期" class="headerlink" title="三、设备管理:改名 + 关闭密钥过期"></a>三、设备管理:改名 + 关闭密钥过期</h2><h3 id="3-1-坑二-设备名自动变成-xxx-1"><a href="#3-1-坑二-设备名自动变成-xxx-1" class="headerlink" title="3.1 坑二:设备名自动变成 xxx-1"></a>3.1 坑二:设备名自动变成 <code>xxx-1</code></h3><p><code>tailscale status</code> 看到本机叫 <code>xxx-1</code>。原因是 <strong>tailnet 里已经有一台同名设备</strong>:我的 Windows 主机名和 Omarchy 的主机名一样,Tailscale 自动给后加入的设备加了 <code>-1</code> 后缀。</p>
+<p>改名有两种方式:</p>
+<ol>
+<li><strong>管理后台</strong>(推荐):<a target="_blank" rel="noopener" href="https://login.tailscale.com/admin/machines">Machines</a> → 设备右侧 <code>...</code> → <strong>Edit machine name</strong> → 关掉 <em>Auto-generate from OS hostname</em> → 输入新名字 → <strong>Update name</strong>;</li>
+<li><strong>命令行</strong>(已设 operator 时无需 sudo):<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tailscale <span class="built_in">set</span> --hostname=omarchy-vm</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>名字只能用小写字母、数字和 <code>-</code>。改完几秒内全网生效,MagicDNS 会解析新名字:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ getent hosts omarchy-vm</span><br><span class="line">100.a.b.c       omarchy-vm.tailXXXX.ts.net</span><br></pre></td></tr></table></figure>
+
+<p>注意:<strong>旧名字立刻失效</strong>,所有用名字访问的地方(SSH 配置里的 <code>HostName</code>、书签)都要更新;用 IP 写的配置不受影响。</p>
+<h3 id="3-2-关闭密钥过期-常驻设备必做"><a href="#3-2-关闭密钥过期-常驻设备必做" class="headerlink" title="3.2 关闭密钥过期(常驻设备必做)"></a>3.2 关闭密钥过期(常驻设备必做)</h3><p>Tailscale 默认每 180 天要求设备重新登录。对一台放在家里、靠远程访问的机器来说,这意味着某天在学校突然连不上,而且<strong>没法远程修复</strong>。</p>
+<p>在管理后台对应设备的 <code>...</code> 菜单里选 <strong>Disable key expiry</strong>。验证:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ tailscale status --json | jq <span class="string">&#x27;.Self.KeyExpiry&#x27;</span></span><br><span class="line">null          <span class="comment"># null 表示永不过期</span></span><br></pre></td></tr></table></figure>
+
+<p>手机、笔记本这种随身设备可以保留默认的过期策略,丢了也安全。</p>
+<h2 id="四、防火墙-ufw-只对-tailscale0-放行"><a href="#四、防火墙-ufw-只对-tailscale0-放行" class="headerlink" title="四、防火墙:ufw 只对 tailscale0 放行"></a>四、防火墙:ufw 只对 tailscale0 放行</h2><h3 id="4-1-坑三-Tailscale-通了-SSH-却连不上"><a href="#4-1-坑三-Tailscale-通了-SSH-却连不上" class="headerlink" title="4.1 坑三:Tailscale 通了,SSH 却连不上"></a>4.1 坑三:Tailscale 通了,SSH 却连不上</h3><p>装好 Tailscale 后,<code>tailscale ping</code> 一切正常,但从 Windows <code>ssh</code> 就是超时。看一眼 ufw 规则(<code>/etc/ufw/user.rules</code> 普通用户可读):</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### tuple ### allow tcp 22 0.0.0.0/0 any 10.0.2.2 in comment=try-omarchy-ssh</span><br><span class="line">### tuple ### allow tcp 5900 0.0.0.0/0 any 10.0.2.2 in comment=try-omarchy-vnc</span><br></pre></td></tr></table></figure>
+
+<p>Omarchy 默认 <code>ufw default deny incoming</code>,22 和 5900 端口<strong>只对 10.0.2.2(Try Omarchy 的 slirp 网关,也就是 Mac)放行</strong>。从 <code>tailscale0</code> 网卡进来的连接全部被丢弃。</p>
+<h3 id="4-2-只给-tailscale0-开口子"><a href="#4-2-只给-tailscale0-开口子" class="headerlink" title="4.2 只给 tailscale0 开口子"></a>4.2 只给 tailscale0 开口子</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow <span class="keyword">in</span> on tailscale0 to any port 22 proto tcp comment tailscale-ssh</span><br></pre></td></tr></table></figure>
+
+<p>这条规则<strong>只匹配从 tailscale0 进来的流量</strong>,局域网和公网仍然被挡。也就是说只有自己 tailnet 里的设备能 SSH 进来,不需要把 22 端口暴露出去。</p>
+<p>规则生效后在 <code>user.rules</code> 里能看到:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### tuple ### allow tcp 22 0.0.0.0/0 any 0.0.0.0/0 in_tailscale0 comment=tailscale-ssh</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-关于-VNC-5900-的提醒"><a href="#4-3-关于-VNC-5900-的提醒" class="headerlink" title="4.3 关于 VNC(5900)的提醒"></a>4.3 关于 VNC(5900)的提醒</h3><p>上一篇配置的 wayvnc <strong>默认没有密码</strong>(<code>~/.config/wayvnc/config</code> 里没有 <code>enable_auth</code>)。如果也想通过 Tailscale 访问远程桌面:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow <span class="keyword">in</span> on tailscale0 to any port 5900 proto tcp comment tailscale-vnc</span><br></pre></td></tr></table></figure>
+
+<p>虽然只有 tailnet 设备能连,但还是<strong>建议给 wayvnc 加上认证</strong>,或者用到时再开、用完删规则(<code>sudo ufw delete allow in on tailscale0 to any port 5900 proto tcp</code>)。日常开发用 SSH 就够了。</p>
+<h2 id="五、Windows-连接-Omarchy"><a href="#五、Windows-连接-Omarchy" class="headerlink" title="五、Windows 连接 Omarchy"></a>五、Windows 连接 Omarchy</h2><p>Windows 上先装 <a target="_blank" rel="noopener" href="https://tailscale.com/download">Tailscale</a>,用同一个账号登录。</p>
+<h3 id="5-1-PowerShell-最快的验证方式"><a href="#5-1-PowerShell-最快的验证方式" class="headerlink" title="5.1 PowerShell:最快的验证方式"></a>5.1 PowerShell:最快的验证方式</h3><p>Windows 10&#x2F;11 自带 OpenSSH 客户端:</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh &lt;user&gt;@omarchy<span class="literal">-vm</span>        <span class="comment"># 或 ssh &lt;user&gt;@100.a.b.c</span></span><br></pre></td></tr></table></figure>
+
+<p>第一次连接输入 <code>yes</code> 信任主机指纹,再输入 Linux 登录密码。能登录就说明网络和防火墙都没问题。</p>
+<h3 id="5-2-SSH-配置文件"><a href="#5-2-SSH-配置文件" class="headerlink" title="5.2 SSH 配置文件"></a>5.2 SSH 配置文件</h3><p>编辑 <code>C:\Users\&lt;你&gt;\.ssh\config</code>(<strong>没有扩展名</strong>,用记事本保存时别变成 <code>config.txt</code>;也可以在 VS Code 里 <code>F1</code> → <em>Remote-SSH: Open SSH Configuration File</em>):</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Host omarchy-vm</span><br><span class="line">  HostName 100.a.b.c</span><br><span class="line">  User &lt;user&gt;</span><br><span class="line">  Port 22</span><br><span class="line">  IdentityFile ~/.ssh/id_ed25519</span><br><span class="line">  ServerAliveInterval 30</span><br><span class="line">  ServerAliveCountMax 6</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>HostName</code> 写 IP</td>
+<td>即使改设备名、MagicDNS 出问题也能连</td>
+</tr>
+<tr>
+<td><code>IdentityFile</code></td>
+<td>指定免密登录用的私钥</td>
+</tr>
+<tr>
+<td><code>ServerAliveInterval 30</code> &#x2F; <code>ServerAliveCountMax 6</code></td>
+<td>每 30 秒保活,走 DERP 中继时避免空闲断线</td>
+</tr>
+</tbody></table>
+<h3 id="5-3-免密登录"><a href="#5-3-免密登录" class="headerlink" title="5.3 免密登录"></a>5.3 免密登录</h3><p>在 PowerShell 里:</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 生成密钥。提示 already exists 时选 n,千万别覆盖——GitHub 等地方可能在用这把密钥</span></span><br><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> ed25519</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 把公钥追加到 Omarchy(Windows 没有 ssh-copy-id,用管道代替)</span></span><br><span class="line"><span class="built_in">type</span> <span class="variable">$env:USERPROFILE</span>\.ssh\id_ed25519.pub | ssh omarchy<span class="literal">-vm</span> <span class="string">&quot;cat &gt;&gt; ~/.ssh/authorized_keys&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 测试:不再要求密码即成功</span></span><br><span class="line">ssh omarchy<span class="literal">-vm</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Omarchy 上确认一下权限,SSH 对此很严格:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">stat</span> -c <span class="string">&#x27;%a %n&#x27;</span> ~/.ssh ~/.ssh/authorized_keys</span><br><span class="line">700 /home/&lt;user&gt;/.ssh</span><br><span class="line">600 /home/&lt;user&gt;/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-4-VS-Code-Remote-SSH-真正的生产力"><a href="#5-4-VS-Code-Remote-SSH-真正的生产力" class="headerlink" title="5.4 VS Code Remote-SSH:真正的生产力"></a>5.4 VS Code Remote-SSH:真正的生产力</h3><ol>
+<li>安装 <strong>Remote - SSH</strong> 扩展;</li>
+<li><code>F1</code> → <strong>Remote-SSH: Connect to Host…</strong> → 选 <code>omarchy-vm</code>;</li>
+<li>远程平台选 <strong>Linux</strong>,首次连接 VS Code 会在 Omarchy 上自动安装服务端(<code>~/.vscode-server</code>),走中继时可能要一两分钟;</li>
+<li>左下角显示 <strong>SSH: omarchy-vm</strong> 即连接成功。</li>
+</ol>
+<p>连上之后:</p>
+<ul>
+<li><code>File → Open Folder</code> 打开的是 Omarchy 上的目录;</li>
+<li><code>Ctrl+`</code> 打开的终端跑在 Omarchy 上;</li>
+<li>Python、Jupyter 等扩展需要在扩展页点 <strong>Install in SSH: omarchy-vm</strong> 再装一次;</li>
+<li>Omarchy 上起的 Web 服务(如 Jupyter 8888),VS Code 会自动端口转发到 Windows 的 <code>localhost</code>;</li>
+<li>长时间任务放进 <code>tmux new -s sim</code>,VS Code 断开也不影响,重连后 <code>tmux attach -t sim</code>。</li>
+</ul>
+<h3 id="5-5-PuTTY-可选"><a href="#5-5-PuTTY-可选" class="headerlink" title="5.5 PuTTY(可选)"></a>5.5 PuTTY(可选)</h3><p>PuTTY 不读 OpenSSH 的配置文件,也不认 OpenSSH 格式的私钥,需要单独设置:</p>
+<ol>
+<li>打开 <strong>PuTTYgen</strong> → <strong>Load</strong> → 文件类型改为 <em>All Files</em> → 选 <code>id_ed25519</code>(不是 <code>.pub</code>)→ <strong>Save private key</strong> 存成 <code>id_ed25519.ppk</code>;</li>
+<li>PuTTY → <strong>Session</strong>:Host Name 填 <code>&lt;user&gt;@100.a.b.c</code>,Port <code>22</code>;</li>
+<li><strong>Connection → SSH → Auth → Credentials</strong>:选上一步的 <code>.ppk</code>;</li>
+<li><strong>Connection</strong>:<em>Seconds between keepalives</em> 填 <code>30</code>;</li>
+<li>回到 <strong>Session</strong>,在 <em>Saved Sessions</em> 输入名字 → <strong>Save</strong>,以后双击即连。</li>
+</ol>
+<p>三种方式连的是同一台机器:写代码用 VS Code,只要终端用 PowerShell 的 <code>ssh omarchy-vm</code> 最省事,PuTTY 胜在会话管理直观。</p>
+<h2 id="六、反向-Omarchy-免密登录-Mac"><a href="#六、反向-Omarchy-免密登录-Mac" class="headerlink" title="六、反向:Omarchy 免密登录 Mac"></a>六、反向:Omarchy 免密登录 Mac</h2><p>Omarchy 跑在 Mac 上,有时需要从虚拟机里直接操作 Mac(取文件、跑命令)。</p>
+<p><strong>Mac 端</strong>:系统设置 → 通用 → 共享 → 打开 <strong>远程登录</strong>。</p>
+<p><strong>Omarchy 端</strong>生成密钥(这台机器之前没有自己的密钥):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -N <span class="string">&quot;&quot;</span> -C <span class="string">&quot;&lt;user&gt;@omarchy-vm&quot;</span> -f ~/.ssh/id_ed25519</span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_ed25519.pub</span><br></pre></td></tr></table></figure>
+
+<p><strong>回到 Mac 终端</strong>,把这串公钥追加进去:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.ssh &amp;&amp; <span class="built_in">chmod</span> 700 ~/.ssh \</span><br><span class="line">  &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;ssh-ed25519 AAAA...(上一步输出的公钥)... &lt;user&gt;@omarchy-vm&#x27;</span> &gt;&gt; ~/.ssh/authorized_keys \</span><br><span class="line">  &amp;&amp; <span class="built_in">chmod</span> 600 ~/.ssh/authorized_keys &amp;&amp; <span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Omarchy 端</strong>加一个别名到 <code>~/.ssh/config</code>:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host mac my-mac</span><br><span class="line">  HostName 100.d.e.f</span><br><span class="line">  User &lt;mac-user&gt;</span><br><span class="line">  IdentityFile ~/.ssh/id_ed25519</span><br><span class="line">  ServerAliveInterval 30</span><br></pre></td></tr></table></figure>
+
+<p>测试:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh mac <span class="string">&#x27;hostname; sw_vers -productVersion&#x27;</span></span><br><span class="line">xxx-MacBook-Air.<span class="built_in">local</span></span><br><span class="line">26.x</span><br></pre></td></tr></table></figure>
+
+<p>之后 <code>scp 文件 mac:~/Downloads/</code>、<code>ssh mac</code> 都是一条命令的事。</p>
+<blockquote>
+<p>小坑:通过 SSH 在 Mac 上执行 <code>git push</code>&#x2F;<code>gh</code> 会失败(<code>could not read Username</code> &#x2F; <code>The token in default is invalid</code>)。Mac 的 GitHub 凭据存在钥匙串里,SSH 会话读不到。需要推送时还是回 Mac 本机终端操作,或者给 Mac 单独配一把 GitHub SSH 密钥。</p>
+</blockquote>
+<h2 id="七、DERP-中继-vs-直连-延迟实测"><a href="#七、DERP-中继-vs-直连-延迟实测" class="headerlink" title="七、DERP 中继 vs 直连:延迟实测"></a>七、DERP 中继 vs 直连:延迟实测</h2><p>装好后用 <code>tailscale ping</code> 看各设备的连接路径:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ tailscale ping my-mac</span><br><span class="line">pong from my-mac (100.d.e.f) via 192.168.x.x:41641 <span class="keyword">in</span> 5ms          <span class="comment"># 局域网直连</span></span><br><span class="line"></span><br><span class="line">$ tailscale ping my-win</span><br><span class="line">pong from my-win (100.g.h.i) via DERP(nue) <span class="keyword">in</span> 349ms                <span class="comment"># 德国纽伦堡中继</span></span><br><span class="line"></span><br><span class="line">$ tailscale ping iphone</span><br><span class="line">pong from iphone (100.j.k.l) via DERP(lax) <span class="keyword">in</span> 434ms                <span class="comment"># 美国洛杉矶中继</span></span><br></pre></td></tr></table></figure>
+
+<p><code>via DERP(...)</code> 表示没打通直连,流量绕到了 Tailscale 的中继服务器。<strong>Tailscale 在国内没有官方 DERP 节点</strong>,<code>tailscale netcheck</code> 显示最近的是香港,但实际分配到的经常是欧美节点,延迟三四百毫秒,SSH 敲字都能感觉到。</p>
+<p>有意思的是,Windows 第一次 SSH 连上后,再 ping 一次:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ tailscale ping my-win</span><br><span class="line">pong from my-win (100.g.h.i) via &lt;公网IP&gt;:41641 <span class="keyword">in</span> 13ms             <span class="comment"># 打洞成功,直连</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Tailscale 会在后台持续尝试 NAT 打洞</strong>,有流量之后很快就切到了直连,从 350 ms 降到 13 ms。即使 Omarchy 躲在 QEMU slirp NAT 后面(外面还有 Mac、路由器两层 NAT),也能打通。</p>
+<p>如果长期打不通直连,可以按顺序尝试:</p>
+<ol>
+<li>Windows 防火墙放行 Tailscale,路由器开启 UPnP;</li>
+<li>让一台网络条件好的设备当 <strong>Peer Relay</strong>;</li>
+<li>有国内云服务器的话,<strong>自建 DERP 节点</strong>,写进管理后台的 Access Controls(ACL)配置,延迟能降到几十毫秒。</li>
+</ol>
+<h2 id="八、Tailscale-日常用法速查"><a href="#八、Tailscale-日常用法速查" class="headerlink" title="八、Tailscale 日常用法速查"></a>八、Tailscale 日常用法速查</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>命令 &#x2F; 做法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看所有设备与连接状态</td>
+<td><code>tailscale status</code></td>
+</tr>
+<tr>
+<td>检查是直连还是中继</td>
+<td><code>tailscale ping &lt;设备名&gt;</code></td>
+</tr>
+<tr>
+<td>网络诊断</td>
+<td><code>tailscale netcheck</code></td>
+</tr>
+<tr>
+<td>发文件给其他设备</td>
+<td><code>tailscale file cp 文件 my-mac:</code></td>
+</tr>
+<tr>
+<td>接收文件</td>
+<td>Omarchy 已自动存到 <code>~/Downloads</code>;其他设备从系统「分享」菜单选 Tailscale</td>
+</tr>
+<tr>
+<td>只在 tailnet 内发布 Web 服务(自动 HTTPS)</td>
+<td><code>tailscale serve --bg 8888</code> → <code>https://omarchy-vm.tailXXXX.ts.net</code></td>
+</tr>
+<tr>
+<td>临时公开到公网</td>
+<td><code>tailscale funnel 8888</code>,<strong>用完立刻</strong> <code>tailscale funnel reset</code>,别暴露 Jupyter&#x2F;SSH</td>
+</tr>
+<tr>
+<td>用 Tailscale 账号做 SSH 认证</td>
+<td><code>tailscale set --ssh</code></td>
+</tr>
+<tr>
+<td>共享整个局域网</td>
+<td><code>tailscale set --advertise-routes=192.168.x.0/24</code>,后台批准</td>
+</tr>
+<tr>
+<td>当出口节点</td>
+<td><code>tailscale set --advertise-exit-node</code>,后台批准</td>
+</tr>
+</tbody></table>
+<p>安全上的几条习惯:</p>
+<ul>
+<li>不用的旧设备在管理后台及时删除;</li>
+<li>防火墙规则按网卡收紧(<code>in on tailscale0</code>),不要图省事 <code>ufw allow 22</code>;</li>
+<li>不再需要的免密登录,删掉对方 <code>authorized_keys</code> 里对应那一行即可撤销;</li>
+<li>tailnet 里加入他人设备时,用 ACL 限制可访问的端口。</li>
+</ul>
+<h2 id="九、附-Omarchy-关窗口"><a href="#九、附-Omarchy-关窗口" class="headerlink" title="九、附:Omarchy 关窗口"></a>九、附:Omarchy 关窗口</h2><p>折腾过程中弹了好几个终端窗口,顺手记一下:Omarchy 关闭当前窗口是 <strong><code>Super + W</code></strong>(<code>Super + Q</code> 也行);浏览器标签页是 <code>Ctrl + W</code>。查快捷键可以用 <code>hyprctl binds</code>,或者 <code>Super + K</code>。</p>
+<h2 id="十、经验总结"><a href="#十、经验总结" class="headerlink" title="十、经验总结"></a>十、经验总结</h2><ol>
+<li><strong>优先用发行版自带的安装命令</strong>:<code>omarchy-install-service-tailscale</code> 一条命令包含安装、自启、operator、Taildrop、顶栏插件,比官方 <code>curl | sh</code> 完整;</li>
+<li><strong>半截安装要逐项核对</strong>:脚本没有 <code>set -e</code> 时,中间一步失败不会中断,要看日志确认每一步都成功了;</li>
+<li><strong>网络通 ≠ 服务通</strong>:<code>tailscale ping</code> 能通只说明隧道正常,端口能不能进还要看本机防火墙;</li>
+<li><strong>防火墙按网卡放行</strong>:<code>ufw allow in on tailscale0</code> 既解决问题又不扩大暴露面;</li>
+<li><strong>常驻设备关闭密钥过期</strong>:否则半年后在外面突然失联;</li>
+<li><strong>SSH 配置写 IP + 保活</strong>:改名、中继抖动都不怕;</li>
+<li><strong>中继慢先等等</strong>:有流量后 Tailscale 会自己打洞,13 ms 的直连比 350 ms 的中继舒服太多。</li>
+</ol>
+<p>至此,Omarchy 从「Mac 上的一个窗口」变成了 tailnet 里一台真正的开发机:在学校打开 VS Code,点一下就进到家里的 Linux 环境。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Omarchy/" rel="tag"># Omarchy</a>
+              <a href="/tags/Tailscale/" rel="tag"># Tailscale</a>
+              <a href="/tags/SSH/" rel="tag"># SSH</a>
+              <a href="/tags/VS-Code/" rel="tag"># VS Code</a>
+              <a href="/tags/Remote-SSH/" rel="tag"># Remote-SSH</a>
+              <a href="/tags/ufw/" rel="tag"># ufw</a>
+              <a href="/tags/PuTTY/" rel="tag"># PuTTY</a>
+              <a href="/tags/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/" rel="tag"># 远程开发</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/11/23/try-omarchy-on-mac-2026/" rel="prev" title="在 Apple Silicon Mac 上无痛试装 Omarchy:Try Omarchy 从黑屏抢救到远程访问全记录">
+                  <i class="fa fa-angle-left"></i> 在 Apple Silicon Mac 上无痛试装 Omarchy:Try Omarchy 从黑屏抢救到远程访问全记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">菜菜的黄</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><!-- 在网页底部添加网站运行时间 -->
+<span id="sitetime">载入网页运行天数...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("2021/08/08 8:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("sitetime").innerHTML = "已运行"+" "+dnum+" "+"天"+" "+hnum+" "+"时"+" "+mnum+" "+"分"+" "+snum+" "+"秒";//中文字符要加""
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -147,18 +147,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">128</span>
+        <span class="site-state-item-count">142</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -180,6 +180,190 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/" class="post-title-link" itemprop="url">Omarchy 接入 Tailscale:从一键安装到 Windows/Mac 互通的远程开发全记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-23 20:00:00 / 修改时间：14:35:35" itemprop="dateCreated datePublished" datetime="2026-11-23T20:00:00+08:00">2026-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>前情提要:<a href="/2026/11/23/try-omarchy-on-mac-2026/">在 Apple Silicon Mac 上无痛试装 Omarchy</a> 里,Omarchy 跑在 Try Omarchy 虚拟机中,远程访问走的是「Windows → Tailscale → Mac → socat 中继 → QEMU 端口转发 → 客机」这条长链路。能用,但每加一个服务就要多配一段转发。</p>
+</blockquote>
+<p>这次的思路很简单:<strong>把 Tailscale 直接装进 Omarchy</strong>,让虚拟机自己成为 tailnet 里的一台设备。链路变成:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Windows / iPhone / Mac ──(Tailscale)──&gt; Omarchy 虚拟机</span><br></pre></td></tr></table></figure>
+
+<p>不需要 socat,不需要端口转发,任何端口只要防火墙放行就能直接访问。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/11/23/Omarchy-Tailscale-Remote-Dev-2026/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2026/11/23/try-omarchy-on-mac-2026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="菜菜的黄">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="School boy">
+      <meta itemprop="description" content="记录科研生活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | School boy">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/11/23/try-omarchy-on-mac-2026/" class="post-title-link" itemprop="url">在 Apple Silicon Mac 上无痛试装 Omarchy:Try Omarchy 从黑屏抢救到远程访问全记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-23 09:00:00 / 修改时间：14:35:35" itemprop="dateCreated datePublished" datetime="2026-11-23T09:00:00+08:00">2026-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、Omarchy-与-Try-Omarchy-是什么"><a href="#一、Omarchy-与-Try-Omarchy-是什么" class="headerlink" title="一、Omarchy 与 Try Omarchy 是什么"></a>一、Omarchy 与 Try Omarchy 是什么</h2><p><a target="_blank" rel="noopener" href="https://omarchy.org/">Omarchy</a> 是 DHH(Ruby on Rails 作者)在 2025 年推出的 Arch Linux 发行版:Arch + Hyprland 平铺桌面 + 精心调好的 Quickshell 外壳,2026 年的 4.0 版本更是主打 <strong>AI 编程工作站</strong>——预置 Claude Code、Codex 等 agent,顶栏直接显示用量,口号是 “agentic Linux”。</p>
+<p>它对 Mac 用户有个特殊优待:从 4.5(Omarchy M)开始,<strong>原生支持 Apple Silicon</strong>(M1&#x2F;M2 首发完善,M3 可用)。体验方式有两种:</p>
+<ol>
+<li><strong>正式安装</strong>:双启动,动磁盘;</li>
+<li><strong>Try Omarchy</strong>:一个原生 macOS App,以硬件加速虚拟机的方式把完整 Omarchy 桌面跑在窗口里,<strong>不分区、不动磁盘</strong>,还带摄像头&#x2F;音频&#x2F;剪贴板&#x2F;共享文件夹透传。</li>
+</ol>
+<p>本文走第二条路——「先试再买」。以下是 Apple Silicon(M1)+ macOS 26 + 国内网络环境下的完整踩坑实录,全部命令实测。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/11/23/try-omarchy-on-mac-2026/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -225,7 +409,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
+      <time title="修改时间：2026-11-23 14:35:35" itemprop="dateModified" datetime="2026-11-23T14:35:35+08:00">2026-11-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,7 +507,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
+      <time title="修改时间：2026-11-23 14:35:35" itemprop="dateModified" datetime="2026-11-23T14:35:35+08:00">2026-11-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -416,7 +600,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
+      <time title="修改时间：2026-11-23 14:35:35" itemprop="dateModified" datetime="2026-11-23T14:35:35+08:00">2026-11-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -508,7 +692,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
+      <time title="修改时间：2026-11-23 14:35:35" itemprop="dateModified" datetime="2026-11-23T14:35:35+08:00">2026-11-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -600,7 +784,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
+      <time title="修改时间：2026-11-23 14:35:35" itemprop="dateModified" datetime="2026-11-23T14:35:35+08:00">2026-11-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -785,7 +969,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
+      <time title="修改时间：2026-11-23 14:35:35" itemprop="dateModified" datetime="2026-11-23T14:35:35+08:00">2026-11-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -881,7 +1065,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
+      <time title="修改时间：2026-11-23 14:35:35" itemprop="dateModified" datetime="2026-11-23T14:35:35+08:00">2026-11-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -908,198 +1092,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/06/12/X-Twitter-Auto-Publish-Workflow-2026/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2026/06/09/LLM-Agent-Harness-Three-Things-2026/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="菜菜的黄">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="School boy">
-      <meta itemprop="description" content="记录科研生活">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | School boy">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/06/09/LLM-Agent-Harness-Three-Things-2026/" class="post-title-link" itemprop="url">三件事讲透大模型、Agent 和 Harness</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2026-06-09 15:00:00" itemprop="dateCreated datePublished" datetime="2026-06-09T15:00:00+08:00">2026-06-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI%E5%89%8D%E6%B2%BF/" itemprop="url" rel="index"><span itemprop="name">AI前沿</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一、大语言模型-一个函数"><a href="#一、大语言模型-一个函数" class="headerlink" title="一、大语言模型 &#x3D; 一个函数"></a>一、大语言模型 &#x3D; 一个函数</h2><p>大语言模型是一个函数。你给它输入，它给你输出。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出 = 函数(输入)</span><br></pre></td></tr></table></figure>
-
-<p>背后有多复杂，不需要知道。把它当一个黑盒子，进去什么、出来什么，够了。</p>
-<p>不管你用的是 GPT、Claude、Gemini 还是 DeepSeek，对调用者来说，它们都是同一个东西：<strong>一个接收字符串、返回字符串的函数</strong>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/06/09/LLM-Agent-Harness-Three-Things-2026/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ncepuee.github.io/2026/06/01/Claude-Code-Permission-Modes-Guide-2026/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="菜菜的黄">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="School boy">
-      <meta itemprop="description" content="记录科研生活">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | School boy">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/06/01/Claude-Code-Permission-Modes-Guide-2026/" class="post-title-link" itemprop="url">Claude Code 权限模式完全指南（2026 最新版）：6 种模式与配置详解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2026-06-01 10:00:00" itemprop="dateCreated datePublished" datetime="2026-06-01T10:00:00+08:00">2026-06-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-22 01:40:40" itemprop="dateModified" datetime="2026-11-22T01:40:40+08:00">2026-11-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">效率工具</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>Claude Code 每次编辑文件、执行命令或发起网络请求时，都会暂停并请求你批准。权限模式决定了这个暂停发生的频率——默认模式让你逐一审查每个操作，而宽松模式让 Claude 以更长的不间断工作段运行，完成后汇报结果。</p>
-<p>最新版 Claude Code（v2.1.158）新增了 <strong>Auto Mode</strong>（AI 自动安全审查）和多项 Plan Mode 增强功能。本文基于官方最新文档，全面介绍所有权限模式。</p>
-<blockquote>
-<p>参考来源：<a target="_blank" rel="noopener" href="https://code.claude.com/docs/en/permission-modes">Claude Code Permission Modes 官方文档</a></p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/06/01/Claude-Code-Permission-Modes-Guide-2026/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
